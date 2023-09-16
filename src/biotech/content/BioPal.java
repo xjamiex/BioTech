@@ -9,7 +9,9 @@ public class BioPal {
     bloodRed = Color.valueOf("c72c41"),
 
     boneWhiteLight = Color.valueOf("f0f0f0"),
-    boneWhite = Color.valueOf("bdbec9")
+    boneWhite = Color.valueOf("bdbec9"),
+
+    supportGreenLight = Color.valueOf("b0ffb1")
 
 
     ;

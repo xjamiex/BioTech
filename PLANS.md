@@ -22,11 +22,15 @@ building progression:
             magnesium walls
 
         distrabution:
-            flesh duct, bridge etc
-            flesh pipe, bridge etc
+            unit based
+            t1: carrier - done
+            
+            liquid pipes - done
         
         units:
             -ground: t1 ground attack
-            -ground: t1 ground specalist (worm)
+            -ground: t1 air specalist (worm)
             -air: t1 attack - scout (team fortress reference)
-            -air: t1 support - carrier (mining drone) - done
+            -air: t1 support - extractor (mining drone) - done
+
+            -core unit: eyes

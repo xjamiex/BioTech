@@ -15,13 +15,14 @@ import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.production.AttributeCrafter;
+import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.blocks.units.UnitCargoLoader;
+import mindustry.world.blocks.units.UnitCargoUnloadPoint;
 import mindustry.world.blocks.units.UnitFactory;
-import mindustry.world.meta.Attribute;
-import mindustry.world.meta.BlockGroup;
-import mindustry.world.meta.BuildVisibility;
-import mindustry.world.meta.Env;
+import mindustry.world.meta.*;
 
 import static mindustry.type.Category.production;
 import static mindustry.type.Category.turret;
@@ -35,6 +36,12 @@ public class BioBlocks {
             //defense
             boneWall, boneWallLarge,
 
+            //liquids
+            liquidPipe,
+
+            //drill
+            bioDrill,
+
             //env
             fleshFloor, oreMagnesium,
 
@@ -42,7 +49,7 @@ public class BioBlocks {
             alive,
 
             //units
-            aircraftManufacturer,
+            aircraftManufacturer, unitDocker, unitDischarger,
 
             //effect
             coreSight
@@ -54,7 +61,7 @@ public class BioBlocks {
     public static void load() {
         //liquid
         bioPump = new AttributeCrafter("bio-pump"){{
-            requirements(production, with(BioItems.magnesium, 45, BioItems.flesh, 24));
+            requirements(production, with(BioItems.magnesium, 45));
             attribute = flesh;
             group = BlockGroup.drills;
             displayEfficiency = false;
@@ -90,8 +97,24 @@ public class BioBlocks {
             size = 2;
         }};
 
+        //liquids
+        liquidPipe = new Conduit("liquid-pipe"){{
+            requirements(Category.liquid, with(BioItems.boneFragment, 1));
+            health = 143;
+            botColor = Color.valueOf("262525");
+        }};
+
+        //drills
+        bioDrill = new Drill("bio-drill"){{
+            requirements(Category.production, with(BioItems.magnesium, 45, BioItems.boneFragment, 25));
+            tier = 1;
+            drillTime = 200;
+            size = 3;
+        }};
+
+
         //environment
-        fleshFloor = new Floor("floor-flesh", 3){{
+        fleshFloor = new Floor("floor-flesh", 4){{
             playerUnmineable = true;
             attributes.set(flesh, 1f);
         }};
@@ -230,9 +253,32 @@ public class BioBlocks {
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.flesh, 150, BioItems.boneFragment, 140));
 
             size = 3;
-            plans.add(new UnitPlan(BioUnits.carrier, 60f * 35f, with(BioItems.magnesium, 40, BioItems.boneFragment, 25)));
+            plans.add(new UnitPlan(BioUnits.extractor, 60f * 35f, with(BioItems.magnesium, 40, BioItems.boneFragment, 25)));
             researchCostMultiplier = 0.5f;
             consumeLiquid(BioLiquids.blood, 0.2f);
+        }};
+
+        unitDocker = new UnitCargoLoader("unit-docker"){{
+            unitType = BioUnits.carrier;
+
+            polyColor = BioPal.supportGreenLight;
+            polySides = 3;
+            polyRadius = 5f;
+            polyStroke = 1.3f;
+
+            requirements(Category.distribution, with(BioItems.magnesium, 50));
+            size = 2;
+            buildTime = 60f * 8f;
+            consumeLiquid(BioLiquids.blood, 10f / 60f);
+            itemCapacity = 40;
+            squareSprite = false;
+        }};
+
+        unitDischarger = new UnitCargoUnloadPoint("unit-discharger"){{
+            requirements(Category.distribution, with(BioItems.magnesium, 34));
+            size = 2;
+            itemCapacity = 40;
+            squareSprite = false;
         }};
 
         coreSight = new CoreBlock("core-sight"){{
@@ -240,7 +286,7 @@ public class BioBlocks {
             alwaysUnlocked = true;
 
             isFirstTier = true;
-            unitType = UnitTypes.emanate;
+            unitType = BioUnits.watcher;
             health = 2130;
             itemCapacity = 4000;
             size = 3;

@@ -7,17 +7,24 @@ import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.gen.Sounds;
+import mindustry.gen.UnitEntity;
 import mindustry.type.Category;
+import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.environment.StaticWall;
+import mindustry.world.blocks.environment.SteamVent;
 import mindustry.world.blocks.liquid.Conduit;
+import mindustry.world.blocks.liquid.LiquidRouter;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.blocks.production.Drill;
+import mindustry.world.blocks.production.WallCrafter;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.units.UnitCargoLoader;
 import mindustry.world.blocks.units.UnitCargoUnloadPoint;
@@ -33,20 +40,23 @@ public class BioBlocks {
             //liquid
             bioPump, spike,
 
-            //defense
-            boneWall, boneWallLarge,
-
             //liquids
-            liquidPipe,
+            liquidPipe, liquidPipeRouter,
+
+            //distribution
+            magnesiumConvayor,
 
             //drill
-            bioDrill,
+            bioDrill, boneCrusher,
 
             //env
-            fleshFloor, oreMagnesium,
+            fleshFloor, oreMagnesium, fleshWall, boneWall, poreHole,
 
             //turret
             alive,
+
+            //defense
+            magnesiumWall, largeMagnesiumWall,
 
             //units
             aircraftManufacturer, unitDocker, unitDischarger,
@@ -82,21 +92,6 @@ public class BioBlocks {
             squareSprite = false;
         }};
 
-        //defense
-        int wallHealthMultiplier = 4;
-        boneWall = new Wall("bone-wall"){{
-            requirements(Category.defense, with(BioItems.boneFragment, 4));
-            health = 160 * wallHealthMultiplier;
-            envDisabled |= Env.scorching;
-        }};
-
-        boneWallLarge = new Wall("bone-wall-large"){{
-            requirements(Category.defense, with(BioItems.boneFragment, 16));
-            health = 160 * 4 * wallHealthMultiplier;
-            envDisabled |= Env.scorching;
-            size = 2;
-        }};
-
         //liquids
         liquidPipe = new Conduit("liquid-pipe"){{
             requirements(Category.liquid, with(BioItems.boneFragment, 1));
@@ -104,12 +99,39 @@ public class BioBlocks {
             botColor = Color.valueOf("262525");
         }};
 
+        //distribution
+        magnesiumConvayor = new Conveyor("magnesium-convayor"){{
+            requirements(Category.distribution, with(BioItems.magnesium, 1));
+            health = 35;
+            speed = 0.04f;
+            displayedSpeed = 8f;
+        }};
+
+        liquidPipeRouter = new LiquidRouter("liquid-pipe-router"){{
+            requirements(Category.liquid, with(BioItems.boneFragment, 5));
+            health = 143;
+            size = 1;
+        }};
+
         //drills
         bioDrill = new Drill("bio-drill"){{
+            //more expensive
             requirements(Category.production, with(BioItems.magnesium, 45, BioItems.boneFragment, 25));
             tier = 1;
-            drillTime = 200;
+            drillTime = 500;
             size = 3;
+            squareSprite = false;
+        }};
+
+        boneCrusher = new WallCrafter("bone-crusher"){{
+            requirements(Category.production, with(BioItems.magnesium, 40));
+
+            drillTime = 110f;
+            size = 2;
+            attribute = BioAttributes.bone;
+            output = BioItems.boneFragment;
+            ambientSound = Sounds.drill;
+            ambientSoundVolume = 0.04f;
         }};
 
 
@@ -117,6 +139,20 @@ public class BioBlocks {
         fleshFloor = new Floor("floor-flesh", 4){{
             playerUnmineable = true;
             attributes.set(flesh, 1f);
+        }};
+
+        fleshWall = new StaticWall("flesh-wall");
+
+        boneWall = new StaticWall("bone-wall"){{
+            itemDrop = BioItems.boneFragment;
+            attributes.set(BioAttributes.bone, 1);
+        }};
+
+        poreHole = new SteamVent("pore-hole"){{
+            parent = blendGroup = fleshFloor;
+            variants = 3;
+            effectSpacing = 60f;
+            effectColor = Color.valueOf("a69780");
         }};
 
         oreMagnesium = new OreBlock("ore-magnesium"){{
@@ -129,7 +165,7 @@ public class BioBlocks {
             size = 3;
             buildCostMultiplier = 10/4.2f;
             requirements(turret, with(BioItems.boneFragment, 120, BioItems.flesh, 60, BioItems.magnesium, 75));
-
+            consumeLiquid(BioLiquids.blood, 0.4f);
             liquidCapacity = 10;
             maxAmmo = 15;
 
@@ -190,7 +226,7 @@ public class BioBlocks {
             size = 3;
             buildCostMultiplier = 10/4.2f;
             requirements(turret, with(BioItems.boneFragment, 50, BioItems.flesh, 100, BioItems.magnesium, 125));
-
+            consumeLiquid(BioLiquids.blood, 0.3f);
             maxAmmo = 25;
 
             range = 300;
@@ -249,11 +285,23 @@ public class BioBlocks {
 
         }};
 
+        magnesiumWall = new Wall("magnesium-wall"){{
+            requirements(Category.defense, with(BioItems.magnesium, 45));
+            health = 250;
+        }};
+
+        largeMagnesiumWall = new Wall("large-magnesium-wall"){{
+            requirements(Category.defense, with(BioItems.magnesium, 45 * 4));
+            health = 250 * 4;
+            size = 2;
+        }};
+
         aircraftManufacturer = new UnitFactory("aircraft-manufacturer"){{
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.flesh, 150, BioItems.boneFragment, 140));
 
             size = 3;
             plans.add(new UnitPlan(BioUnits.extractor, 60f * 35f, with(BioItems.magnesium, 40, BioItems.boneFragment, 25)));
+            plans.add(new UnitPlan(BioUnits.scout, 60 * 28f, with(BioItems.magnesium, 35, BioItems.flesh, 15)));
             researchCostMultiplier = 0.5f;
             consumeLiquid(BioLiquids.blood, 0.2f);
         }};

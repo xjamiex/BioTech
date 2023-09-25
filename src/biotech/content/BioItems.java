@@ -16,11 +16,11 @@ public class BioItems {
         }};
 
         boneFragment = new Item("bone-fragment", Color.valueOf("ebf1fa")){{
-            hardness = 2;
+            hardness = 0;
             cost = 0.8f;
         }};
 
-        magnesium = new Item("magnesium", Color.valueOf("494b52")){{
+        magnesium = new Item("magnesium", Color.valueOf("8c7c91")){{
             hardness = 1;
             cost = 0.8f;
         }};

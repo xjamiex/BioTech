@@ -8,6 +8,7 @@ import mindustry.ai.types.MinerAI;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
+import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.gen.BuildingTetherPayloadUnit;
@@ -22,6 +23,9 @@ public class BioUnits {
 
             //air support
             extractor, carrier,
+
+            //air attack
+            scout,
 
             //core
             watcher
@@ -96,6 +100,9 @@ public class BioUnits {
             engineOffset = 7f;
             hitSize = 11f;
 
+            mineWalls = true;
+            mineFloor = true;
+
             weapons.add(
                     new Weapon("bio-tech-watcher-missile"){{
                         x = 0;
@@ -115,6 +122,73 @@ public class BioUnits {
                             shootEffect = Fx.none;
                             lifetime = 60f;
                             homingPower = 1;
+                        }};
+                    }}
+            );
+
+            outlineColor = Color.valueOf("2b2626");
+        }};
+
+        scout = new UnitType("scout"){{
+            constructor = UnitEntity::create;
+
+            lowAltitude = true;
+            flying = true;
+            drag = 0.06f;
+            speed = 2.8f;
+            rotateSpeed = 19f;
+            accel = 0.05f;
+            itemCapacity = 40;
+            health = 650f;
+            engineOffset = 7f;
+            hitSize = 11f;
+
+            weapons.add(
+                    new Weapon("scout-orb"){{
+                        x = 0;
+                        y = 0;
+                        mirror = false;
+                        top = true;
+                        reload = 210f;
+                        shootSound = Sounds.shootBig;
+                        bullet = new BasicBulletType(4.2f, 80){{
+                            width = 15;
+                            height = 15;
+                            shrinkX = shrinkY = 0;
+                            backColor = BioPal.bloodRedLight;
+                            frontColor = BioPal.bloodRedLight;
+
+                            sprite = "large-orb";
+
+                            trailLength = 10;
+                            trailColor = BioPal.bloodRedLight;
+                            trailWidth = 4;
+                            bulletInterval = 10;
+                            intervalBullets = 2;
+
+                            shootEffect = hitEffect = despawnEffect = new ParticleEffect(){{
+                                colorFrom = BioPal.bloodRedLight;
+                                colorTo = BioPal.bloodRed;
+                                particles = 6;
+                                sizeFrom = 5;
+                                sizeTo = 0;
+                            }};
+                            intervalBullet = new BasicBulletType(0.2f, 5){{
+                                width = 5;
+                                height = 5;
+                                shrinkX = shrinkY = 0;
+                                backColor = BioPal.bloodRedLight;
+                                frontColor = BioPal.bloodRedLight;
+                                sprite = "large-orb";
+
+                                shootEffect = hitEffect = despawnEffect = new ParticleEffect(){{
+                                    colorFrom = BioPal.bloodRedLight;
+                                    colorTo = BioPal.bloodRed;
+                                    particles = 2;
+                                    sizeFrom = 5;
+                                    sizeTo = 0;
+                                }};
+                            }};
                         }};
                     }}
             );

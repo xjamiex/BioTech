@@ -50,7 +50,7 @@ public class BioBlocks {
             bioDrill, boneCrusher,
 
             //env
-            fleshFloor, oreMagnesium, fleshWall, boneWall, poreHole,
+            fleshFloor, oreMagnesium, fleshWall, boneWall, poreHole, decayedBoneWall,
 
             //turret
             alive,
@@ -148,10 +148,15 @@ public class BioBlocks {
             attributes.set(BioAttributes.bone, 1);
         }};
 
+        decayedBoneWall = new StaticWall("decayed-bone-wall"){{
+            itemDrop = BioItems.boneFragment;
+            attributes.set(BioAttributes.bone, 1);
+        }};
+
         poreHole = new SteamVent("pore-hole"){{
             parent = blendGroup = fleshFloor;
             variants = 3;
-            effectSpacing = 60f;
+            effectSpacing = 100f;
             effectColor = Color.valueOf("a69780");
         }};
 
@@ -314,7 +319,7 @@ public class BioBlocks {
             polyRadius = 5f;
             polyStroke = 1.3f;
 
-            requirements(Category.distribution, with(BioItems.magnesium, 50));
+            requirements(Category.distribution, with(BioItems.magnesium, 50, BioItems.boneFragment, 25));
             size = 2;
             buildTime = 60f * 8f;
             consumeLiquid(BioLiquids.blood, 10f / 60f);
@@ -323,7 +328,7 @@ public class BioBlocks {
         }};
 
         unitDischarger = new UnitCargoUnloadPoint("unit-discharger"){{
-            requirements(Category.distribution, with(BioItems.magnesium, 34));
+            requirements(Category.distribution, with(BioItems.magnesium, 34, BioItems.boneFragment, 15));
             size = 2;
             itemCapacity = 40;
             squareSprite = false;

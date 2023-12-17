@@ -1,9 +1,12 @@
 package biotech.content;
 
+import arc.Core;
+import arc.audio.Sound;
 import arc.graphics.Color;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
+import mindustry.ai.types.GroundAI;
 import mindustry.ai.types.MinerAI;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
@@ -12,8 +15,10 @@ import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.gen.BuildingTetherPayloadUnit;
+import mindustry.gen.LegsUnit;
 import mindustry.gen.Sounds;
 import mindustry.gen.UnitEntity;
+import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.ammo.PowerAmmoType;
@@ -27,34 +32,14 @@ public class BioUnits {
             //air attack
             scout,
 
+            //ground attack
+            strider,
+
             //core
             watcher
     ;
 
     public static void load() {
-        extractor = new UnitType("extractor"){{
-            controller = u -> new MinerAI();
-            constructor = UnitEntity::create;
-
-            defaultCommand = UnitCommand.mineCommand;
-
-            flying = true;
-            drag = 0.06f;
-            accel = 0.12f;
-            speed = 1.5f;
-            health = 420;
-            engineSize = 2.2f;
-            engineOffset = 7.7f;
-            range = 50f;
-            isEnemy = false;
-
-            ammoType = new PowerAmmoType(250);
-
-            mineTier = 1;
-            mineSpeed = 2.5f;
-
-            outlineColor = Color.valueOf("2b2626");
-        }};
 
         carrier = new UnitType("carrier"){{
             controller = u -> new CargoAI();
@@ -122,6 +107,7 @@ public class BioUnits {
                             shootEffect = Fx.none;
                             lifetime = 60f;
                             homingPower = 1;
+                            buildingDamageMultiplier = 0.1f;
                         }};
                     }}
             );
@@ -194,6 +180,74 @@ public class BioUnits {
             );
 
             outlineColor = Color.valueOf("2b2626");
+        }};
+
+        strider = new UnitType("strider"){{
+            constructor = LegsUnit::create;
+            aiController = GroundAI::new;
+
+            speed = 0.72f;
+            drag = 0.11f;
+            hitSize = 9f;
+            rotateSpeed = 3f;
+            health = 650;
+            armor = 1f;
+            legStraightness = 0.3f;
+            stepShake = 0f;
+
+            legCount = 4;
+            legLength = 8f;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -2f;
+            legBaseOffset = 3f;
+            legMaxLength = 2f;
+            legMinLength = 0.9f;
+            legLengthScl = 0.96f;
+            legForwardScl = 1.1f;
+            rippleScale = 0.2f;
+
+            legMoveSpace = 1.2f;
+            allowLegStep = true;
+            legPhysicsLayer = false;
+
+            shadowElevation = 0.1f;
+            groundLayer = Layer.legUnit - 1f;
+            targetAir = false;
+            researchCostMultiplier = 0f;
+
+            outlineColor = Color.valueOf("2b2626");
+
+            weapons.add(new Weapon("biotech-strider-cannon"){{
+                x = 0;
+                y = 0;
+                alternate = false;
+                mirror = false;
+                reload = 28f;
+
+                shootSound = Sounds.missile;
+                inaccuracy = 15f;
+                bullet = new MissileBulletType(3, 15){{
+                    frontColor = BioPal.bloodRedLight;
+                    backColor = BioPal.bloodRed;
+                    width = 8;
+                    height = 8;
+
+                    trailColor = BioPal.bloodRedLight;
+                    trailWidth = 2;
+                    trailLength = 2;
+                    trailInterval = 2f;
+                    trailEffect = new ParticleEffect(){{
+                        colorFrom = BioPal.bloodRedLight;
+                        colorTo = BioPal.bloodRed;
+                        particles = 2;
+                        sizeFrom = 3;
+                        sizeTo = 0;
+                    }};
+
+                    sprite = "circle";
+                }};
+            }});
         }};
 
     }

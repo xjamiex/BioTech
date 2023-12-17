@@ -5,12 +5,13 @@ sprites will possibly not be 45 degree-ed for natural looks
 enviroment with a ton of blockage forcing you to use drones
 convayor for short distance
 
--yellowish biome
+ENVIROMENT STUFF
+-yellowish biome - done
 -rotten biome (green)
 -bacteria infected biomes (green, blue etc)
 infections (black / dark red), sort of like cavaties in teeth
 -veins?
--pore holes
+-pore holes - done
 
 item progression:
     t1: flesh chunk, magnesium, bone, blood
@@ -37,10 +38,11 @@ building progression:
             convayorz - done
             
             liquid pipes - done
-            liquid drones
+            liquid drones - shelfed
         
         units:
-            -ground: t1 ground attack
+            *mechs will not be added
+            -ground: t1 ground attack (spider) - strider - done
             -ground: t1 specalist (worm)
             -air: t1 attack - scout (team fortress reference) - done
             -air: t1 support - extractor (mining drone) - done

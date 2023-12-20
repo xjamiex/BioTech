@@ -71,6 +71,7 @@ public class BioBlocks {
     public static void load() {
         //liquid
         bioPump = new AttributeCrafter("bio-pump"){{
+            researchCost = with(BioItems.magnesium, 50);
             requirements(production, with(BioItems.magnesium, 45));
             attribute = flesh;
             group = BlockGroup.drills;
@@ -101,6 +102,7 @@ public class BioBlocks {
 
         //distribution
         magnesiumConvayor = new Conveyor("magnesium-convayor"){{
+            researchCost = with(BioItems.magnesium, 6);
             requirements(Category.distribution, with(BioItems.magnesium, 1));
             health = 35;
             speed = 0.04f;
@@ -108,15 +110,17 @@ public class BioBlocks {
         }};
 
         liquidPipeRouter = new LiquidRouter("liquid-pipe-router"){{
-            requirements(Category.liquid, with(BioItems.boneFragment, 5));
+            researchCost = with(BioItems.boneFragment, 6);
+            requirements(Category.liquid, with(BioItems.boneFragment, 1));
             health = 143;
             size = 1;
         }};
 
         //drills
         bioDrill = new Drill("bio-drill"){{
+            researchCost = with(BioItems.magnesium, 60, BioItems.boneFragment, 30);
             //more expensive
-            requirements(Category.production, with(BioItems.magnesium, 45, BioItems.boneFragment, 25));
+            requirements(Category.production, with(BioItems.magnesium, 125, BioItems.boneFragment, 35));
             tier = 1;
             drillTime = 500;
             size = 3;
@@ -124,8 +128,8 @@ public class BioBlocks {
         }};
 
         boneCrusher = new WallCrafter("bone-crusher"){{
+            researchCost = with(BioItems.magnesium, 65);
             requirements(Category.production, with(BioItems.magnesium, 40));
-
             drillTime = 110f;
             size = 2;
             attribute = BioAttributes.bone;
@@ -169,7 +173,8 @@ public class BioBlocks {
             health = 1020;
             size = 3;
             buildCostMultiplier = 10/4.2f;
-            requirements(turret, with(BioItems.boneFragment, 120, BioItems.flesh, 60, BioItems.magnesium, 75));
+            researchCostMultiplier = 0.2f;
+            requirements(turret, with(BioItems.boneFragment, 60, BioItems.flesh, 45, BioItems.magnesium, 40));
             consumeLiquid(BioLiquids.blood, 0.4f);
             liquidCapacity = 10;
             maxAmmo = 15;
@@ -230,7 +235,8 @@ public class BioBlocks {
             health = 1120;
             size = 3;
             buildCostMultiplier = 10/4.2f;
-            requirements(turret, with(BioItems.boneFragment, 50, BioItems.flesh, 100, BioItems.magnesium, 125));
+            researchCostMultiplier = 0.2f;
+            requirements(turret, with(BioItems.boneFragment, 50, BioItems.flesh, 60, BioItems.magnesium, 60));
             consumeLiquid(BioLiquids.blood, 0.3f);
             maxAmmo = 25;
 
@@ -291,12 +297,12 @@ public class BioBlocks {
         }};
 
         magnesiumWall = new Wall("magnesium-wall"){{
-            requirements(Category.defense, with(BioItems.magnesium, 45));
+            requirements(Category.defense, with(BioItems.magnesium, 15));
             health = 250;
         }};
 
         largeMagnesiumWall = new Wall("large-magnesium-wall"){{
-            requirements(Category.defense, with(BioItems.magnesium, 45 * 4));
+            requirements(Category.defense, with(BioItems.magnesium, 15 * 4));
             health = 250 * 4;
             size = 2;
         }};
@@ -312,6 +318,7 @@ public class BioBlocks {
         }};
 
         unitDocker = new UnitCargoLoader("unit-docker"){{
+            researchCost = with(BioItems.magnesium, 30, BioItems.boneFragment, 45);
             unitType = BioUnits.carrier;
 
             polyColor = BioPal.supportGreenLight;
@@ -328,6 +335,7 @@ public class BioBlocks {
         }};
 
         unitDischarger = new UnitCargoUnloadPoint("unit-discharger"){{
+            researchCost = with(BioItems.magnesium, 25, BioItems.boneFragment, 35);
             requirements(Category.distribution, with(BioItems.magnesium, 34, BioItems.boneFragment, 15));
             size = 2;
             itemCapacity = 40;

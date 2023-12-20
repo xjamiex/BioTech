@@ -2,10 +2,7 @@ package biotech;
 
 import arc.*;
 import arc.util.*;
-import biotech.content.BioBlocks;
-import biotech.content.BioItems;
-import biotech.content.BioLiquids;
-import biotech.content.BioUnits;
+import biotech.content.*;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
@@ -21,5 +18,8 @@ public class BioTech extends Mod{
         BioLiquids.load();
         BioUnits.load();
         BioBlocks.load();
+        BioPlanets.load();
+        BioSectorPresets.load();
+        BioTechTree.load();
     }
 }

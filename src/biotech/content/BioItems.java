@@ -1,21 +1,22 @@
 package biotech.content;
 
 import arc.graphics.Color;
+import arc.struct.Seq;
 import mindustry.type.Item;
 
 public class BioItems {
     public static Item
-        flesh, boneFragment, magnesium;
+        carbonicTissue, calciticFragment, magnesium;
 
-
+    public static final Seq<Item> andoriItems = new Seq<>();
     public static void load() {
-        flesh = new Item("flesh", Color.valueOf("ff5959")){{
+        carbonicTissue = new Item("carbonic-tissue", Color.valueOf("ff5959")){{
             hardness = 1;
             cost = 0.7f;
             alwaysUnlocked = true;
         }};
 
-        boneFragment = new Item("bone-fragment", Color.valueOf("ebf1fa")){{
+        calciticFragment = new Item("calcitic-fragment", Color.valueOf("ebf1fa")){{
             hardness = 0;
             cost = 0.8f;
         }};
@@ -24,5 +25,9 @@ public class BioItems {
             hardness = 1;
             cost = 0.8f;
         }};
+
+        andoriItems.addAll(
+                carbonicTissue, calciticFragment, magnesium
+        );
     }
 }

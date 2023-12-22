@@ -27,7 +27,7 @@ public class BioUnits {
     public static UnitType
 
             //air support
-            extractor, carrier,
+            carrier,
 
             //air attack
             scout,
@@ -73,7 +73,7 @@ public class BioUnits {
 
             lowAltitude = true;
             flying = true;
-            mineSpeed = 10f;
+            mineSpeed = 7f;
             mineTier = 1;
             buildSpeed = 1.2f;
             drag = 0.06f;

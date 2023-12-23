@@ -17,7 +17,7 @@ public class BioItems {
         }};
 
         calciticFragment = new Item("calcitic-fragment", Color.valueOf("ebf1fa")){{
-            hardness = 0;
+            hardness = 1;
             cost = 0.8f;
         }};
 

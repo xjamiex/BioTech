@@ -1,6 +1,7 @@
 package biotech.content;
 
 import arc.graphics.Color;
+import mindustry.content.Items;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
@@ -11,7 +12,9 @@ import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Conveyor;
+import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.distribution.Router;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
@@ -41,7 +44,7 @@ public class BioBlocks {
             liquidPipe, liquidSplitter,
 
             //distribution
-            magnesiumConveyor, splitter,
+            magnesiumConveyor, splitter, conveyorOverpass,
 
             //drill
             bioDrill, boneCrusher,
@@ -111,6 +114,15 @@ public class BioBlocks {
             researchCost = with(BioItems.magnesium, 15);
             requirements(Category.distribution, with(BioItems.magnesium, 2));
             health = 40;
+        }};
+
+        conveyorOverpass = new BufferedItemBridge("conveyor-overpass"){{
+            requirements(Category.distribution, with(BioItems.magnesium, 6));
+            fadeIn = moveArrows = false;
+            range = 4;
+            speed = 74f;
+            arrowSpacing = 6f;
+            bufferCapacity = 14;
         }};
 
         liquidSplitter = new LiquidRouter("liquid-splitter"){{
@@ -241,7 +253,6 @@ public class BioBlocks {
             buildCostMultiplier = 10/4.2f;
             researchCostMultiplier = 0.2f;
             requirements(turret, with(BioItems.calciticFragment, 50, BioItems.carbonicTissue, 60, BioItems.magnesium, 60));
-            consumeLiquid(BioLiquids.blood, 0.3f);
             maxAmmo = 25;
 
             range = 300;
@@ -312,8 +323,8 @@ public class BioBlocks {
         }};
 
         aircraftManufacturer = new UnitFactory("aircraft-manufacturer"){{
+            researchCost = with(BioItems.magnesium, 340, BioItems.carbonicTissue, 300, BioItems.calciticFragment, 450);
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140));
-
             size = 3;
             plans.add(new UnitPlan(BioUnits.scout, 60 * 28f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
             researchCostMultiplier = 0.5f;

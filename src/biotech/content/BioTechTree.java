@@ -11,6 +11,9 @@ public class BioTechTree {
             node(BioBlocks.magnesiumConveyor, () -> {
                 node(BioBlocks.unitDischarger);
                 node(BioBlocks.unitDocker);
+                node(BioBlocks.splitter, () -> {
+                    node(BioBlocks.conveyorOverpass);
+                });
             });
 
             node(BioBlocks.bioDrill, () -> {

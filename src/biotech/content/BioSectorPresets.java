@@ -8,12 +8,10 @@ public class BioSectorPresets {
         ankle;
 
     public static void load(){
-        ankle = new SectorPreset("ankle", BioPlanets.andori, 15){{
+        ankle = new SectorPreset("ankle", BioPlanets.andori, 1){{
+            //>:C
             alwaysUnlocked = true;
-            addStartingItems = true;
-            difficulty = 2;
-            overrideLaunchDefaults = true;
-            startWaveTimeMultiplier = 3f;
+            difficulty = 1;
         }};
     }
 }

@@ -38,7 +38,7 @@ public class BioTechTree {
                 nodeProduce(BioItems.calciticFragment, () -> {});
             });
 
-            nodeProduce(BioLiquids.blood, () -> {});
+            nodeProduce(BioLiquids.hemoFluid, () -> {});
         });
     }
 }

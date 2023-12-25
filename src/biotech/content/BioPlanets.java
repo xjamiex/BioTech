@@ -19,6 +19,7 @@ public class BioPlanets {
 
     public static void load(){
         andori = new Planet("andori", Planets.sun, 1.2f, 3){{
+            defaultCore = BioBlocks.coreSight;
             generator = new AndoriPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 6);
             cloudMeshLoader = () -> new MultiMesh(
@@ -30,9 +31,9 @@ public class BioPlanets {
             sectorSeed = 4;
             allowWaves = true;
             allowWaveSimulation = true;
-            allowLaunchSchematics = true;
             enemyCoreSpawnReplace = true;
             allowLaunchLoadout = true;
+            allowLaunchSchematics = true;
             //doesn't play well with configs
             prebuildBase = false;
             ruleSetter = r -> {
@@ -44,9 +45,9 @@ public class BioPlanets {
             atmosphereColor = BioPal.bloodRed;
             atmosphereRadIn = 0.02f;
             atmosphereRadOut = 0.3f;
-            startSector = 15;
+            startSector = 1;
+            allowLaunchToNumbered = false;
             alwaysUnlocked = true;
-            defaultCore = BioBlocks.coreSight;
             landCloudColor = BioPal.bloodRed.cpy().a(0.5f);
             hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems).removeAll(BioItems.andoriItems);
         }};

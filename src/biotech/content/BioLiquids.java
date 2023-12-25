@@ -5,10 +5,10 @@ import mindustry.type.Liquid;
 import mindustry.world.Block;
 
 public class BioLiquids {
-    public static Liquid blood;
+    public static Liquid hemoFluid;
 
     public static void load() {
-        blood = new Liquid("blood") {{
+        hemoFluid = new Liquid("hemo-fluid") {{
             heatCapacity = 0.4f;
             viscosity = 0.7f;
             boilPoint = 0.5f;

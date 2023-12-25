@@ -87,7 +87,7 @@ public class BioBlocks {
             ignoreLiquidFullness = true;
 
             hasLiquids = true;
-            outputLiquid = new LiquidStack(BioLiquids.blood, 1f / 2f / 2f);
+            outputLiquid = new LiquidStack(BioLiquids.hemoFluid, 1f / 2f / 2f);
             outputItem = new ItemStack(BioItems.carbonicTissue, 1);
             liquidCapacity = 40f;
             squareSprite = false;
@@ -136,7 +136,6 @@ public class BioBlocks {
             researchCost = with(BioItems.magnesium, 10, BioItems.calciticFragment, 10);
             //more expensive
             requirements(Category.production, with(BioItems.magnesium, 65, BioItems.calciticFragment, 35));
-            consumeLiquid(BioLiquids.blood, 0.12f);
             tier = 1;
             drillTime = 650;
             size = 3;
@@ -191,7 +190,6 @@ public class BioBlocks {
             buildCostMultiplier = 10/4.2f;
             researchCostMultiplier = 0.2f;
             requirements(turret, with(BioItems.calciticFragment, 60, BioItems.carbonicTissue, 45, BioItems.magnesium, 40));
-            consumeLiquid(BioLiquids.blood, 0.4f);
             liquidCapacity = 10;
             maxAmmo = 15;
 
@@ -328,7 +326,7 @@ public class BioBlocks {
             size = 3;
             plans.add(new UnitPlan(BioUnits.scout, 60 * 28f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
             researchCostMultiplier = 0.5f;
-            consumeLiquid(BioLiquids.blood, 0.2f);
+            consumeLiquid(BioLiquids.hemoFluid, 0.2f);
         }};
 
         unitDocker = new UnitCargoLoader("unit-docker"){{
@@ -343,7 +341,6 @@ public class BioBlocks {
             requirements(Category.distribution, with(BioItems.magnesium, 50, BioItems.calciticFragment, 25));
             size = 2;
             buildTime = 60f * 8f;
-            consumeLiquid(BioLiquids.blood, 10f / 60f);
             itemCapacity = 40;
             squareSprite = false;
         }};

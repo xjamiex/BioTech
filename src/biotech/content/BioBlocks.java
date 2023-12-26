@@ -14,7 +14,6 @@ import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Conveyor;
-import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.distribution.Router;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
@@ -60,6 +59,7 @@ public class BioBlocks {
 
             //units
             aircraftManufacturer, unitDocker, unitDischarger,
+            groundManufacturer,
 
             //effect
             coreSight
@@ -253,7 +253,7 @@ public class BioBlocks {
             requirements(turret, with(BioItems.calciticFragment, 50, BioItems.carbonicTissue, 60, BioItems.magnesium, 60));
             maxAmmo = 25;
 
-            range = 300;
+            range = 270;
             shootY = 0.7f;
 
             shootSound = Sounds.shootAlt;
@@ -263,6 +263,7 @@ public class BioBlocks {
             minWarmup = 0.90f;
             targetAir = true;
             targetGround = false;
+
 
             shoot.shots = 3;
             shoot.shotDelay = 3f;
@@ -298,6 +299,7 @@ public class BioBlocks {
                         trailColor = BioPal.boneWhiteLight;
                         trailInterval = 2f;
                         lifetime = 60;
+                        collidesGround = false;
 
                         pierce = true;
 
@@ -311,6 +313,7 @@ public class BioBlocks {
 
         magnesiumWall = new Wall("magnesium-wall"){{
             requirements(Category.defense, with(BioItems.magnesium, 15));
+            researchCost = with(BioItems.magnesium, 50);
             health = 250;
         }};
 
@@ -326,6 +329,15 @@ public class BioBlocks {
             size = 3;
             plans.add(new UnitPlan(BioUnits.scout, 60 * 28f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
             researchCostMultiplier = 0.5f;
+            consumeLiquid(BioLiquids.hemoFluid, 0.2f);
+        }};
+
+        groundManufacturer = new UnitFactory("ground-manufacturer"){{
+            // TODO: CHANGE RESEARCH / BUILD COST
+            researchCost = with(BioItems.magnesium, 340, BioItems.carbonicTissue, 300, BioItems.calciticFragment, 450);
+            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140));
+            size = 3;
+            plans.add(new UnitPlan(BioUnits.strider, 60 * 25f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
             consumeLiquid(BioLiquids.hemoFluid, 0.2f);
         }};
 
@@ -363,7 +375,7 @@ public class BioBlocks {
             itemCapacity = 4000;
             size = 3;
 
-            unitCapModifier = 8;
+            unitCapModifier = 20;
         }};
     }
 }

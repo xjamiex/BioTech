@@ -27,6 +27,9 @@ public class BioTechTree {
 
             node(BioBlocks.alive, () -> {
                 node(BioBlocks.spike);
+                node(BioBlocks.magnesiumWall, () -> {
+                    node(BioBlocks.largeMagnesiumWall);
+                });
             });
 
             node(BioBlocks.aircraftManufacturer, () -> {

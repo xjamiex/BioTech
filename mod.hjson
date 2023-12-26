@@ -1,17 +1,17 @@
 #the mod name as displayed in-game
-displayName: "Bio Tech"
+displayName: "[red[]]Bio Tech"
 
 #the internal name of your mod
 name: "biotech"
 
 #your name
-author: "Jammuu"
+author: "[yellow[]]Jammuu: [white[]]Main Programmer/Spriter\n[cyan[]]EndoFreeze: [white[]]Playtester/Gameplay designer"
 
 #the fully qualified main class of the mod
 main: "biotech.BioTech"
 
 #the mod description as seen in the mod dialog
-description: "A mod that adds fleshy stuff"
+description: "A mod that adds [red[]]fleshy stuff"
 
 #the mod version
 version: 0.0.1

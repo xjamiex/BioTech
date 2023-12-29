@@ -1,6 +1,8 @@
 package biotech.content;
 
+import arc.struct.Seq;
 import mindustry.content.TechTree;
+import mindustry.game.Objectives;
 
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
@@ -17,23 +19,24 @@ public class BioTechTree {
             });
 
             node(BioBlocks.bioDrill, () -> {
-                node(BioBlocks.bioPump, () -> {
-                    node(BioBlocks.boneCrusher);
+                node(BioBlocks.boneCrusher, () -> {
+                    node(BioBlocks.bioPump);
                     node(BioBlocks.liquidPipe, () -> {
                         node(BioBlocks.liquidSplitter);
+                        node(BioBlocks.liquidOverpass);
                     });
                 });
             });
 
             node(BioBlocks.alive, () -> {
-                node(BioBlocks.spike);
+                node(BioBlocks.spike, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {});
                 node(BioBlocks.magnesiumWall, () -> {
                     node(BioBlocks.largeMagnesiumWall);
                 });
             });
 
-            node(BioBlocks.aircraftManufacturer, () -> {
-                node(BioUnits.scout);
+            node(BioBlocks.groundManufacturer, () -> {
+                node(BioUnits.strider);
             });
 
             nodeProduce(BioItems.magnesium, () -> {

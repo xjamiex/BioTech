@@ -20,6 +20,7 @@ import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.environment.StaticWall;
 import mindustry.world.blocks.environment.SteamVent;
 import mindustry.world.blocks.liquid.Conduit;
+import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.liquid.LiquidRouter;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.blocks.production.Drill;
@@ -40,7 +41,7 @@ public class BioBlocks {
             bioPump, spike,
 
             //liquids
-            liquidPipe, liquidSplitter,
+            liquidPipe, liquidSplitter, liquidOverpass,
 
             //distribution
             magnesiumConveyor, splitter, conveyorOverpass,
@@ -93,12 +94,25 @@ public class BioBlocks {
             squareSprite = false;
         }};
 
-        //liquids
         liquidPipe = new Conduit("liquid-pipe"){{
             researchCost = with(BioItems.calciticFragment, 6);
             requirements(Category.liquid, with(BioItems.calciticFragment, 1));
             health = 143;
             botColor = Color.valueOf("262525");
+        }};
+
+        liquidSplitter = new LiquidRouter("liquid-splitter"){{
+            requirements(Category.liquid, with(BioItems.calciticFragment, 2));
+            health = 143;
+            size = 1;
+        }};
+
+        liquidOverpass = new LiquidBridge("liquid-overpass"){{
+            requirements(Category.liquid, with(BioItems.calciticFragment, 5));
+            fadeIn = moveArrows = false;
+            arrowSpacing = 6f;
+            range = 4;
+            hasPower = false;
         }};
 
         //distribution
@@ -123,12 +137,6 @@ public class BioBlocks {
             speed = 74f;
             arrowSpacing = 6f;
             bufferCapacity = 14;
-        }};
-
-        liquidSplitter = new LiquidRouter("liquid-splitter"){{
-            requirements(Category.liquid, with(BioItems.calciticFragment, 2));
-            health = 143;
-            size = 1;
         }};
 
         //drills
@@ -189,7 +197,7 @@ public class BioBlocks {
             size = 3;
             buildCostMultiplier = 10/4.2f;
             researchCostMultiplier = 0.2f;
-            requirements(turret, with(BioItems.calciticFragment, 60, BioItems.carbonicTissue, 45, BioItems.magnesium, 40));
+            requirements(turret, with(BioItems.calciticFragment, 60, BioItems.magnesium, 60));
             liquidCapacity = 10;
             maxAmmo = 15;
 
@@ -250,7 +258,7 @@ public class BioBlocks {
             size = 3;
             buildCostMultiplier = 10/4.2f;
             researchCostMultiplier = 0.2f;
-            requirements(turret, with(BioItems.calciticFragment, 50, BioItems.carbonicTissue, 60, BioItems.magnesium, 60));
+            requirements(turret, with(BioItems.calciticFragment, 50, BioItems.magnesium, 60));
             maxAmmo = 25;
 
             range = 270;
@@ -324,6 +332,7 @@ public class BioBlocks {
         }};
 
         aircraftManufacturer = new UnitFactory("aircraft-manufacturer"){{
+            // TODO: CHANGE RESEARCH / BUILD COST
             researchCost = with(BioItems.magnesium, 340, BioItems.carbonicTissue, 300, BioItems.calciticFragment, 450);
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140));
             size = 3;
@@ -333,7 +342,6 @@ public class BioBlocks {
         }};
 
         groundManufacturer = new UnitFactory("ground-manufacturer"){{
-            // TODO: CHANGE RESEARCH / BUILD COST
             researchCost = with(BioItems.magnesium, 340, BioItems.carbonicTissue, 300, BioItems.calciticFragment, 450);
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140));
             size = 3;

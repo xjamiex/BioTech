@@ -6,14 +6,14 @@ import mindustry.type.Item;
 
 public class BioItems {
     public static Item
-        carbonicTissue, calciticFragment, magnesium;
+        //t1
+        carbonicTissue, calciticFragment, magnesium, potash;
 
     public static final Seq<Item> andoriItems = new Seq<>();
     public static void load() {
         carbonicTissue = new Item("carbonic-tissue", Color.valueOf("ff5959")){{
             hardness = 1;
             cost = 0.7f;
-            alwaysUnlocked = true;
         }};
 
         calciticFragment = new Item("calcitic-fragment", Color.valueOf("ebf1fa")){{
@@ -26,8 +26,13 @@ public class BioItems {
             cost = 0.8f;
         }};
 
+        potash = new Item("potash", Color.valueOf("e88b43")){{
+            hardness = 1;
+            cost = 1f;
+        }};
+
         andoriItems.addAll(
-                carbonicTissue, calciticFragment, magnesium
+                carbonicTissue, calciticFragment, magnesium, potash
         );
     }
 }

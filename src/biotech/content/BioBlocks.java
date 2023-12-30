@@ -172,7 +172,6 @@ public class BioBlocks {
 
         boneWall = new StaticWall("bone-wall"){{
             itemDrop = BioItems.calciticFragment;
-            attributes.set(BioAttributes.bone, 1);
         }};
 
         decayedBoneWall = new StaticWall("decayed-bone-wall"){{

@@ -39,9 +39,13 @@ public class BioTechTree {
                 node(BioUnits.strider);
             });
 
+            node(BioBlocks.hematicSieve);
+
             nodeProduce(BioItems.magnesium, () -> {
                 nodeProduce(BioItems.carbonicTissue, () -> {});
-                nodeProduce(BioItems.calciticFragment, () -> {});
+                nodeProduce(BioItems.calciticFragment, () -> {
+                    nodeProduce(BioItems.potash, () -> {});
+                });
             });
 
             nodeProduce(BioLiquids.hemoFluid, () -> {});

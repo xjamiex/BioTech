@@ -20,7 +20,7 @@ import static mindustry.Vars.*;
 
 public class AndoriPlanetGenerator extends ErekirPlanetGenerator {
 
-    Block[] terrain = {Blocks.redStone, Blocks.yellowStone, Blocks.redStone, BioBlocks.fleshFloor, BioBlocks.fleshFloor, BioBlocks.fleshFloor, Blocks.denseRedStone, Blocks.yellowStonePlates};
+    Block[] terrain = {Blocks.redStone, Blocks.yellowStone, Blocks.redStone, BioBlocks.flesh, BioBlocks.flesh, BioBlocks.flesh, Blocks.denseRedStone, Blocks.yellowStonePlates};
     {
         baseSeed = 2;
         defaultLoadout = Schematics.readBase64("bXNjaAF4nE3MQQqAMAwF0a8tCnXnPTyRuKhpsAFrpcn9UXcybz1wcB7+ioURqDZeVI5sGNU4FkkISplLNCHFlFipyW1SLwDDGXc+Ff26dZh3qcaUl98E6D5vD96uG8Q=");

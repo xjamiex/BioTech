@@ -1,7 +1,7 @@
 package biotech.content;
 
 import arc.graphics.Color;
-import mindustry.content.Items;
+import biotech.type.world.enviroment.NerveProtrusion;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
@@ -24,11 +24,13 @@ import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.liquid.LiquidRouter;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.blocks.production.Drill;
+import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.WallCrafter;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.units.UnitCargoLoader;
 import mindustry.world.blocks.units.UnitCargoUnloadPoint;
 import mindustry.world.blocks.units.UnitFactory;
+import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 import static mindustry.type.Category.production;
@@ -50,10 +52,19 @@ public class BioBlocks {
             bioDrill, boneCrusher,
 
             //env
-            fleshFloor, oreMagnesium, fleshWall, boneWall, poreHole, decayedBoneWall,
+            flesh, flint,
+            oreMagnesium,
+            fleshWall, boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall,
+            poreHole,
+
+            //props
+            nerveProtrusion,
 
             //turret
             alive,
+
+            //production
+            hematicSieve,
 
             //defense
             magnesiumWall, largeMagnesiumWall,
@@ -67,14 +78,16 @@ public class BioBlocks {
     ;
 
     public static final Attribute
-            flesh = Attribute.add("flesh");
+            meat = Attribute.add("meat"),
+            bone = Attribute.add("bone");
 
     public static void load() {
+
         //liquid
         bioPump = new AttributeCrafter("bio-pump"){{
             researchCost = with(BioItems.magnesium, 20);
             requirements(production, with(BioItems.magnesium, 45));
-            attribute = flesh;
+            attribute = meat;
             group = BlockGroup.drills;
             displayEfficiency = false;
             minEfficiency = 0.0001f;
@@ -114,10 +127,12 @@ public class BioBlocks {
             range = 4;
             hasPower = false;
         }};
+        //endregion
 
         //distribution
         magnesiumConveyor = new Conveyor("magnesium-convayor"){{
             researchCost = with(BioItems.magnesium, 6);
+            bridgeReplacement = BioBlocks.conveyorOverpass;
             requirements(Category.distribution, with(BioItems.magnesium, 1));
             health = 35;
             speed = 0.04f;
@@ -138,6 +153,7 @@ public class BioBlocks {
             arrowSpacing = 6f;
             bufferCapacity = 14;
         }};
+        //endregion
 
         //drills
         bioDrill = new Drill("bio-drill"){{
@@ -155,20 +171,20 @@ public class BioBlocks {
             requirements(Category.production, with(BioItems.magnesium, 40));
             drillTime = 110f;
             size = 2;
-            attribute = BioAttributes.bone;
+            attribute = bone;
             output = BioItems.calciticFragment;
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.04f;
         }};
-
+        //endregion
 
         //environment
-        fleshFloor = new Floor("floor-flesh", 4){{
+        flesh = new Floor("flesh", 4){{
             playerUnmineable = true;
-            attributes.set(flesh, 1f);
+            attributes.set(meat, 1f);
         }};
 
-        fleshWall = new StaticWall("flesh-wall");
+        flint = new Floor("flint", 4);
 
         boneWall = new StaticWall("bone-wall"){{
             itemDrop = BioItems.calciticFragment;
@@ -176,11 +192,16 @@ public class BioBlocks {
 
         decayedBoneWall = new StaticWall("decayed-bone-wall"){{
             itemDrop = BioItems.calciticFragment;
-            attributes.set(BioAttributes.bone, 1);
+            attributes.set(bone, 1);
         }};
 
+        dolomiteWall = new StaticWall("flint-wall");
+        flintWall = new StaticWall("dolomite-wall");
+        floursparWall = new StaticWall("flourspar-wall");
+        fleshWall = new StaticWall("flesh-wall");
+
         poreHole = new SteamVent("pore-hole"){{
-            parent = blendGroup = fleshFloor;
+            parent = blendGroup = flesh;
             variants = 3;
             effectSpacing = 100f;
             effectColor = Color.valueOf("a69780");
@@ -189,6 +210,11 @@ public class BioBlocks {
         oreMagnesium = new OreBlock("ore-magnesium"){{
             itemDrop = BioItems.magnesium;
         }};
+        //endregion
+
+        //props
+        nerveProtrusion = new NerveProtrusion("nerve-protrusion");
+        //endregion
 
         //turrets
         alive = new ItemTurret("alive"){{
@@ -317,7 +343,36 @@ public class BioBlocks {
             outlineColor = Color.valueOf("2b2626");
 
         }};
+        //endregion
 
+        //production
+        hematicSieve = new GenericCrafter("hematic-sieve"){{
+            researchCost = with(BioItems.magnesium, 100, BioItems.calciticFragment, 100);
+            requirements(Category.crafting, with(BioItems.magnesium, 50, BioItems.calciticFragment, 50));
+            squareSprite = false;
+            hasItems = true;
+            liquidCapacity = 60f;
+            craftTime = 2 * 60f;
+            outputItem = new ItemStack(BioItems.potash, 3);
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(BioLiquids.hemoFluid, 2), new DrawDefault());
+            size = 3;
+            health = 850;
+            hasLiquids = true;
+            craftEffect = new ParticleEffect(){{
+                particles = 5;
+                length = 8;
+                sizeFrom = 3;
+                sizeTo = 0;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+
+            }};
+
+            consumeLiquid(BioLiquids.hemoFluid, 0.35f);
+        }};
+        //endregion
+
+        //defense
         magnesiumWall = new Wall("magnesium-wall"){{
             requirements(Category.defense, with(BioItems.magnesium, 15));
             researchCost = with(BioItems.magnesium, 50);
@@ -329,7 +384,9 @@ public class BioBlocks {
             health = 250 * 4;
             size = 2;
         }};
+        //endregion
 
+        //units
         aircraftManufacturer = new UnitFactory("aircraft-manufacturer"){{
             // TODO: CHANGE RESEARCH / BUILD COST
             researchCost = with(BioItems.magnesium, 340, BioItems.carbonicTissue, 300, BioItems.calciticFragment, 450);
@@ -341,8 +398,8 @@ public class BioBlocks {
         }};
 
         groundManufacturer = new UnitFactory("ground-manufacturer"){{
-            researchCost = with(BioItems.magnesium, 340, BioItems.carbonicTissue, 300, BioItems.calciticFragment, 450);
-            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140));
+            researchCost = with(BioItems.magnesium, 340, BioItems.potash, 200, BioItems.calciticFragment, 450);
+            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.potash, 80, BioItems.calciticFragment, 140));
             size = 3;
             plans.add(new UnitPlan(BioUnits.strider, 60 * 25f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
             consumeLiquid(BioLiquids.hemoFluid, 0.2f);
@@ -371,7 +428,9 @@ public class BioBlocks {
             itemCapacity = 40;
             squareSprite = false;
         }};
+        //endregion
 
+        //effect
         coreSight = new CoreBlock("core-sight"){{
             requirements(Category.effect, BuildVisibility.shown, with(BioItems.magnesium, 500, BioItems.carbonicTissue, 500, BioItems.calciticFragment, 250));
             alwaysUnlocked = true;
@@ -381,8 +440,10 @@ public class BioBlocks {
             health = 2130;
             itemCapacity = 4000;
             size = 3;
+            squareSprite = false;
 
-            unitCapModifier = 20;
+            unitCapModifier = 15;
         }};
+        //endregion
     }
 }

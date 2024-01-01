@@ -52,9 +52,9 @@ public class BioBlocks {
             bioDrill, boneCrusher,
 
             //env
-            flesh, flint,
+            flesh, flint, bone, myostone,
             oreMagnesium,
-            fleshWall, boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall,
+            fleshWall, boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall,
             poreHole,
 
             //props
@@ -79,7 +79,7 @@ public class BioBlocks {
 
     public static final Attribute
             meat = Attribute.add("meat"),
-            bone = Attribute.add("bone");
+            calcitic = Attribute.add("calcitic");
 
     public static void load() {
 
@@ -171,7 +171,7 @@ public class BioBlocks {
             requirements(Category.production, with(BioItems.magnesium, 40));
             drillTime = 110f;
             size = 2;
-            attribute = bone;
+            attribute = calcitic;
             output = BioItems.calciticFragment;
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.04f;
@@ -185,6 +185,8 @@ public class BioBlocks {
         }};
 
         flint = new Floor("flint", 4);
+        bone = new Floor("bone", 4);
+        myostone = new Floor("myostone", 4);
 
         boneWall = new StaticWall("bone-wall"){{
             itemDrop = BioItems.calciticFragment;
@@ -192,13 +194,14 @@ public class BioBlocks {
 
         decayedBoneWall = new StaticWall("decayed-bone-wall"){{
             itemDrop = BioItems.calciticFragment;
-            attributes.set(bone, 1);
+            attributes.set(calcitic, 1);
         }};
 
         dolomiteWall = new StaticWall("flint-wall");
         flintWall = new StaticWall("dolomite-wall");
         floursparWall = new StaticWall("flourspar-wall");
         fleshWall = new StaticWall("flesh-wall");
+        myostoneWall = new StaticWall("myostone-wall");
 
         poreHole = new SteamVent("pore-hole"){{
             parent = blendGroup = flesh;

@@ -1,6 +1,7 @@
 package biotech.content;
 
 import arc.graphics.Color;
+import biotech.type.world.enviroment.ExplosiveBlock;
 import biotech.type.world.enviroment.NerveProtrusion;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.ParticleEffect;
@@ -58,7 +59,7 @@ public class BioBlocks {
             poreHole,
 
             //props
-            nerveProtrusion,
+            nerveProtrusion, fleshGrowth,
 
             //turret
             alive,
@@ -217,6 +218,18 @@ public class BioBlocks {
 
         //props
         nerveProtrusion = new NerveProtrusion("nerve-protrusion");
+        fleshGrowth = new ExplosiveBlock("flesh-growth"){{
+            health = 200;
+            size = 1;
+            new ParticleEffect(){{
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+                sizeFrom = 8;
+                sizeTo = 0;
+                particles = 5;
+                length = 35f;
+            }};
+        }};
         //endregion
 
         //turrets

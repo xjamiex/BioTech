@@ -1,8 +1,6 @@
 package biotech.type.world.enviroment;
 
 import arc.audio.Sound;
-import arc.func.Prov;
-import biotech.content.BioItems;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Damage;
@@ -14,8 +12,8 @@ import mindustry.world.meta.BuildVisibility;
 
 public class ExplosiveBlock extends Block {
 
-    public int explodeDamage = 20;
-    public int explodeRange = 4;
+    public int explodeDamage = 60;
+    public int explodeRange = 5;
     public Effect explodeEffect = Fx.none;
     public Sound explodeSound = Sounds.none;
 

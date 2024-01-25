@@ -96,6 +96,7 @@ public class BioUnits {
                         top = true;
                         reload = 125f;
                         shootSound = Sounds.missileLarge;
+                        shootWarmupSpeed = 10f;
                         shoot = new ShootHelix(){{
                             mag = 0.8f;
                             scl = 4f;

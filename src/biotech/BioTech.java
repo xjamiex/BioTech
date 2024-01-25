@@ -19,6 +19,7 @@ public class BioTech extends Mod{
     public void loadContent(){
         BioItems.load();
         BioLiquids.load();
+        BioSounds.load();
         BioUnits.load();
         BioBlocks.load();
         BioPlanets.load();

@@ -34,6 +34,7 @@ public class BioPlanets {
             enemyCoreSpawnReplace = true;
             allowLaunchLoadout = true;
             allowLaunchSchematics = true;
+            lightColor = BioPal.bloodRed;
             //doesn't play well with configs
             prebuildBase = false;
             ruleSetter = r -> {

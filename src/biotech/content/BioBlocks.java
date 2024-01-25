@@ -1,9 +1,15 @@
 package biotech.content;
 
+import arc.audio.Sound;
 import arc.graphics.Color;
 import biotech.type.world.enviroment.ExplosiveBlock;
 import biotech.type.world.enviroment.NerveProtrusion;
+import biotech.type.world.enviroment.NestBlock;
+import mindustry.content.Items;
+import mindustry.content.Liquids;
+import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.bullet.MissileBulletType;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.gen.Sounds;
@@ -13,6 +19,7 @@ import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.LaserTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.Router;
@@ -40,11 +47,8 @@ import static mindustry.type.ItemStack.with;
 
 public class BioBlocks {
     public static Block
-            //liquid
-            bioPump, spike,
-
             //liquids
-            liquidPipe, liquidSplitter, liquidOverpass,
+            bioPump, liquidPipe, liquidSplitter, liquidOverpass,
 
             //distribution
             magnesiumConveyor, splitter, conveyorOverpass,
@@ -59,10 +63,10 @@ public class BioBlocks {
             poreHole,
 
             //props
-            nerveProtrusion, fleshGrowth,
+            nerveProtrusion, fleshGrowth, undevelopedCyst,
 
             //turret
-            alive,
+            alive, spike, celluris, dissection,
 
             //production
             hematicSieve,
@@ -219,15 +223,30 @@ public class BioBlocks {
         //props
         nerveProtrusion = new NerveProtrusion("nerve-protrusion");
         fleshGrowth = new ExplosiveBlock("flesh-growth"){{
-            health = 200;
+            health = 80;
             size = 1;
-            new ParticleEffect(){{
+            explodeSound = BioSounds.fleshHit;
+            explodeEffect = new ParticleEffect(){{
                 colorFrom = BioPal.bloodRedLight;
                 colorTo = BioPal.bloodRed;
                 sizeFrom = 8;
                 sizeTo = 0;
                 particles = 5;
                 length = 35f;
+            }};
+        }};
+
+        undevelopedCyst = new NestBlock("undeveloped-cyst"){{
+            health = 150;
+            size = 3;
+            explodeSound = BioSounds.fleshHit;
+            explodeEffect = new ParticleEffect(){{
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+                sizeFrom = 10;
+                sizeTo = 0;
+                particles = 10;
+                length = 50f;
             }};
         }};
         //endregion
@@ -239,10 +258,9 @@ public class BioBlocks {
             buildCostMultiplier = 10/4.2f;
             researchCostMultiplier = 0.2f;
             requirements(turret, with(BioItems.calciticFragment, 60, BioItems.magnesium, 60));
-            liquidCapacity = 10;
-            maxAmmo = 15;
+            maxAmmo = 5;
 
-            range = 250;
+            range = 225;
             shootY = 0.7f;
             shootSound = Sounds.shootBig;
             inaccuracy = 2f;
@@ -253,7 +271,7 @@ public class BioBlocks {
             targetGround = true;
 
             ammo(
-                    BioItems.carbonicTissue, new BasicBulletType(3f, 55){{
+                    BioItems.carbonicTissue, new BasicBulletType(3f, 80){{
                         sprite = "biotech-meatball";
                         shootEffect = trailEffect = new ParticleEffect(){{
                             particles = 6;
@@ -282,11 +300,12 @@ public class BioBlocks {
                         trailColor = BioPal.bloodRedLight;
                         trailInterval = 4f;
                         lifetime = 80f;
+                        collidesAir = false;
 
                         splashDamage = 25;
                         splashDamageRadius = 35f;
 
-                        hitSound = despawnSound = Sounds.artillery;
+                        hitSound = despawnSound = Sounds.dullExplosion;
                     }}
             );
 
@@ -313,12 +332,11 @@ public class BioBlocks {
             targetAir = true;
             targetGround = false;
 
-
-            shoot.shots = 3;
+            shoot.shots = 5;
             shoot.shotDelay = 3f;
 
             ammo(
-                    BioItems.calciticFragment, new BasicBulletType(5.5f, 25){{
+                    BioItems.calciticFragment, new BasicBulletType(5.5f, 30){{
                         sprite = "biotech-triangle";
                         shootEffect = hitEffect = despawnEffect =  new WaveEffect(){{
                             colorFrom = BioPal.boneWhiteLight;
@@ -357,6 +375,96 @@ public class BioBlocks {
             );
 
             outlineColor = Color.valueOf("2b2626");
+
+        }};
+
+        celluris = new ItemTurret("celluris"){{
+            health = 1250;
+            size = 3;
+            requirements(turret, with(BioItems.magnesium, 120, BioItems.potash, 50, BioItems.phosphorus, 50));
+            range = 250;
+            shootSound = Sounds.missileLarge;
+            inaccuracy = 1f;
+            rotateSpeed = 2f;
+            reload = 200;
+            minWarmup = 0.90f;
+            targetAir = false;
+            targetGround = true;
+            outlineColor = Color.valueOf("2b2626");
+
+            consumeLiquid(BioLiquids.hemoFluid, 0.12f);
+
+            ammo(
+                    BioItems.potash, new ArtilleryBulletType(4, 70){{
+                        width = 15;
+                        height = 15;
+                        weaveMag = 30;
+                        weaveScale = 1;
+                        fragBullets = 4;
+                        frontColor = BioPal.cellBlueLight;
+                        backColor = BioPal.cellBlue;
+                        trailColor = BioPal.cellBlueLight;
+                        trailWidth = 3;
+                        trailLength = 6;
+                        drag = 0.01f;
+                        lifetime = 4 * 60;
+
+                        hitEffect = despawnEffect = new WaveEffect(){{
+                            sizeFrom = 5;
+                            sizeTo = 0;
+                            colorFrom = BioPal.cellBlueLight;
+                            colorTo = BioPal.cellBlue;
+                            sides = 5;
+                            rotateSpeed = 10f;
+                        }};
+                        fragBullet = new MissileBulletType(3, 20){{
+                            width = 6;
+                            height = 6;
+                            weaveMag = 30;
+                            weaveScale = 1;
+                            frontColor = BioPal.cellBlueLight;
+                            backColor = BioPal.cellBlue;
+                            trailColor = BioPal.cellBlueLight;
+                            trailWidth = 3;
+                            trailLength = 6;
+                            drag = 0.01f;
+                            hitEffect = despawnEffect = new WaveEffect(){{
+                                sizeFrom = 5;
+                                sizeTo = 0;
+                                colorFrom = BioPal.cellBlueLight;
+                                colorTo = BioPal.cellBlue;
+                                sides = 5;
+                                rotateSpeed = 10f;
+                            }};
+
+                            fragBullets = 2;
+
+                            fragBullet = new MissileBulletType(2, 10){{
+                                width = 3;
+                                height = 3;
+                                weaveMag = 30;
+                                weaveScale = 1;
+                                frontColor = BioPal.cellBlueLight;
+                                backColor = BioPal.cellBlue;
+                                trailColor = BioPal.cellBlueLight;
+                                trailWidth = 3;
+                                trailLength = 6;
+                                drag = 0.01f;
+                                hitEffect = despawnEffect = new WaveEffect(){{
+                                    sizeFrom = 5;
+                                    sizeTo = 0;
+                                    colorFrom = BioPal.cellBlueLight;
+                                    colorTo = BioPal.cellBlue;
+                                    sides = 5;
+                                    rotateSpeed = 10f;
+                                }};
+                            }};
+                        }};
+                    }}
+            );
+        }};
+
+        dissection = new ItemTurret("dissection"){{
 
         }};
         //endregion

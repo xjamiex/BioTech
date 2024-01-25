@@ -34,7 +34,6 @@ public class NerveProtrusion extends Block{
                 scl = 30f, mag = 0.2f;
 
         if(shadow.found()){
-            Log.info("HOLY FUCK THERE IS A SHADOW");
             Draw.z(Layer.power - 1);
             Draw.rect(shadow, tile.worldx() + shadowOffset, tile.worldy() + shadowOffset, rot);
         }

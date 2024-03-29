@@ -1,25 +1,21 @@
 package biotech.content;
 
-import arc.audio.Sound;
 import arc.graphics.Color;
-import biotech.type.world.enviroment.ExplosiveBlock;
-import biotech.type.world.enviroment.NerveProtrusion;
-import biotech.type.world.enviroment.NestBlock;
-import mindustry.content.Items;
-import mindustry.content.Liquids;
-import mindustry.entities.bullet.ArtilleryBulletType;
-import mindustry.entities.bullet.BasicBulletType;
-import mindustry.entities.bullet.MissileBulletType;
+import arc.graphics.gl.Shader;
+import biotech.entities.bullet.LightningLaserBulletType;
+import mindustry.content.Fx;
+import mindustry.content.StatusEffects;
+import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.defense.turrets.LaserTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.Router;
@@ -41,8 +37,7 @@ import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
-import static mindustry.type.Category.production;
-import static mindustry.type.Category.turret;
+import static mindustry.type.Category.*;
 import static mindustry.type.ItemStack.with;
 
 public class BioBlocks {
@@ -70,6 +65,9 @@ public class BioBlocks {
 
             //production
             hematicSieve,
+
+            //power
+            rotorPipe,
 
             //defense
             magnesiumWall, largeMagnesiumWall,
@@ -217,37 +215,6 @@ public class BioBlocks {
 
         oreMagnesium = new OreBlock("ore-magnesium"){{
             itemDrop = BioItems.magnesium;
-        }};
-        //endregion
-
-        //props
-        nerveProtrusion = new NerveProtrusion("nerve-protrusion");
-        fleshGrowth = new ExplosiveBlock("flesh-growth"){{
-            health = 80;
-            size = 1;
-            explodeSound = BioSounds.fleshHit;
-            explodeEffect = new ParticleEffect(){{
-                colorFrom = BioPal.bloodRedLight;
-                colorTo = BioPal.bloodRed;
-                sizeFrom = 8;
-                sizeTo = 0;
-                particles = 5;
-                length = 35f;
-            }};
-        }};
-
-        undevelopedCyst = new NestBlock("undeveloped-cyst"){{
-            health = 150;
-            size = 3;
-            explodeSound = BioSounds.fleshHit;
-            explodeEffect = new ParticleEffect(){{
-                colorFrom = BioPal.bloodRedLight;
-                colorTo = BioPal.bloodRed;
-                sizeFrom = 10;
-                sizeTo = 0;
-                particles = 10;
-                length = 50f;
-            }};
         }};
         //endregion
 
@@ -465,7 +432,51 @@ public class BioBlocks {
         }};
 
         dissection = new ItemTurret("dissection"){{
+            health = 1100;
+            size = 3;
+            requirements(turret, with(BioItems.carbonicTissue, 1));
+            float r = range = 80;
+            shootSound = Sounds.missileLarge;
+            inaccuracy = 1f;
+            rotateSpeed = 2f;
+            reload = 45;
+            minWarmup = 0.90f;
+            targetAir = false;
+            targetGround = true;
+            outlineColor = Color.valueOf("2b2626");
+            shootEffect = BioFx.lightningSpiral;
 
+            ammo(
+                    BioItems.stemCapsule, new LightningLaserBulletType(){{
+                        length = r;
+                        damage = 120f;
+                        ammoMultiplier = 4f;
+                        width = 9f;
+                        reloadMultiplier = 1.3f;
+                        serrations = 0;
+                        fromColor = BioPal.supportGreenLight;
+                        toColor = Pal.heal;
+                        lightningColor = BioPal.supportGreenLight;
+                        lightningLength = 15;
+                        lightning = 1;
+                        lightningCone = 1;
+                        lightningType = new BulletType(0.0001f, 2f){{
+                            lifetime = Fx.lightning.lifetime;
+                            hitEffect = despawnEffect = new WaveEffect(){{
+                                sizeFrom = 5;
+                                sizeTo = 0;
+                                colorFrom = BioPal.supportGreenLight;
+                                colorTo = Pal.heal;
+                                sides = 3;
+                                rotateSpeed = 10f;
+                            }};
+                            hittable = false;
+                            lightColor = Color.white;
+                            collidesAir = false;
+                            buildingDamageMultiplier = 0.25f;
+                        }};
+                    }}
+            );
         }};
         //endregion
 
@@ -493,6 +504,16 @@ public class BioBlocks {
             }};
 
             consumeLiquid(BioLiquids.hemoFluid, 0.35f);
+        }};
+        //endregion
+
+        //power
+        rotorPipe = new GenericCrafter("rotor-pipe"){{
+            requirements(power, with(BioItems.calciticFragment, 10, BioItems.phosphorus, 5));
+            hasItems = false;
+            liquidCapacity = 20f;
+            health = 400;
+            outputItem = new ItemStack(BioItems.potash, 1);
         }};
         //endregion
 

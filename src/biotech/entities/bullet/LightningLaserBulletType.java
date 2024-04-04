@@ -1,5 +1,7 @@
 package biotech.entities.bullet;
 
+import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
 import biotech.content.BioPal;
 import mindustry.entities.Lightning;
@@ -12,9 +14,5 @@ public class LightningLaserBulletType extends ShrapnelBulletType {
         super.init(b);
         Lightning.create(b, BioPal.supportGreenLight, damage, b.x, b.y, b.rotation(), lightningLength + Mathf.random(lightningLengthRand));
 
-    }
-    @Override
-    public void draw(Bullet b) {
-        super.draw(b);
     }
 }

@@ -9,6 +9,7 @@ import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.HexSkyMesh;
 import mindustry.graphics.g3d.MultiMesh;
+import mindustry.graphics.g3d.NoiseMesh;
 import mindustry.maps.planet.ErekirPlanetGenerator;
 import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.type.Planet;
@@ -26,7 +27,6 @@ public class BioPlanets {
                     new HexSkyMesh(this, 33, 0.32f, 0.1f, 4, new Color().set(BioPal.bloodRedLight).mul(0.9f).a(0.75f), 2, 0.45f, 0.9f, 0.38f),
                     new HexSkyMesh(this, 69, 0.82f, 0.17f, 6, Color.white.cpy().lerp(BioPal.bloodRedLight, 0.55f).a(0.75f), 2, 0.45f, 1f, 0.41f)
             );
-
             launchCapacityMultiplier = 0.5f;
             sectorSeed = 4;
             allowWaves = true;

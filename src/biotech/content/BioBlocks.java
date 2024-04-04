@@ -227,7 +227,7 @@ public class BioBlocks {
             requirements(turret, with(BioItems.calciticFragment, 60, BioItems.magnesium, 60));
             maxAmmo = 5;
 
-            range = 225;
+            range = 180;
             shootY = 0.7f;
             shootSound = Sounds.shootBig;
             inaccuracy = 2f;
@@ -266,7 +266,7 @@ public class BioBlocks {
                         trailWidth = 3;
                         trailColor = BioPal.bloodRedLight;
                         trailInterval = 4f;
-                        lifetime = 80f;
+                        lifetime = 60f;
                         collidesAir = false;
 
                         splashDamage = 25;
@@ -374,7 +374,7 @@ public class BioBlocks {
                         trailWidth = 3;
                         trailLength = 6;
                         drag = 0.01f;
-                        lifetime = 4 * 60;
+                        lifetime = 110;
 
                         hitEffect = despawnEffect = new WaveEffect(){{
                             sizeFrom = 5;
@@ -448,7 +448,7 @@ public class BioBlocks {
 
             ammo(
                     BioItems.stemCapsule, new LightningLaserBulletType(){{
-                        length = r;
+                        length = r - 5;
                         damage = 120f;
                         ammoMultiplier = 4f;
                         width = 9f;

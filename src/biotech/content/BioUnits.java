@@ -3,6 +3,9 @@ package biotech.content;
 import arc.Core;
 import arc.audio.Sound;
 import arc.graphics.Color;
+import arc.math.Interp;
+import arc.math.Mathf;
+import arc.util.Time;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
@@ -13,6 +16,7 @@ import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.gen.BuildingTetherPayloadUnit;
 import mindustry.gen.LegsUnit;
@@ -36,7 +40,10 @@ public class BioUnits {
             strider,
 
             //core
-            watcher
+            watcher,
+
+            //immune
+            kaph37;
     ;
 
     public static void load() {
@@ -249,6 +256,108 @@ public class BioUnits {
                     sprite = "circle";
                 }};
             }});
+        }};
+        kaph37 = new UnitType("kaph37"){{
+            constructor = LegsUnit::create;
+            aiController = GroundAI::new;
+
+            speed = 1f;
+            drag = 0.11f;
+            hitSize = 9f;
+            rotateSpeed = 3f;
+            health = 650;
+            armor = 1f;
+            legStraightness = 0.3f;
+            stepShake = 0f;
+            drawCell = false;
+
+            legCount = 4;
+            legLength = 12f;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -2f;
+            legBaseOffset = 3f;
+            legMaxLength = 2.2f;
+            legMinLength = 1.5f;
+            legLengthScl = 1.1f;
+            legForwardScl = 1.1f;
+            legSpeed = 0.2f;
+            rippleScale = 0.2f;
+
+            legMoveSpace = 1.2f;
+            allowLegStep = true;
+            legPhysicsLayer = false;
+
+            deathExplosionEffect = new ParticleEffect(){{
+                sizeFrom = 5;
+                sizeTo = 0;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+            }};
+
+            shadowElevation = 0.1f;
+            groundLayer = Layer.legUnit - 1f;
+            targetAir = false;
+            researchCostMultiplier = 0f;
+            lightOpacity = 0;
+
+            weapons.add(new Weapon(){{
+                shootOnDeath = true;
+                reload = 24f;
+                shootCone = 180f;
+                ejectEffect = Fx.none;
+                shootSound = BioSounds.fleshHit;
+                x = shootY = 0f;
+                mirror = false;
+                bullet = new BulletType(){{
+                    collidesTiles = false;
+                    collides = false;
+                    hitSound = BioSounds.fleshHit;
+
+                    rangeOverride = 60f;
+                    hitEffect = new ParticleEffect(){{
+                        sizeFrom = 5;
+                        sizeTo = 5;
+                        colorFrom = BioPal.bloodRedLight;
+                        colorTo = BioPal.bloodRed;
+                    }};
+                    speed = 0f;
+                    splashDamageRadius = 55f;
+                    instantDisappear = true;
+                    splashDamage = 90f;
+                    killShooter = true;
+                    hittable = false;
+                    collidesAir = true;
+                }};
+            }});
+
+            parts.add(
+                    new RegionPart("-mouth"){{
+                        progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 5.2f)) * 0.4f;
+                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 8f)) * 0.1f;
+                        growX = 0.6f;
+                        growY = 0.5f;
+                        moveX = -1.3f;
+                        moveY = 0.6f;
+                        moveRot = 7f;
+                        x = 2f;
+                        y = 2f;
+                    }},
+                    new RegionPart("-holes"){{
+                        progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 6.5f)) * 0.6f;
+                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 9.5f)) * 0.1f;
+                        growX = 0.3f;
+                        growY = 0.5f;
+                        moveX = 1f;
+                        moveY = -0.4f;
+                        moveRot = -5f;
+                        x = 0f;
+                        y = -2f;
+                    }}
+
+            );
+
+            outlineColor = Color.valueOf("2e0808");
         }};
 
     }

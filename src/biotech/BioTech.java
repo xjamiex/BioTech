@@ -13,6 +13,7 @@ import mindustry.ui.dialogs.*;
 public class BioTech extends Mod{
 
     public BioTech(){
+        //AAAAAA
     }
 
     @Override

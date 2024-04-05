@@ -58,7 +58,7 @@ public class BioItems {
             cost = 1.5f;
         }};
 
-        stemCapsule = new Item("stem-capsule", Color.valueOf("db3d3d")){{
+        stemCapsule = new Item("stem-capsule", Color.valueOf("48e070")){{
             hardness = 2;
             cost = 1.8f;
         }};

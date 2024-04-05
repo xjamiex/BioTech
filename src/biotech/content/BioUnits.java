@@ -324,7 +324,7 @@ public class BioUnits {
                     speed = 0f;
                     splashDamageRadius = 55f;
                     instantDisappear = true;
-                    splashDamage = 90f;
+                    splashDamage = 50f;
                     killShooter = true;
                     hittable = false;
                     collidesAir = true;

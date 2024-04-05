@@ -23,4 +23,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.event.repository.name }}
-          path: build/libs/${{ github.event.repository.name }}.jary.name }}.jar
+          path: build/libs/${{ github.event.repository.name }}.jar

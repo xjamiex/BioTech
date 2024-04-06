@@ -66,9 +66,6 @@ public class BioBlocks {
             //production
             hematicSieve,
 
-            //power
-            rotorPipe,
-
             //defense
             magnesiumWall, largeMagnesiumWall,
 
@@ -449,7 +446,7 @@ public class BioBlocks {
             ammo(
                     BioItems.stemCapsule, new LightningLaserBulletType(){{
                         length = r - 5;
-                        damage = 120f;
+                        damage = 60f;
                         ammoMultiplier = 4f;
                         width = 9f;
                         reloadMultiplier = 1.3f;
@@ -508,13 +505,6 @@ public class BioBlocks {
         //endregion
 
         //power
-        rotorPipe = new GenericCrafter("rotor-pipe"){{
-            requirements(power, with(BioItems.calciticFragment, 10, BioItems.phosphorus, 5));
-            hasItems = false;
-            liquidCapacity = 20f;
-            health = 400;
-            outputItem = new ItemStack(BioItems.potash, 1);
-        }};
         //endregion
 
         //defense

@@ -7,22 +7,40 @@ import mindustry.gen.Unit;
 import mindustry.type.UnitType;
 
 public class ParasiteUnitType extends UnitType {
-    TentacleSegment segment;
+    public int segments = 50;
+    public float offsetX = 0;
+    public float offsetY = 0;
+    public String tentacleSprite = "biotech-carrier";
+    public float length = 32 * 0.3f;
+    TentacleSegment[] body = new TentacleSegment[segments];
 
     public ParasiteUnitType(String name) {
         super(name);
-        segment = new TentacleSegment(300, 200, 0, 100);
     }
 
     @Override
     public void init() {
         super.init();
+        body[0] = new TentacleSegment(0, 0, length, 0);
+        for (int i = 1; i < body.length; i++) {
+            body[i] = new TentacleSegment(body[i - 1], length, 0);
+        }
     }
 
     @Override
     public void draw(Unit unit) {
         super.draw(unit);
-        segment.update();
-        segment.render();
+
+        int total = body.length;
+        TentacleSegment base = body[total - 1];
+        base.follow(unit.x, unit.y);
+        base.calculateEnd();
+        base.render(tentacleSprite);
+
+        for (int i = total - 2; i >= 0; i--) {
+            body[i].follow(body[i + 1]);
+            body[i].calculateEnd();
+            body[i].render(tentacleSprite);
+        }
     }
 }

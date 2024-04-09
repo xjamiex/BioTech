@@ -1,32 +1,59 @@
 package biotech.entities;
 
+import arc.Core;
+import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
+import arc.util.Log;
+import arc.util.Tmp;
+
+import javax.sound.sampled.Line;
 
 public class TentacleSegment {
     public Vec2 beginPoint;
     public Vec2 endPoint = new Vec2();
     public float angle;
     public float length;
-    public TentacleSegment(float x, float y, float ang, float len) {
+    public TentacleSegment(float x, float y, float len, float ang) {
         beginPoint = new Vec2(x, y);
         angle = ang;
         length = len;
+        calculateEnd();
     }
 
-    public void calculateEndPoint() {
-        float dx = length * Mathf.cos(angle);
-        float dy = length * Mathf.sin(angle);
+    public TentacleSegment(TentacleSegment par, float len, float ang) {
+        beginPoint = par.endPoint.cpy();
+        angle = ang;
+        length = len;
+        calculateEnd();
+    }
+
+    public void follow(TentacleSegment child) {
+        float targetX = child.beginPoint.x;
+        float targetY = child.beginPoint.y;
+        follow(targetX, targetY);
+    }
+
+    public void follow(float tx, float ty) {
+        Vec2 target = new Vec2(tx, ty);
+        Vec2 dir = Tmp.v1.set(target).sub(beginPoint);
+        angle = dir.angle();
+
+        dir = dir.setLength(length).inv();
+        beginPoint = target.add(dir);
+    }
+
+    public void calculateEnd() {
+        float dx = length * Mathf.cosDeg(angle);
+        float dy = length * Mathf.sinDeg(angle);
         endPoint.set(beginPoint.x + dx, beginPoint.y + dy);
     }
 
-    public void update() {
-        calculateEndPoint();
-    }
-
-    public void render() {
+    public void render(String sprite) {
         Lines.stroke(4);
-        Lines.line(beginPoint.x, beginPoint.y, endPoint.x, endPoint.y);
+        Draw.rect(sprite, beginPoint.x, beginPoint.y, angle - 90);
     }
 }

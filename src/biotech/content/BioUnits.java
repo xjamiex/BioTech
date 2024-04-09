@@ -6,6 +6,7 @@ import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Time;
+import biotech.type.unit.ParasiteUnitType;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
@@ -73,7 +74,7 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        watcher = new UnitType("watcher"){{
+        watcher = new ParasiteUnitType("watcher"){{
             aiController = BuilderAI::new;
             isEnemy = false;
             constructor = UnitEntity::create;

@@ -1,16 +1,9 @@
 package biotech.entities;
 
-import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
-import arc.util.Log;
 import arc.util.Tmp;
-
-import javax.sound.sampled.Line;
 
 public class TentacleSegment {
     public Vec2 beginPoint;
@@ -53,7 +46,7 @@ public class TentacleSegment {
     }
 
     public void render(String sprite) {
-        Lines.stroke(4);
         Draw.rect(sprite, beginPoint.x, beginPoint.y, angle - 90);
+
     }
 }

@@ -1,19 +1,18 @@
 package biotech.type.unit;
 
-import arc.graphics.g2d.Fill;
-import arc.math.geom.Vec2;
+import biotech.BioTech;
+import biotech.content.BioUnits;
 import biotech.entities.TentacleSegment;
 import mindustry.gen.Unit;
+import mindustry.gen.UnitEntity;
 import mindustry.type.UnitType;
 
 public class ParasiteUnitType extends UnitType {
     public int segments = 50;
-    public float offsetX = 0;
-    public float offsetY = 0;
     public String tentacleSprite = "biotech-carrier";
     public float length = 32 * 0.3f;
     TentacleSegment[] body = new TentacleSegment[segments];
-
+    Unit[] segmentUnits = new Unit[segments];
     public ParasiteUnitType(String name) {
         super(name);
     }
@@ -22,8 +21,10 @@ public class ParasiteUnitType extends UnitType {
     public void init() {
         super.init();
         body[0] = new TentacleSegment(0, 0, length, 0);
+        segmentUnits[0] = BioUnits.dummy.spawn(body[0].beginPoint);
         for (int i = 1; i < body.length; i++) {
             body[i] = new TentacleSegment(body[i - 1], length, 0);
+            segmentUnits[i] = BioUnits.dummy.spawn(body[i].beginPoint);
         }
     }
 
@@ -36,7 +37,6 @@ public class ParasiteUnitType extends UnitType {
         base.follow(unit.x, unit.y);
         base.calculateEnd();
         base.render(tentacleSprite);
-
         for (int i = total - 2; i >= 0; i--) {
             body[i].follow(body[i + 1]);
             body[i].calculateEnd();

@@ -1,32 +1,23 @@
 package biotech.content;
 
-import arc.Core;
-import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Time;
+import biotech.entities.unit.ParasiteSegmentUnit;
 import biotech.type.unit.ParasiteUnitType;
-import mindustry.ai.UnitCommand;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
-import mindustry.ai.types.MinerAI;
 import mindustry.content.Fx;
-import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
-import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
-import mindustry.gen.BuildingTetherPayloadUnit;
-import mindustry.gen.LegsUnit;
-import mindustry.gen.Sounds;
-import mindustry.gen.UnitEntity;
+import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
-import mindustry.type.ammo.PowerAmmoType;
 
 public class BioUnits {
     public static UnitType
@@ -44,7 +35,10 @@ public class BioUnits {
             watcher,
 
             //immune
-            kaph37;
+            kaph37,
+
+            //other
+            dummy;
     ;
 
     public static void load() {
@@ -359,6 +353,15 @@ public class BioUnits {
             );
 
             outlineColor = Color.valueOf("2e0808");
+        }};
+
+        dummy = new UnitType("dummy"){{
+            constructor = ParasiteSegmentUnit::create;
+
+            lowAltitude = true;
+            flying = true;
+            health = 650f;
+            canAttack = false;
         }};
 
     }

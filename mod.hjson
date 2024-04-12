@@ -1,23 +1,11 @@
-#the mod name as displayed in-game
-displayName: "[red[]]Bio Tech"
-
-#the internal name of your mod
-name: "biotech"
-
-#your name
-author: "[yellow[]]Jammuu: [white[]]Main Programmer/Spriter\n[cyan[]]EndoFreeze: [white[]]Playtester/Gameplay designer"
-
-#the fully qualified main class of the mod
-main: "biotech.BioTech"
-
-#the mod description as seen in the mod dialog
-description: "A mod that adds [red[]]fleshy stuff"
-
-#the mod version
-version: 0.0.1
-
-#the minimum game build required to run this mod
-minGameVersion: 143
-
-#this is a java mod
-java: true
+{
+    "displayName": "BioTech",
+    "subtitle": "meatballs.",
+    "description": "You discovered a planet that seemed to be alive....",
+    "version": 0.1.5,
+    "minGameVersion": 146,
+    "author": "Jammuu / EndoFreeze",
+    "java": true,
+    "main": "biotech.BioTech",
+    "repo": xjamiex/BioTech
+}

@@ -4,8 +4,6 @@ import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Time;
-import biotech.entities.unit.ParasiteSegmentUnit;
-import biotech.type.unit.ParasiteUnitType;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
@@ -68,7 +66,7 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        watcher = new ParasiteUnitType("watcher"){{
+        watcher = new UnitType("watcher"){{
             aiController = BuilderAI::new;
             isEnemy = false;
             constructor = UnitEntity::create;
@@ -354,15 +352,5 @@ public class BioUnits {
 
             outlineColor = Color.valueOf("2e0808");
         }};
-
-        dummy = new UnitType("dummy"){{
-            constructor = ParasiteSegmentUnit::create;
-
-            lowAltitude = true;
-            flying = true;
-            health = 650f;
-            canAttack = false;
-        }};
-
     }
 }

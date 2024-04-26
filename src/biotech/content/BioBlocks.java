@@ -456,7 +456,7 @@ public class BioBlocks {
                         lightningColor = BioPal.supportGreenLight;
                         lightningLength = 15;
                         lightning = 1;
-                        lightningCone = 1;
+                        lightningCone = 0f;
                         lightningType = new BulletType(0.0001f, 2f){{
                             lifetime = Fx.lightning.lifetime;
                             hitEffect = despawnEffect = new WaveEffect(){{

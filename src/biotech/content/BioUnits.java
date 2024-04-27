@@ -108,7 +108,7 @@ public class BioUnits {
                             shootEffect = Fx.none;
                             lifetime = 60f;
                             homingPower = 1;
-                            buildingDamageMultiplier = 0.1f;
+                            buildingDamageMultiplier = 0.01f;
                         }};
                     }}
             );

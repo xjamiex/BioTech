@@ -23,13 +23,12 @@ import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.environment.StaticWall;
 import mindustry.world.blocks.environment.SteamVent;
+import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.liquid.LiquidRouter;
-import mindustry.world.blocks.production.AttributeCrafter;
-import mindustry.world.blocks.production.Drill;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.production.WallCrafter;
+import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.units.UnitCargoLoader;
 import mindustry.world.blocks.units.UnitCargoUnloadPoint;
@@ -63,6 +62,9 @@ public class BioBlocks {
             //turret
             alive, spike, celluris, dissection,
 
+            //power
+            rotorPipe,
+
             //production
             hematicSieve,
 
@@ -85,7 +87,6 @@ public class BioBlocks {
 
         //liquid
         bioPump = new AttributeCrafter("bio-pump"){{
-            researchCost = with(BioItems.magnesium, 20);
             requirements(production, with(BioItems.magnesium, 45));
             attribute = meat;
             group = BlockGroup.drills;
@@ -96,7 +97,7 @@ public class BioBlocks {
             size = 2;
             ambientSound = Sounds.hum;
             ambientSoundVolume = 0.06f;
-            craftTime = 120f;
+            craftTime = 200f;
             itemCapacity = 30;
             ignoreLiquidFullness = true;
 
@@ -131,7 +132,6 @@ public class BioBlocks {
 
         //distribution
         magnesiumConveyor = new Conveyor("magnesium-convayor"){{
-            researchCost = with(BioItems.magnesium, 6);
             bridgeReplacement = BioBlocks.conveyorOverpass;
             requirements(Category.distribution, with(BioItems.magnesium, 1));
             health = 35;
@@ -140,7 +140,6 @@ public class BioBlocks {
         }};
 
         splitter = new Router("splitter"){{
-            researchCost = with(BioItems.magnesium, 15);
             requirements(Category.distribution, with(BioItems.magnesium, 2));
             health = 40;
         }};
@@ -157,7 +156,6 @@ public class BioBlocks {
 
         //drills
         bioDrill = new Drill("bio-drill"){{
-            researchCost = with(BioItems.magnesium, 10, BioItems.calciticFragment, 10);
             //more expensive
             requirements(Category.production, with(BioItems.magnesium, 65, BioItems.calciticFragment, 35));
             tier = 1;
@@ -167,7 +165,6 @@ public class BioBlocks {
         }};
 
         boneCrusher = new WallCrafter("bone-crusher"){{
-            researchCost = with(BioItems.magnesium, 15);
             requirements(Category.production, with(BioItems.magnesium, 40));
             drillTime = 110f;
             size = 2;
@@ -219,12 +216,10 @@ public class BioBlocks {
         alive = new ItemTurret("alive"){{
             health = 1020;
             size = 3;
-            buildCostMultiplier = 10/4.2f;
-            researchCostMultiplier = 0.2f;
             requirements(turret, with(BioItems.calciticFragment, 60, BioItems.magnesium, 60));
             maxAmmo = 5;
 
-            range = 180;
+            range = 150;
             shootY = 0.7f;
             shootSound = Sounds.shootBig;
             inaccuracy = 2f;
@@ -280,12 +275,10 @@ public class BioBlocks {
         spike = new ItemTurret("spike"){{
             health = 1120;
             size = 3;
-            buildCostMultiplier = 10/4.2f;
-            researchCostMultiplier = 0.2f;
             requirements(turret, with(BioItems.calciticFragment, 50, BioItems.magnesium, 60));
             maxAmmo = 25;
 
-            range = 270;
+            range = 230;
             shootY = 0.7f;
 
             shootSound = Sounds.shootAlt;
@@ -477,9 +470,19 @@ public class BioBlocks {
         }};
         //endregion
 
+        //power
+        rotorPipe = new Conduit("rotor-pipe"){{
+            requirements(power, with(BioItems.calciticFragment, 50, BioItems.potash, 35));
+            health = 600;
+            size = 1;
+
+            consumeLiquid(BioLiquids.hemoFluid, 0.1f);
+            outputsPower = true;
+        }};
+        //endregion
+
         //production
         hematicSieve = new GenericCrafter("hematic-sieve"){{
-            researchCost = with(BioItems.magnesium, 100, BioItems.calciticFragment, 100);
             requirements(Category.crafting, with(BioItems.magnesium, 50, BioItems.calciticFragment, 50));
             squareSprite = false;
             hasItems = true;
@@ -524,7 +527,6 @@ public class BioBlocks {
         //units
         aircraftManufacturer = new UnitFactory("aircraft-manufacturer"){{
             // TODO: CHANGE RESEARCH / BUILD COST
-            researchCost = with(BioItems.magnesium, 340, BioItems.carbonicTissue, 300, BioItems.calciticFragment, 450);
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140));
             size = 3;
             plans.add(new UnitPlan(BioUnits.scout, 60 * 28f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
@@ -533,7 +535,6 @@ public class BioBlocks {
         }};
 
         groundManufacturer = new UnitFactory("ground-manufacturer"){{
-            researchCost = with(BioItems.magnesium, 340, BioItems.potash, 200, BioItems.calciticFragment, 450);
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.potash, 80, BioItems.calciticFragment, 140));
             size = 3;
             plans.add(new UnitPlan(BioUnits.strider, 60 * 25f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
@@ -541,7 +542,6 @@ public class BioBlocks {
         }};
 
         unitDocker = new UnitCargoLoader("unit-docker"){{
-            researchCost = with(BioItems.magnesium, 30, BioItems.calciticFragment, 45);
             unitType = BioUnits.carrier;
 
             polyColor = BioPal.supportGreenLight;
@@ -557,7 +557,6 @@ public class BioBlocks {
         }};
 
         unitDischarger = new UnitCargoUnloadPoint("unit-discharger"){{
-            researchCost = with(BioItems.magnesium, 25, BioItems.calciticFragment, 35);
             requirements(Category.distribution, with(BioItems.magnesium, 34, BioItems.calciticFragment, 15));
             size = 2;
             itemCapacity = 40;

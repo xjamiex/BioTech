@@ -51,7 +51,7 @@ public class BioBlocks {
             bioDrill, boneCrusher,
 
             //env
-            flesh, flint, bone, myostone,
+            flesh, flint, bone, myostone, flourspar, dolomite,
             oreMagnesium,
             fleshWall, boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall,
             poreHole,
@@ -184,6 +184,8 @@ public class BioBlocks {
         flint = new Floor("flint", 4);
         bone = new Floor("bone", 4);
         myostone = new Floor("myostone", 4);
+        flourspar = new Floor("flourspar", 4);
+        dolomite = new Floor("dolomite", 4);
 
         boneWall = new StaticWall("bone-wall"){{
             itemDrop = BioItems.calciticFragment;
@@ -345,7 +347,7 @@ public class BioBlocks {
             rotateSpeed = 2f;
             reload = 200;
             minWarmup = 0.90f;
-            targetAir = false;
+            targetAir = true;
             targetGround = true;
             outlineColor = Color.valueOf("2b2626");
 
@@ -365,6 +367,7 @@ public class BioBlocks {
                         trailLength = 6;
                         drag = 0.01f;
                         lifetime = 110;
+                        collidesAir = true;
 
                         hitEffect = despawnEffect = new WaveEffect(){{
                             sizeFrom = 5;

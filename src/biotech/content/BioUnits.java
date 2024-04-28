@@ -10,8 +10,10 @@ import mindustry.ai.types.GroundAI;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
+import mindustry.entities.part.HaloPart;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
+import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
@@ -24,7 +26,7 @@ public class BioUnits {
             carrier,
 
             //air attack
-            scout,
+            scout, seer,
 
             //ground attack
             strider,
@@ -107,7 +109,7 @@ public class BioUnits {
                             height = 12f;
                             shootEffect = Fx.none;
                             lifetime = 60f;
-                            homingPower = 1;
+                            homingPower = 0.2f;
                             buildingDamageMultiplier = 0.01f;
                         }};
                     }}
@@ -125,7 +127,7 @@ public class BioUnits {
             speed = 2.8f;
             rotateSpeed = 19f;
             accel = 0.05f;
-            itemCapacity = 40;
+            itemCapacity = 5;
             health = 650f;
             engineOffset = 7f;
             hitSize = 11f;
@@ -138,7 +140,7 @@ public class BioUnits {
                         top = true;
                         reload = 210f;
                         shootSound = Sounds.shootBig;
-                        bullet = new BasicBulletType(4.2f, 80){{
+                        bullet = new BasicBulletType(4.2f, 100){{
                             width = 15;
                             height = 15;
                             shrinkX = shrinkY = 0;
@@ -173,6 +175,109 @@ public class BioUnits {
                                     colorTo = BioPal.bloodRed;
                                     particles = 2;
                                     sizeFrom = 5;
+                                    sizeTo = 0;
+                                }};
+                            }};
+                        }};
+                    }}
+            );
+
+            outlineColor = Color.valueOf("2b2626");
+        }};
+
+        seer = new UnitType("seer"){{
+            constructor = UnitEntity::create;
+
+            lowAltitude = true;
+            flying = true;
+            drag = 0.06f;
+            speed = 2.3f;
+            rotateSpeed = 18f;
+            accel = 0.04f;
+            itemCapacity = 5;
+            health = 850f;
+            engineOffset = 11f;
+            engineSize = 3f;
+            hitSize = 19f;
+
+            parts.addAll(
+                    new HaloPart(){{
+                        x = 0;
+                        y = -5;
+                        sides = 5;
+                        shapes = 1;
+                        rotateSpeed = 5;
+                        color = BioPal.bloodRed;
+                        colorTo = BioPal.bloodRedLight;
+                        radius = 0;
+                        radiusTo = 3;
+                        stroke = 0;
+                        strokeTo = 3;
+                        layer = Layer.effect;
+                    }},
+                    new HaloPart(){{
+                        x = 0;
+                        y = -5;
+                        sides = 5;
+                        shapes = 1;
+                        rotateSpeed = -5;
+                        color = BioPal.bloodRed;
+                        colorTo = BioPal.bloodRedLight;
+                        radius = 0;
+                        radiusTo = 6;
+                        stroke = 0;
+                        strokeTo = 3;
+                        layer = Layer.effect;
+                        hollow = true;
+                    }}
+            );
+
+            weapons.add(
+                    new Weapon("seer-missile-launcher"){{
+                        x = 0;
+                        y = 0;
+                        mirror = false;
+                        top = true;
+                        reload = 150f;
+                        shootSound = Sounds.missile;
+                        shoot = new ShootSpread(4, 20f);
+
+                        bullet = new MissileBulletType(4.2f, 65){{
+                            width = 10;
+                            height = 10;
+                            shrinkX = shrinkY = 0;
+                            backColor = BioPal.bloodRedLight;
+                            frontColor = BioPal.bloodRedLight;
+
+                            sprite = "circle";
+
+                            trailLength = 10;
+                            trailColor = BioPal.bloodRedLight;
+                            trailWidth = 4;
+                            bulletInterval = 5;
+                            intervalBullets = 1;
+                            lifetime = 70f;
+
+                            shootEffect = hitEffect = despawnEffect = new ParticleEffect(){{
+                                colorFrom = BioPal.bloodRedLight;
+                                colorTo = BioPal.bloodRed;
+                                particles = 6;
+                                sizeFrom = 5;
+                                sizeTo = 0;
+                            }};
+                            intervalBullet = new BasicBulletType(0.2f, 5){{
+                                width = 5;
+                                height = 5;
+                                shrinkX = shrinkY = 0;
+                                backColor = BioPal.bloodRedLight;
+                                frontColor = BioPal.bloodRedLight;
+                                sprite = "circle";
+
+                                shootEffect = hitEffect = despawnEffect = new ParticleEffect(){{
+                                    colorFrom = BioPal.bloodRedLight;
+                                    colorTo = BioPal.bloodRed;
+                                    particles = 2;
+                                    sizeFrom = 3;
                                     sizeTo = 0;
                                 }};
                             }};

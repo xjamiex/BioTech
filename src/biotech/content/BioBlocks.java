@@ -131,6 +131,15 @@ public class BioBlocks {
         //endregion
 
         //distribution
+        conveyorOverpass = new BufferedItemBridge("conveyor-overpass"){{
+            requirements(Category.distribution, with(BioItems.magnesium, 6));
+            fadeIn = moveArrows = false;
+            range = 4;
+            speed = 74f;
+            arrowSpacing = 6f;
+            bufferCapacity = 14;
+        }};
+
         magnesiumConveyor = new Conveyor("magnesium-convayor"){{
             bridgeReplacement = BioBlocks.conveyorOverpass;
             requirements(Category.distribution, with(BioItems.magnesium, 1));
@@ -144,14 +153,7 @@ public class BioBlocks {
             health = 40;
         }};
 
-        conveyorOverpass = new BufferedItemBridge("conveyor-overpass"){{
-            requirements(Category.distribution, with(BioItems.magnesium, 6));
-            fadeIn = moveArrows = false;
-            range = 4;
-            speed = 74f;
-            arrowSpacing = 6f;
-            bufferCapacity = 14;
-        }};
+
         //endregion
 
         //drills

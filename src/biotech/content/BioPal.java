@@ -11,7 +11,8 @@ public class BioPal {
     boneWhite = Color.valueOf("bdbec9"),
     supportGreenLight = Color.valueOf("b0ffb1"),
     cellBlueLight = Color.valueOf("59d0f7"),
-    cellBlue = Color.valueOf("318ce0")
+    cellBlue = Color.valueOf("318ce0"),
+    magnesiumPurple = Color.valueOf("a377bf")
 
     ;
 }

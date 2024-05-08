@@ -2,12 +2,17 @@ package biotech.content;
 
 import arc.graphics.Color;
 import arc.graphics.gl.Shader;
+import biotech.BioTech;
 import biotech.entities.bullet.LightningLaserBulletType;
+import biotech.world.blocks.power.PowerConduit;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.pattern.ShootBarrel;
+import mindustry.entities.pattern.ShootMulti;
+import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
@@ -60,7 +65,7 @@ public class BioBlocks {
             nerveProtrusion, fleshGrowth, undevelopedCyst,
 
             //turret
-            alive, spike, celluris, dissection,
+            alive, spike, celluris, dissection, needle,
 
             //power
             rotorPipe,
@@ -187,9 +192,7 @@ public class BioBlocks {
         flourspar = new Floor("flourspar", 4);
         dolomite = new Floor("dolomite", 4);
 
-        boneWall = new StaticWall("bone-wall"){{
-            itemDrop = BioItems.calciticFragment;
-        }};
+        boneWall = new StaticWall("bone-wall");
 
         decayedBoneWall = new StaticWall("decayed-bone-wall"){{
             itemDrop = BioItems.calciticFragment;
@@ -226,13 +229,13 @@ public class BioBlocks {
             shootSound = Sounds.shootBig;
             inaccuracy = 2f;
             rotateSpeed = 2f;
-            reload = 120;
+            reload = 130;
             minWarmup = 0.90f;
             targetAir = false;
             targetGround = true;
 
             ammo(
-                    BioItems.carbonicTissue, new BasicBulletType(3f, 80){{
+                    BioItems.carbonicTissue, new BasicBulletType(3f, 145){{
                         sprite = "biotech-meatball";
                         shootEffect = trailEffect = new ParticleEffect(){{
                             particles = 6;
@@ -245,7 +248,7 @@ public class BioBlocks {
                         hitEffect = despawnEffect = new ParticleEffect(){{
                             colorFrom = BioPal.bloodRedLight;
                             colorTo = BioPal.bloodRed;
-                            sizeFrom = 15;
+                            sizeFrom = 10;
                             sizeTo = 0;
                             particles = 10;
                             length = 50f;
@@ -340,7 +343,7 @@ public class BioBlocks {
         celluris = new ItemTurret("celluris"){{
             health = 1250;
             size = 3;
-            requirements(turret, with(BioItems.magnesium, 120, BioItems.potash, 50, BioItems.phosphorus, 50));
+            requirements(turret, with(BioItems.magnesium, 150, BioItems.potash, 50, BioItems.calciticFragment, 200));
             range = 250;
             shootSound = Sounds.missileLarge;
             inaccuracy = 1f;
@@ -427,7 +430,7 @@ public class BioBlocks {
         dissection = new ItemTurret("dissection"){{
             health = 1100;
             size = 3;
-            requirements(turret, with(BioItems.carbonicTissue, 1));
+            requirements(turret, with(BioItems.magnesium, 200, BioItems.calciticFragment, 180, BioItems.potash, 120));
             float r = range = 80;
             shootSound = Sounds.missileLarge;
             inaccuracy = 1f;
@@ -471,16 +474,68 @@ public class BioBlocks {
                     }}
             );
         }};
+        needle = new ItemTurret("needle"){{
+            health = 890;
+            size = 2;
+            requirements(turret, with(BioItems.magnesium, 50, BioItems.potash, 25));
+
+            range = 140;
+            shootSound = Sounds.shootAlt;
+            inaccuracy = 2f;
+            rotateSpeed = 2f;
+            reload = 15;
+            minWarmup = 0.90f;
+            targetAir = true;
+            targetGround = true;
+
+            shoot = new ShootBarrel(){{
+                shots = 2;
+                barrels = new float[]{2, 1, 0, -2, 1, 0};
+            }};
+
+            ammo(
+                    BioItems.magnesium, new BasicBulletType(4f, 8){{
+                        hitEffect = despawnEffect = shootEffect = new WaveEffect(){{
+                            colorFrom = BioPal.magnesiumPurple;
+                            colorTo = BioPal.magnesiumPurple;
+                            sizeFrom = 0;
+                            sizeTo = 3;
+                            strokeFrom = 1;
+                            strokeTo = 0;
+                        }};
+
+                        width = 10;
+                        height = 10;
+                        shrinkX = shrinkY = 0;
+                        frontColor = BioPal.magnesiumPurple;
+                        backColor = BioPal.magnesiumPurple;
+                        trailLength = 5;
+                        trailWidth = 2;
+                        trailColor = BioPal.magnesiumPurple;
+                        trailInterval = 2f;
+                        lifetime = 40f;
+                        collidesAir = true;
+                        trailEffect = BioFx.needleSpike;
+
+                        hitSound = despawnSound = Sounds.bang;
+                    }}
+            );
+
+            outlineColor = Color.valueOf("2b2626");
+
+        }};
+
         //endregion
 
         //power
-        rotorPipe = new Conduit("rotor-pipe"){{
+        rotorPipe = new PowerConduit("rotor-pipe"){{
             requirements(power, with(BioItems.calciticFragment, 50, BioItems.potash, 35));
             health = 600;
             size = 1;
 
-            consumeLiquid(BioLiquids.hemoFluid, 0.1f);
-            outputsPower = true;
+            consumeLiquid(BioLiquids.hemoFluid, 0.3f);
+            powerProduction = 0.15f;
+            botColor = Color.valueOf("262525");
         }};
         //endregion
 

@@ -1,6 +1,8 @@
 package biotech.content;
 
+import arc.Core;
 import arc.graphics.Color;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Time;
@@ -152,8 +154,9 @@ public class BioUnits {
                             trailLength = 10;
                             trailColor = BioPal.bloodRedLight;
                             trailWidth = 4;
-                            bulletInterval = 10;
-                            intervalBullets = 2;
+                            trailInterval = 2;
+                            intervalBullets = 1;
+                            bulletInterval = 1.5f;
 
                             shootEffect = hitEffect = despawnEffect = new ParticleEffect(){{
                                 colorFrom = BioPal.bloodRedLight;
@@ -162,7 +165,7 @@ public class BioUnits {
                                 sizeFrom = 5;
                                 sizeTo = 0;
                             }};
-                            intervalBullet = new BasicBulletType(0.2f, 5){{
+                            intervalBullet = new BasicBulletType(0.2f, 3){{
                                 width = 5;
                                 height = 5;
                                 shrinkX = shrinkY = 0;
@@ -174,7 +177,7 @@ public class BioUnits {
                                     colorFrom = BioPal.bloodRedLight;
                                     colorTo = BioPal.bloodRed;
                                     particles = 2;
-                                    sizeFrom = 5;
+                                    sizeFrom = 3;
                                     sizeTo = 0;
                                 }};
                             }};
@@ -192,10 +195,10 @@ public class BioUnits {
             flying = true;
             drag = 0.06f;
             speed = 2.3f;
-            rotateSpeed = 18f;
+            rotateSpeed = 13f;
             accel = 0.04f;
             itemCapacity = 5;
-            health = 850f;
+            health = 1050f;
             engineOffset = 11f;
             engineSize = 3f;
             hitSize = 19f;
@@ -226,9 +229,23 @@ public class BioUnits {
                         radius = 0;
                         radiusTo = 6;
                         stroke = 0;
-                        strokeTo = 3;
+                        strokeTo = 1.5f;
                         layer = Layer.effect;
                         hollow = true;
+                    }},
+                    new RegionPart("-wings"){{
+                        x = y = 0;
+                        progress = PartProgress.warmup;
+                        mirror = true;
+                        moveX = 1;
+                        moveY = -1.2f;
+                    }},
+                    new RegionPart("-nozzle"){{
+                        x = y = 0;
+                        progress = PartProgress.warmup;
+                        mirror = true;
+                        moveX = 1.3f;
+                        moveY = -1f;
                     }}
             );
 
@@ -238,48 +255,31 @@ public class BioUnits {
                         y = 0;
                         mirror = false;
                         top = true;
-                        reload = 150f;
-                        shootSound = Sounds.missile;
+                        reload = 80f;
+                        shootSound = Sounds.missileLarge;
                         shoot = new ShootSpread(4, 20f);
 
                         bullet = new MissileBulletType(4.2f, 65){{
                             width = 10;
-                            height = 10;
+                            height = 15;
                             shrinkX = shrinkY = 0;
                             backColor = BioPal.bloodRedLight;
                             frontColor = BioPal.bloodRedLight;
 
-                            sprite = "circle";
+                            sprite = "biotech-double-rhombus";
 
-                            trailLength = 10;
+                            trailLength = 15;
                             trailColor = BioPal.bloodRedLight;
-                            trailWidth = 4;
-                            bulletInterval = 5;
-                            intervalBullets = 1;
-                            lifetime = 70f;
+                            trailWidth = 3;
+                            lifetime = 55f;
+                            trailInterval = 1.5f;
 
-                            shootEffect = hitEffect = despawnEffect = new ParticleEffect(){{
+                            trailEffect = hitEffect = despawnEffect = new ParticleEffect(){{
                                 colorFrom = BioPal.bloodRedLight;
                                 colorTo = BioPal.bloodRed;
-                                particles = 6;
-                                sizeFrom = 5;
+                                particles = 1;
+                                sizeFrom = 3;
                                 sizeTo = 0;
-                            }};
-                            intervalBullet = new BasicBulletType(0.2f, 5){{
-                                width = 5;
-                                height = 5;
-                                shrinkX = shrinkY = 0;
-                                backColor = BioPal.bloodRedLight;
-                                frontColor = BioPal.bloodRedLight;
-                                sprite = "circle";
-
-                                shootEffect = hitEffect = despawnEffect = new ParticleEffect(){{
-                                    colorFrom = BioPal.bloodRedLight;
-                                    colorTo = BioPal.bloodRed;
-                                    particles = 2;
-                                    sizeFrom = 3;
-                                    sizeTo = 0;
-                                }};
                             }};
                         }};
                     }}
@@ -343,11 +343,12 @@ public class BioUnits {
                     trailWidth = 2;
                     trailLength = 2;
                     trailInterval = 2f;
+                    homingPower = 0.3f;
                     trailEffect = new ParticleEffect(){{
                         colorFrom = BioPal.bloodRedLight;
                         colorTo = BioPal.bloodRed;
                         particles = 2;
-                        sizeFrom = 3;
+                        sizeFrom = 1;
                         sizeTo = 0;
                     }};
 

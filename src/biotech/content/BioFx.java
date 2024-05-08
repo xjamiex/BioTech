@@ -1,5 +1,7 @@
 package biotech.content;
 
+import arc.graphics.Color;
+import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.util.Tmp;
 import mindustry.Vars;
@@ -26,6 +28,14 @@ public class BioFx {
                 Lines.linePoint(Tmp.v1);
             }
             Lines.endLine();
+        }),
+
+        needleSpike = new Effect(50f, e -> {
+            float offset = 4;
+            color(BioPal.magnesiumPurple, Color.clear.add(0, 0, 0, 100), e.fin());
+            Fill.tri(e.x, e.y,
+                    e.x + getRandomNum(offset, -offset), e.y + getRandomNum(offset, -offset),
+                    e.x + getRandomNum(offset, -offset), e.y + getRandomNum(offset, -offset));
         });
 
     public static float getRandomNum(float c, float f){

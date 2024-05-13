@@ -5,6 +5,7 @@ import arc.graphics.gl.Shader;
 import biotech.BioTech;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.world.blocks.power.PowerConduit;
+import biotech.world.blocks.unit.UnitCapUnitCargoLoader;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
@@ -598,7 +599,7 @@ public class BioBlocks {
             consumeLiquid(BioLiquids.hemoFluid, 0.2f);
         }};
 
-        unitDocker = new UnitCargoLoader("unit-docker"){{
+        unitDocker = new UnitCapUnitCargoLoader("unit-docker"){{
             unitType = BioUnits.carrier;
 
             polyColor = BioPal.supportGreenLight;

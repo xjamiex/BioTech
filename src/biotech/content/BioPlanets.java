@@ -2,8 +2,10 @@ package biotech.content;
 
 import arc.graphics.Color;
 import biotech.maps.planets.AndoriPlanetGenerator;
+import mindustry.Vars;
 import mindustry.content.Items;
 import mindustry.content.Planets;
+import mindustry.content.Weathers;
 import mindustry.game.Team;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.HexMesh;
@@ -13,6 +15,7 @@ import mindustry.graphics.g3d.NoiseMesh;
 import mindustry.maps.planet.ErekirPlanetGenerator;
 import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.type.Planet;
+import mindustry.type.Weather;
 
 public class BioPlanets {
     public static Planet
@@ -41,6 +44,10 @@ public class BioPlanets {
                 r.waveTeam = Team.crux;
                 r.placeRangeCheck = false;
                 r.showSpawns = false;
+                r.weather.add(new Weather.WeatherEntry(){{
+                    weather = Weathers.fog;
+                    always = true;
+                }});
             };
             iconColor = BioPal.bloodRedLight;
             atmosphereColor = BioPal.bloodRed;
@@ -50,6 +57,7 @@ public class BioPlanets {
             allowLaunchToNumbered = false;
             alwaysUnlocked = true;
             landCloudColor = BioPal.bloodRed.cpy().a(0.5f);
+            updateLighting = false;
             hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems).removeAll(BioItems.andoriItems);
         }};
     }

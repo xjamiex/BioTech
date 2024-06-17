@@ -20,10 +20,12 @@ public class BioTechTree {
             });
 
             node(BioBlocks.bioDrill, () -> {
-                node(BioBlocks.bioPump, () -> {
-                    node(BioBlocks.liquidPipe, () -> {
-                        node(BioBlocks.liquidSplitter, () -> {
-                            node(BioBlocks.liquidOverpass);
+                node(BioBlocks.bioPiercer, () -> {
+                    node(BioBlocks.bioPress, () -> {
+                        node(BioBlocks.liquidPipe, () -> {
+                            node(BioBlocks.liquidSplitter, () -> {
+                                node(BioBlocks.liquidOverpass);
+                            });
                         });
                     });
                 });

@@ -48,13 +48,13 @@ import static mindustry.type.ItemStack.with;
 public class BioBlocks {
     public static Block
             //liquids
-            bioPump, liquidPipe, liquidSplitter, liquidOverpass,
+            bioPress, liquidPipe, liquidSplitter, liquidOverpass,
 
             //distribution
             magnesiumConveyor, splitter, conveyorOverpass,
 
             //drill
-            bioDrill, boneCrusher,
+            bioDrill, boneCrusher, bioPiercer,
 
             //env
             flesh, flint, bone, myostone, flourspar, dolomite,
@@ -92,14 +92,9 @@ public class BioBlocks {
     public static void load() {
 
         //liquid
-        bioPump = new AttributeCrafter("bio-pump"){{
-            requirements(production, with(BioItems.magnesium, 45));
-            attribute = meat;
+        bioPress = new GenericCrafter("bio-press"){{
+            requirements(production, with(BioItems.magnesium, 120, BioItems.calciticFragment, 50));
             group = BlockGroup.drills;
-            displayEfficiency = false;
-            minEfficiency = 0.0001f;
-            baseEfficiency = 0f;
-            boostScale = 1f / 4f;
             size = 2;
             ambientSound = Sounds.hum;
             ambientSoundVolume = 0.06f;
@@ -107,9 +102,9 @@ public class BioBlocks {
             itemCapacity = 30;
             ignoreLiquidFullness = true;
 
+            consumeItem(BioItems.carbonicTissue, 4);
             hasLiquids = true;
-            outputLiquid = new LiquidStack(BioLiquids.hemoFluid, 1f / 2f / 2f);
-            outputItem = new ItemStack(BioItems.carbonicTissue, 1);
+            outputLiquid = new LiquidStack(BioLiquids.hemoFluid, 1f / 4f);
             liquidCapacity = 40f;
             squareSprite = false;
         }};
@@ -167,6 +162,50 @@ public class BioBlocks {
             drillTime = 650;
             size = 3;
             squareSprite = false;
+        }};
+
+        bioPiercer = new AttributeCrafter("bio-piercer"){{
+            requirements(production, with(BioItems.magnesium, 45));
+            attribute = meat;
+            minEfficiency = 0.000001f;
+            baseEfficiency = 0;
+            displayEfficiency = false;
+            boostScale = 1f / 4f;
+            group = BlockGroup.drills;
+            size = 2;
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.06f;
+            craftTime = 200f;
+            itemCapacity = 30;
+            ignoreLiquidFullness = true;
+
+            hasLiquids = true;
+            outputItem = new ItemStack(BioItems.carbonicTissue, 1);
+            liquidCapacity = 40f;
+            squareSprite = false;
+            craftEffect = new ParticleEffect(){{
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+                sizeFrom = 2;
+                sizeTo = 0;
+                particles = 10;
+                length = 20f;
+            }};
+
+            ambientSound = Sounds.drill;
+
+            drawer = new DrawMulti(
+                    new DrawPistons(){{
+                        sides = 4;
+                        sinMag = 1;
+                        sinScl = 1.2f;
+                        sinOffset = 2;
+                        lenOffset = -5.5f;
+                        angleOffset = 45;
+                    }},
+                    new DrawDefault(),
+                    new DrawRegion("-top")
+            );
         }};
 
         boneCrusher = new WallCrafter("bone-crusher"){{

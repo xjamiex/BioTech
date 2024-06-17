@@ -37,10 +37,8 @@ public class BioUnits {
             watcher,
 
             //immune
-            kaph37,
+            kaph37
 
-            //other
-            dummy;
     ;
 
     public static void load() {

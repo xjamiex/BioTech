@@ -93,6 +93,7 @@ public class BioBlocks {
 
         //liquid
         bioPress = new GenericCrafter("bio-press"){{
+            researchCostMultiplier = 0.6f;
             requirements(production, with(BioItems.magnesium, 120, BioItems.calciticFragment, 50));
             group = BlockGroup.drills;
             size = 2;
@@ -110,6 +111,7 @@ public class BioBlocks {
         }};
 
         liquidPipe = new Conduit("liquid-pipe"){{
+            researchCostMultiplier = 0.6f;
             researchCost = with(BioItems.calciticFragment, 6);
             requirements(Category.liquid, with(BioItems.calciticFragment, 1));
             health = 143;
@@ -141,6 +143,7 @@ public class BioBlocks {
             bufferCapacity = 14;
         }};
         magnesiumConveyor = new Conveyor("magnesium-convayor"){{
+            researchCostMultiplier = 0.6f;
             bridgeReplacement = BioBlocks.conveyorOverpass;
             requirements(Category.distribution, with(BioItems.magnesium, 1));
             health = 35;
@@ -156,7 +159,6 @@ public class BioBlocks {
 
         //drills
         bioDrill = new Drill("bio-drill"){{
-            //more expensive
             requirements(Category.production, with(BioItems.magnesium, 65, BioItems.calciticFragment, 35));
             tier = 1;
             drillTime = 650;
@@ -165,6 +167,7 @@ public class BioBlocks {
         }};
 
         bioPiercer = new AttributeCrafter("bio-piercer"){{
+            researchCostMultiplier = 0.6f;
             requirements(production, with(BioItems.magnesium, 45));
             attribute = meat;
             minEfficiency = 0.000001f;
@@ -258,6 +261,7 @@ public class BioBlocks {
 
         //turrets
         alive = new ItemTurret("alive"){{
+            researchCostMultiplier = 0.6f;
             health = 1020;
             size = 3;
             requirements(turret, with(BioItems.calciticFragment, 60, BioItems.magnesium, 60));

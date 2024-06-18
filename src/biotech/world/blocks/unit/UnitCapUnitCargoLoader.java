@@ -13,8 +13,6 @@ import static mindustry.Vars.net;
 
 public class UnitCapUnitCargoLoader extends UnitCargoLoader {
 
-    public static int unitCap = 4;
-
     public UnitCapUnitCargoLoader(String name) {
         super(name);
     }
@@ -58,6 +56,6 @@ public class UnitCapUnitCargoLoader extends UnitCargoLoader {
     }
 
     static boolean canCreate(Team team, UnitType type){
-        return team.data().countType(type) < unitCap && !type.isBanned();
+        return !type.isBanned();
     }
 }

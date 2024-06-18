@@ -636,7 +636,7 @@ public class BioBlocks {
         }};
 
         groundManufacturer = new UnitFactory("ground-manufacturer"){{
-            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.potash, 80, BioItems.calciticFragment, 140));
+            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.calciticFragment, 140));
             size = 3;
             plans.add(new UnitPlan(BioUnits.strider, 60 * 25f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
             consumeLiquid(BioLiquids.hemoFluid, 0.2f);

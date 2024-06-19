@@ -17,6 +17,7 @@ import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
+import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
@@ -93,8 +94,8 @@ public class BioBlocks {
 
         //liquid
         bioPress = new GenericCrafter("bio-press"){{
-            researchCostMultiplier = 0.6f;
-            requirements(production, with(BioItems.magnesium, 120, BioItems.calciticFragment, 50));
+            researchCost = with(BioItems.magnesium, 200, BioItems.calciticFragment, 75);
+            requirements(production, with(BioItems.magnesium, 100, BioItems.calciticFragment, 50));
             group = BlockGroup.drills;
             size = 2;
             ambientSound = Sounds.hum;
@@ -111,8 +112,6 @@ public class BioBlocks {
         }};
 
         liquidPipe = new Conduit("liquid-pipe"){{
-            researchCostMultiplier = 0.6f;
-            researchCost = with(BioItems.calciticFragment, 6);
             requirements(Category.liquid, with(BioItems.calciticFragment, 1));
             health = 143;
             botColor = Color.valueOf("262525");
@@ -143,7 +142,7 @@ public class BioBlocks {
             bufferCapacity = 14;
         }};
         magnesiumConveyor = new Conveyor("magnesium-convayor"){{
-            researchCostMultiplier = 0.6f;
+            researchCost = with(BioItems.magnesium, 15);
             bridgeReplacement = BioBlocks.conveyorOverpass;
             requirements(Category.distribution, with(BioItems.magnesium, 1));
             health = 35;
@@ -159,7 +158,8 @@ public class BioBlocks {
 
         //drills
         bioDrill = new Drill("bio-drill"){{
-            requirements(Category.production, with(BioItems.magnesium, 65, BioItems.calciticFragment, 35));
+            researchCost = with(BioItems.magnesium, 60);
+            requirements(Category.production, with(BioItems.magnesium, 40, BioItems.calciticFragment, 35));
             tier = 1;
             drillTime = 650;
             size = 3;
@@ -167,8 +167,8 @@ public class BioBlocks {
         }};
 
         bioPiercer = new AttributeCrafter("bio-piercer"){{
-            researchCostMultiplier = 0.6f;
-            requirements(production, with(BioItems.magnesium, 45));
+            researchCost = with(BioItems.magnesium, 185, BioItems.calciticFragment, 50);
+            requirements(production, with(BioItems.magnesium, 45, BioItems.calciticFragment, 20));
             attribute = meat;
             minEfficiency = 0.000001f;
             baseEfficiency = 0;
@@ -212,7 +212,8 @@ public class BioBlocks {
         }};
 
         boneCrusher = new WallCrafter("bone-crusher"){{
-            requirements(Category.production, with(BioItems.magnesium, 40));
+            researchCost = with(BioItems.magnesium, 70, BioItems.calciticFragment, 50);
+            requirements(Category.production, with(BioItems.magnesium, 40, BioItems.calciticFragment, 25));
             drillTime = 110f;
             size = 2;
             attribute = calcitic;
@@ -261,7 +262,7 @@ public class BioBlocks {
 
         //turrets
         alive = new ItemTurret("alive"){{
-            researchCostMultiplier = 0.6f;
+            researchCost = with(BioItems.magnesium, 350, BioItems.calciticFragment, 150);
             health = 1020;
             size = 3;
             requirements(turret, with(BioItems.calciticFragment, 60, BioItems.magnesium, 60));
@@ -613,12 +614,14 @@ public class BioBlocks {
 
         //defense
         magnesiumWall = new Wall("magnesium-wall"){{
+            researchCost = with(BioItems.magnesium, 300);
             requirements(Category.defense, with(BioItems.magnesium, 15));
             researchCost = with(BioItems.magnesium, 50);
             health = 250;
         }};
 
         largeMagnesiumWall = new Wall("large-magnesium-wall"){{
+            researchCost = with(BioItems.magnesium, 1200);
             requirements(Category.defense, with(BioItems.magnesium, 15 * 4));
             health = 250 * 4;
             size = 2;
@@ -636,6 +639,7 @@ public class BioBlocks {
         }};
 
         groundManufacturer = new UnitFactory("ground-manufacturer"){{
+            researchCost = with(BioItems.magnesium, 300, BioItems.calciticFragment, 150);
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.calciticFragment, 140));
             size = 3;
             plans.add(new UnitPlan(BioUnits.strider, 60 * 25f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));

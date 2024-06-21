@@ -75,7 +75,7 @@ public class BioUnits {
 
             lowAltitude = true;
             flying = true;
-            mineSpeed = 16f;
+            mineSpeed = 12f;
             mineTier = 1;
             buildSpeed = 1.2f;
             drag = 0.06f;

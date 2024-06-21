@@ -9,7 +9,7 @@ import static mindustry.content.TechTree.nodeProduce;
 
 public class BioTechTree {
     public static void load(){
-        BioPlanets.andori.techTree = TechTree.nodeRoot("andori", BioBlocks.coreSight, () -> {
+        BioPlanets.andori.techTree = TechTree.nodeRoot("Andori", BioBlocks.coreSight, () -> {
             node(BioBlocks.magnesiumConveyor, Seq.with(new Objectives.Produce(BioItems.magnesium)), () -> {
                 node(BioBlocks.unitDocker, Seq.with(new Objectives.Research(BioBlocks.boneCrusher)), () -> {
                     node(BioBlocks.unitDischarger);
@@ -58,6 +58,10 @@ public class BioTechTree {
                 nodeProduce(BioLiquids.hemoFluid, () -> {
                     nodeProduce(BioItems.potash, () -> {});
                 });
+            });
+
+            node(BioSectorPresets.ankle, () -> {
+                node(BioSectorPresets.crus, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle), new Objectives.Produce(BioItems.potash)), () -> {});
             });
         });
     }

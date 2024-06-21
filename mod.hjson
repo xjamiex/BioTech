@@ -5,7 +5,7 @@ displayName: "BioTech"
 name: "biotech"
 
 #your name
-author: "Jammuu-EndoFreeze"
+author: "Jammuu - EndoFreeze"
 
 #the fully qualified main class of the mod
 main: "biotech.BioTech"

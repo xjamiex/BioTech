@@ -17,6 +17,7 @@ public class BioSectorPresets {
 
         crus = new SectorPreset("crus",BioPlanets.andori, 34){{
             alwaysUnlocked = false;
+            captureWave = 26;
         }};
     }
 }

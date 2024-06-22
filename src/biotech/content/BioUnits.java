@@ -196,7 +196,7 @@ public class BioUnits {
             rotateSpeed = 13f;
             accel = 0.04f;
             itemCapacity = 5;
-            health = 1050f;
+            health = 1520f;
             engineOffset = 11f;
             engineSize = 3f;
             hitSize = 19f;
@@ -255,7 +255,7 @@ public class BioUnits {
                         top = true;
                         reload = 80f;
                         shootSound = Sounds.missileLarge;
-                        shoot = new ShootSpread(4, 20f);
+                        shoot = new ShootSpread(5, 20f);
 
                         bullet = new MissileBulletType(4.2f, 65){{
                             width = 10;

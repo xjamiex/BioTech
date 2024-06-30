@@ -8,10 +8,13 @@ import mindustry.Vars;
 
 public class BioSounds {
     public static Sound
-        fleshHit = new Sound();
+        fleshHit = new Sound(),
+    motherDeath = new Sound();
 
     public static void load(){
+
         fleshHit = loadSound("flesh-hit");
+        motherDeath = loadSound("motherDeath");
     }
 
     private static Sound loadSound(String soundName){

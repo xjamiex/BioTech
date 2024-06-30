@@ -11,6 +11,8 @@ import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.part.DrawPart;
+import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.entities.pattern.ShootMulti;
 import mindustry.entities.pattern.ShootPattern;
@@ -389,19 +391,48 @@ public class BioBlocks {
             size = 3;
             requirements(turret, with(BioItems.magnesium, 150, BioItems.potash, 50, BioItems.calciticFragment, 200));
             range = 250;
-            shootSound = Sounds.missileLarge;
-            inaccuracy = 1f;
-            rotateSpeed = 2f;
-            reload = 200;
-            minWarmup = 0.90f;
-            targetAir = true;
+            shootSound = Sounds.missileSmall;
+            inaccuracy = 4.5f;
+            rotateSpeed = 1.2f;
+            reload = 180;
+            minWarmup = 0.8f;
+            warmupMaintainTime = 25;
+            targetAir = false;
             targetGround = true;
             outlineColor = Color.valueOf("2b2626");
 
             consumeLiquid(BioLiquids.hemoFluid, 0.12f);
+            drawer = new DrawTurret("reinforced-"){
+                {
+                    parts.addAll(
+                            new RegionPart("-barrel") {{
+                                progress = PartProgress.warmup;
+                                moveY = 2.5f;
+                                under = true;
+                                layerOffset = -.0001f;
+                                moves.add(new PartMove(PartProgress.recoil, 0f, -3.5f, 0f));
+                            }},
+                                    new RegionPart("-mid") {{
+                                        progress = PartProgress.warmup;
+                                        moveY = -1f;
+                                        moveRot = -10f;
+                                        mirror = true;
+                                        under = true;
+                                        layerOffset = -.0001f;
+                                        moves.add(new PartMove(PartProgress.recoil, 0f, -1f, -10f));
+                                    }},
+                            new RegionPart("-side") {{
+                                progress = PartProgress.warmup;
+                                moveX = -0.25f;
+                                moveY = -0.25f;
+                                mirror = true;
+                                moves.add(new PartMove(PartProgress.recoil, 1.5f, -1f, -10));
+                            }}
+                            );
+                }};
 
             ammo(
-                    BioItems.potash, new ArtilleryBulletType(4, 70){{
+                    BioItems.potash, new ArtilleryBulletType(4, 85){{
                         width = 15;
                         height = 15;
                         weaveMag = 30;
@@ -410,11 +441,18 @@ public class BioBlocks {
                         frontColor = BioPal.cellBlueLight;
                         backColor = BioPal.cellBlue;
                         trailColor = BioPal.cellBlueLight;
+                        smokeEffect = Fx.shootSmokeSquareBig;
+                        shootEffect = Fx.lancerLaserShoot;
                         trailWidth = 3;
                         trailLength = 6;
                         drag = 0.01f;
+                        homingPower = 0.2f;
+                        homingDelay = 20f;
+                        pierce = true;
+                        pierceCap = 2;
+                        fragOnHit = false;
                         lifetime = 110;
-                        collidesAir = true;
+                        collidesAir = false;
 
                         hitEffect = despawnEffect = new WaveEffect(){{
                             sizeFrom = 5;
@@ -424,14 +462,18 @@ public class BioBlocks {
                             sides = 5;
                             rotateSpeed = 10f;
                         }};
-                        fragBullet = new MissileBulletType(3, 20){{
+                        fragBullet = new MissileBulletType(3, 40){{
                             width = 6;
                             height = 6;
                             weaveMag = 30;
+                            pierce = true;
+                            pierceCap = 3;
+                            fragOnHit = false;
                             weaveScale = 1;
                             frontColor = BioPal.cellBlueLight;
                             backColor = BioPal.cellBlue;
                             trailColor = BioPal.cellBlueLight;
+                            homingPower = 0.15f;
                             trailWidth = 3;
                             trailLength = 6;
                             drag = 0.01f;
@@ -444,17 +486,21 @@ public class BioBlocks {
                                 rotateSpeed = 10f;
                             }};
 
-                            fragBullets = 2;
+                            fragBullets = 3;
 
-                            fragBullet = new MissileBulletType(2, 10){{
+                            fragBullet = new MissileBulletType(2, 25){{
                                 width = 3;
                                 height = 3;
+                                pierce = true;
+                                pierceCap = 2;
+                                fragOnHit = false;
                                 weaveMag = 30;
                                 weaveScale = 1;
                                 frontColor = BioPal.cellBlueLight;
                                 backColor = BioPal.cellBlue;
                                 trailColor = BioPal.cellBlueLight;
                                 trailWidth = 3;
+                                homingPower = 0.1f;
                                 trailLength = 6;
                                 drag = 0.01f;
                                 hitEffect = despawnEffect = new WaveEffect(){{

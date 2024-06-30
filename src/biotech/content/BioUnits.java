@@ -37,7 +37,8 @@ public class BioUnits {
             watcher,
 
             //immune
-            kaph37
+            kaph37,
+                    mother
 
     ;
 
@@ -455,6 +456,85 @@ public class BioUnits {
             );
 
             outlineColor = Color.valueOf("2e0808");
+        }};
+        mother = new UnitType("mother"){{
+            outlineColor = Color.valueOf("2e0808");
+            shadowElevation = 0.1f;
+            groundLayer = Layer.legUnit - 1f;
+            targetAir = false;
+            researchCostMultiplier = 0f;
+            researchCostMultiplier = 0f;
+            lightOpacity = 0;
+            legSpeed = 0.01f;
+            deathSound = BioSounds.motherDeath;
+            legPairOffset = 5;
+            parts.add(
+                    new RegionPart("-pods"){{
+                        progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 1.5f)) * 0.2f;
+                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 2.5f)) * 0.05f;
+                        growX = 0.5f;
+                        growY = 0.5f;
+                        moveX = 0.5f;
+                        moveY = 0.5f;
+                        moveRot = -5f;
+                    }},
+                    new RegionPart("-jaw"){{
+                        progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 4.5f)) * 0.3f;
+                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 3.5f)) * 0.3f;
+                        growX = 0.25f;
+                        growY = 0.25f;
+                        moveX = 1f;
+                        moveY = -0.4f;
+                        moveRot = -14f;
+                    }},
+            new RegionPart("-head"){{
+                progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 5.2f)) * 0.4f;
+                growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 8f)) * 0.3f;
+                growX = 0.25f;
+                growY = 0.15f;
+                moveX = 1f;
+                moveY = -0.5f;
+                moveRot = 10f;
+            }}
+                    );
+            constructor = LegsUnit::create;
+            aiController = GroundAI::new;
+
+            speed = 0.2f;
+            drag = 0.11f;
+            hitSize = 12f;
+            rotateSpeed = 1.2f;
+            health = 1550;
+            armor = 0f;
+            legStraightness = 0.3f;
+            stepShake = 0.1f;
+            drawCell = false;
+
+            legCount = 5;
+            legLength = 13f;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -4f;
+            legBaseOffset = 5f;
+            legMaxLength = 2.2f;
+            legMinLength = 1.5f;
+            legLengthScl = 1.1f;
+            legForwardScl = 1.1f;
+            legSpeed = 0.2f;
+            rippleScale = 0.2f;
+            mechStepParticles = true;
+
+            legMoveSpace = 1.4f;
+            allowLegStep = true;
+            legPhysicsLayer = false;
+
+            deathExplosionEffect = new ParticleEffect(){{
+                sizeFrom = 5;
+                sizeTo = 0;
+                layer = 80f;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+            }};
         }};
     }
 }

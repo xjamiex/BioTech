@@ -9,6 +9,7 @@ import arc.util.Time;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
+import mindustry.ai.types.SuicideAI;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
@@ -16,10 +17,14 @@ import mindustry.entities.part.HaloPart;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.pattern.ShootSpread;
+import mindustry.entities.units.AIController;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
+import mindustry.type.unit.MissileUnitType;
+
+import static mindustry.gen.Sounds.none;
 
 public class BioUnits {
     public static UnitType
@@ -458,6 +463,108 @@ public class BioUnits {
             outlineColor = Color.valueOf("2e0808");
         }};
         mother = new UnitType("mother"){{
+            weapons.add(new Weapon(){
+                {
+                    reload = 900f;
+                    shootCone = 180f;
+                    ejectEffect = Fx.none;
+                    shootSound = BioSounds.fleshHit;
+                    alwaysShooting = true;
+                    x = shootY = 0f;
+                    mirror = false;
+                    shoot.shots = 3;
+                    bullet = new BulletType() {{
+                        spawnUnit = new MissileUnitType("fetus"){{
+                            speed = 0.9f;
+                            legStraightness = 0.3f;
+                            stepShake = 0f;
+                            range = 40;
+                            lightRadius = 0;
+                            loopSound = BioSounds.fetusCries;
+                            weapons.add(new Weapon(){
+                                {
+                                    shootOnDeath = true;
+                                    reload = 24f;
+                                    shootCone = 180f;
+                                    ejectEffect = Fx.none;
+                                    shootSound = BioSounds.wail;
+                                    x = shootY = 0f;
+                                    mirror = false;
+                                    bullet = new ExplosionBulletType() {
+                                        {
+                                            damage = 90;
+                                            collidesTiles = false;
+                                            collides = false;
+                                            hitSound = BioSounds.wail;
+                                            splashDamageRadius = 45;
+                                            splashDamage = 90f;
+
+                                            rangeOverride = 40f;
+                                            hitEffect = new ParticleEffect() {{
+                                                sizeFrom = 5;
+                                                sizeTo = 5;
+                                                colorFrom = BioPal.bloodRedLight;
+                                                colorTo = BioPal.bloodRed;
+                                            }};
+                                        }
+                                    };
+                                    deathExplosionEffect = new ParticleEffect() {{
+                                        sizeFrom = 8;
+                                        sizeTo = 0;
+                                        lightOpacity = 0;
+                                        lifetime = 250;
+                                        layer = 10;
+                                        colorFrom = BioPal.bloodRedLight;
+                                        colorTo = BioPal.bloodRed;
+                                    }};
+                                }});
+                            drawCell = false;
+                            outlineColor = Color.valueOf("2e0808");
+                            legCount = 4;
+                            legLength = 9f;
+                            lockLegBase = true;
+                            legContinuousMove = true;
+                            legMaxLength = 2.2f;
+                            legMinLength = 1.5f;
+                            legLengthScl = 1.1f;
+                            legForwardScl = 1.1f;
+                            legSpeed = 0.2f;
+                            rippleScale = 0.2f;
+                            trailLength = 0;
+                            engineSize = 0;
+                            flying = false;
+                            legMoveSpace = 1.2f;
+                            allowLegStep = true;
+                            legPhysicsLayer = false;
+                            constructor = LegsUnit::create;
+                            controller = u -> new SuicideAI();
+                            aiController = SuicideAI::new;
+                            hitSize = 8;
+                            parts.add(
+                                    new RegionPart("-eye"){{
+                                        progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 5.2f)) * 0.6f;
+                                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 8f)) * 0.05f;
+                                        growX = 0.6f;
+                                        growY = 0.5f;
+                                        moveX = .5f;
+                                        moveY = 0.6f;
+                                        moveRot = 14f;
+                                    }},
+                                    new RegionPart("-anothereye"){{
+                                        progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 6.5f)) * 0.2f;
+                                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 5.5f)) * 0.4f;
+                                        growX = 0.3f;
+                                        growY = 0.5f;
+                                        moveX = -0.5f;
+                                        moveY = -0.4f;
+                                        moveRot = -19f;
+                                    }}
+
+                            );
+
+                            }};
+                    }};
+                }});
             outlineColor = Color.valueOf("2e0808");
             shadowElevation = 0.1f;
             groundLayer = Layer.legUnit - 1f;
@@ -465,7 +572,7 @@ public class BioUnits {
             researchCostMultiplier = 0f;
             researchCostMultiplier = 0f;
             lightOpacity = 0;
-            legSpeed = 0.01f;
+            legSpeed = 0.005f;
             deathSound = BioSounds.motherDeath;
             legPairOffset = 5;
             parts.add(
@@ -494,7 +601,7 @@ public class BioUnits {
                 growY = 0.15f;
                 moveX = 1f;
                 moveY = -0.5f;
-                moveRot = 10f;
+                moveRot = -10f;
             }}
                     );
             constructor = LegsUnit::create;
@@ -506,7 +613,7 @@ public class BioUnits {
             rotateSpeed = 1.2f;
             health = 1550;
             armor = 0f;
-            legStraightness = 0.3f;
+            legStraightness = 0.25f;
             stepShake = 0.1f;
             drawCell = false;
 
@@ -520,18 +627,20 @@ public class BioUnits {
             legMinLength = 1.5f;
             legLengthScl = 1.1f;
             legForwardScl = 1.1f;
-            legSpeed = 0.2f;
+            legSpeed = 0.05f;
             rippleScale = 0.2f;
             mechStepParticles = true;
 
-            legMoveSpace = 1.4f;
+            legMoveSpace = 1.7f;
             allowLegStep = true;
             legPhysicsLayer = false;
 
             deathExplosionEffect = new ParticleEffect(){{
-                sizeFrom = 5;
+                sizeFrom = 12;
                 sizeTo = 0;
-                layer = 80f;
+                lightOpacity = 0;
+                lifetime = 250;
+                layer = 10;
                 colorFrom = BioPal.bloodRedLight;
                 colorTo = BioPal.bloodRed;
             }};

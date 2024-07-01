@@ -60,9 +60,9 @@ public class BioBlocks {
             bioDrill, boneCrusher, bioPiercer,
 
             //env
-            flesh, flint, bone, myostone, flourspar, dolomite,
+            flesh, flint, bone, myostone, flourspar, dolomite, alloyFloor, squareAlloyFloor,
             oreMagnesium,
-            fleshWall, boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall,
+            fleshWall, boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall,
             poreHole,
 
             //props
@@ -166,6 +166,7 @@ public class BioBlocks {
             drillTime = 650;
             size = 3;
             squareSprite = false;
+            hasLiquids = false;
         }};
 
         bioPiercer = new AttributeCrafter("bio-piercer"){{
@@ -185,7 +186,7 @@ public class BioBlocks {
             ignoreLiquidFullness = true;
 
             hasLiquids = true;
-            outputItem = new ItemStack(BioItems.carbonicTissue, 1);
+            outputItem = new ItemStack(BioItems.carbonicTissue, 2);
             liquidCapacity = 40f;
             squareSprite = false;
             craftEffect = new ParticleEffect(){{
@@ -236,6 +237,8 @@ public class BioBlocks {
         myostone = new Floor("myostone", 4);
         flourspar = new Floor("flourspar", 4);
         dolomite = new Floor("dolomite", 4);
+        alloyFloor = new Floor("alloy-floor", 2);
+        squareAlloyFloor = new Floor("square-alloy-floor", 2);
 
         boneWall = new StaticWall("bone-wall");
 
@@ -249,6 +252,7 @@ public class BioBlocks {
         floursparWall = new StaticWall("flourspar-wall");
         fleshWall = new StaticWall("flesh-wall");
         myostoneWall = new StaticWall("myostone-wall");
+        alloyWall = new StaticWall("alloy-wall");
 
         poreHole = new SteamVent("pore-hole"){{
             parent = blendGroup = flesh;

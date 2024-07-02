@@ -60,9 +60,11 @@ public class BioBlocks {
             bioDrill, boneCrusher, bioPiercer,
 
             //env
-            flesh, flint, bone, myostone, flourspar, dolomite, alloyFloor, squareAlloyFloor,
-            oreMagnesium,
-            fleshWall, boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall,
+            flesh, rottenFlesh, decayedFlesh, scarredFlesh,
+            flint, bone, myostone, flourspar, dolomite, alloyFloor, squareAlloyFloor,
+            oreMagnesium, orePhosphorus,
+            fleshWall, rottenFleshWall, decayedFleshWall,
+            boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall,
             poreHole,
 
             //props
@@ -239,6 +241,9 @@ public class BioBlocks {
         dolomite = new Floor("dolomite", 4);
         alloyFloor = new Floor("alloy-floor", 2);
         squareAlloyFloor = new Floor("square-alloy-floor", 2);
+        rottenFlesh = new Floor("rotten-flesh", 4);
+        decayedFlesh = new Floor("decayed-flesh", 4);
+        scarredFlesh = new Floor("scarred-flesh", 4);
 
         boneWall = new StaticWall("bone-wall");
 
@@ -253,6 +258,8 @@ public class BioBlocks {
         fleshWall = new StaticWall("flesh-wall");
         myostoneWall = new StaticWall("myostone-wall");
         alloyWall = new StaticWall("alloy-wall");
+        rottenFleshWall = new StaticWall("rotten-flesh-wall");
+        decayedFleshWall = new StaticWall("decayed-flesh-wall");
 
         poreHole = new SteamVent("pore-hole"){{
             parent = blendGroup = flesh;
@@ -263,6 +270,9 @@ public class BioBlocks {
 
         oreMagnesium = new OreBlock("ore-magnesium"){{
             itemDrop = BioItems.magnesium;
+        }};
+        orePhosphorus = new OreBlock("ore-phosphorus"){{
+            itemDrop = BioItems.phosphorus;
         }};
         //endregion
 

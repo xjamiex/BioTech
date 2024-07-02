@@ -6,6 +6,7 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Time;
+import biotech.entities.part.BiologicalPart;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
@@ -42,8 +43,7 @@ public class BioUnits {
             watcher,
 
             //immune
-            kaph37,
-                    mother
+            kaph37, mother
 
     ;
 
@@ -435,7 +435,7 @@ public class BioUnits {
             }});
 
             parts.add(
-                    new RegionPart("-mouth"){{
+                    new BiologicalPart("-mouth"){{
                         progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 5.2f)) * 0.4f;
                         growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 8f)) * 0.1f;
                         growX = 0.6f;
@@ -446,7 +446,7 @@ public class BioUnits {
                         x = 2f;
                         y = 2f;
                     }},
-                    new RegionPart("-holes"){{
+                    new BiologicalPart("-holes"){{
                         progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 6.5f)) * 0.6f;
                         growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 9.5f)) * 0.1f;
                         growX = 0.3f;

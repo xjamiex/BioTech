@@ -61,10 +61,10 @@ public class BioBlocks {
 
             //env
             flesh, rottenFlesh, decayedFlesh, scarredFlesh,
-            flint, bone, myostone, flourspar, dolomite, alloyFloor, squareAlloyFloor,
+            flint, bone, myostone, flourspar, dolomite, alloyFloor, squareAlloyFloor, gneiss, marl,
             oreMagnesium, orePhosphorus,
             fleshWall, rottenFleshWall, decayedFleshWall,
-            boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall,
+            boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall, gneissWall, marlWall,
             poreHole,
 
             //props
@@ -144,6 +144,7 @@ public class BioBlocks {
             speed = 74f;
             arrowSpacing = 6f;
             bufferCapacity = 14;
+            underBullets = true;
         }};
         magnesiumConveyor = new Conveyor("magnesium-convayor"){{
             researchCost = with(BioItems.magnesium, 15);
@@ -152,10 +153,12 @@ public class BioBlocks {
             health = 35;
             speed = 0.04f;
             displayedSpeed = 8f;
+            underBullets = true;
         }};
 
         splitter = new Router("splitter"){{
             requirements(Category.distribution, with(BioItems.magnesium, 2));
+            underBullets = true;
             health = 40;
         }};
         //endregion
@@ -244,7 +247,8 @@ public class BioBlocks {
         rottenFlesh = new Floor("rotten-flesh", 4);
         decayedFlesh = new Floor("decayed-flesh", 4);
         scarredFlesh = new Floor("scarred-flesh", 4);
-
+        gneiss = new Floor("gneiss", 4);
+        marl = new Floor("marl", 4);
         boneWall = new StaticWall("bone-wall");
 
         decayedBoneWall = new StaticWall("decayed-bone-wall"){{
@@ -260,6 +264,8 @@ public class BioBlocks {
         alloyWall = new StaticWall("alloy-wall");
         rottenFleshWall = new StaticWall("rotten-flesh-wall");
         decayedFleshWall = new StaticWall("decayed-flesh-wall");
+        gneissWall = new StaticWall("gneiss-wall");
+        marlWall = new StaticWall("marl-wall");
 
         poreHole = new SteamVent("pore-hole"){{
             parent = blendGroup = flesh;
@@ -707,6 +713,7 @@ public class BioBlocks {
         }};
 
         unitDocker = new UnitCapUnitCargoLoader("unit-docker"){{
+            researchCost = with(BioItems.magnesium, 120, BioItems.calciticFragment, 50);
             unitType = BioUnits.carrier;
 
             polyColor = BioPal.supportGreenLight;
@@ -722,6 +729,7 @@ public class BioBlocks {
         }};
 
         unitDischarger = new UnitCargoUnloadPoint("unit-discharger"){{
+            researchCost = with(BioItems.magnesium, 85, BioItems.calciticFragment, 35);
             requirements(Category.distribution, with(BioItems.magnesium, 34, BioItems.calciticFragment, 15));
             size = 2;
             itemCapacity = 40;

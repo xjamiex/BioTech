@@ -1,12 +1,11 @@
 package biotech.content;
 
-import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.math.Mathf;
+import arc.util.Log;
 import arc.util.Time;
-import biotech.entities.part.BiologicalPart;
+import biotech.type.weapons.BiologicalWeapon;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
@@ -18,14 +17,11 @@ import mindustry.entities.part.HaloPart;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.pattern.ShootSpread;
-import mindustry.entities.units.AIController;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.unit.MissileUnitType;
-
-import static mindustry.gen.Sounds.none;
 
 public class BioUnits {
     public static UnitType
@@ -404,7 +400,7 @@ public class BioUnits {
             researchCostMultiplier = 0f;
             lightOpacity = 0;
 
-            weapons.add(new Weapon(){{
+            weapons.add(new BiologicalWeapon(""){{
                 shootOnDeath = true;
                 reload = 24f;
                 shootCone = 180f;
@@ -435,9 +431,9 @@ public class BioUnits {
             }});
 
             parts.add(
-                    new BiologicalPart("-mouth"){{
-                        progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 5.2f)) * 0.4f;
-                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 8f)) * 0.1f;
+                    new RegionPart("-mouth"){{
+                        progress = p -> Interp.exp5.apply(Mathf.sinDeg((p.recoil * 360) * 5.2f)) * 0.4f;
+                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg((p.recoil * 360) * 8f)) * 0.1f;
                         growX = 0.6f;
                         growY = 0.5f;
                         moveX = -1.3f;
@@ -446,9 +442,9 @@ public class BioUnits {
                         x = 2f;
                         y = 2f;
                     }},
-                    new BiologicalPart("-holes"){{
-                        progress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 6.5f)) * 0.6f;
-                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg(Time.time * 9.5f)) * 0.1f;
+                    new RegionPart("-holes"){{
+                        progress = p -> Interp.exp5.apply(Mathf.sinDeg((p.recoil * 360) * 6.5f)) * 0.6f;
+                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg((p.recoil * 360) * 9.5f)) * 0.1f;
                         growX = 0.3f;
                         growY = 0.5f;
                         moveX = 1f;

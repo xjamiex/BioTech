@@ -28,10 +28,7 @@ import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.Router;
-import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.environment.OreBlock;
-import mindustry.world.blocks.environment.StaticWall;
-import mindustry.world.blocks.environment.SteamVent;
+import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.liquid.LiquidBridge;
@@ -68,7 +65,7 @@ public class BioBlocks {
             poreHole,
 
             //props
-            nerveProtrusion, fleshGrowth, undevelopedCyst,
+            nerveProtrusion, fleshAmalgam, fleshBoulder, rottenFleshAmalgam,
 
             //turret
             alive, spike, celluris, dissection, needle,
@@ -272,6 +269,24 @@ public class BioBlocks {
             variants = 3;
             effectSpacing = 100f;
             effectColor = Color.valueOf("a69780");
+        }};
+
+        nerveProtrusion = new TreeBlock("nerve-protrusion");
+        fleshAmalgam = new TreeBlock("flesh-amalgam"){{
+            variants = 3;
+            clipSize = 192f;
+            shadowOffset = -1.1f;
+        }};
+        fleshBoulder = new TallBlock("flesh-boulder"){{
+            variants = 3;
+            clipSize = 192f;
+            shadowOffset = -0.9f;
+            shadowAlpha = 0.6f;
+        }};
+        rottenFleshAmalgam = new TallBlock("rotten-flesh-amalgam"){{
+            variants = 3;
+            clipSize = 192f;
+            shadowOffset = -1.1f;
         }};
 
         oreMagnesium = new OreBlock("ore-magnesium"){{

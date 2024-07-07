@@ -570,6 +570,7 @@ public class BioUnits {
             lightOpacity = 0;
             legSpeed = 0.005f;
             deathSound = BioSounds.motherDeath;
+            hidden = true;
             legPairOffset = 5;
             parts.add(
                     new RegionPart("-pods"){{

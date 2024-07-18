@@ -5,7 +5,6 @@ import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Log;
 import arc.util.Time;
-import biotech.type.weapons.BiologicalWeapon;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
@@ -400,7 +399,7 @@ public class BioUnits {
             researchCostMultiplier = 0f;
             lightOpacity = 0;
 
-            weapons.add(new BiologicalWeapon(""){{
+            weapons.add(new Weapon(){{
                 shootOnDeath = true;
                 reload = 24f;
                 shootCone = 180f;

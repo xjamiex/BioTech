@@ -5,7 +5,6 @@ import arc.graphics.gl.Shader;
 import biotech.BioTech;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.world.blocks.power.PowerConduit;
-import biotech.world.blocks.unit.UnitCapUnitCargoLoader;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
@@ -711,12 +710,11 @@ public class BioBlocks {
 
         //units
         aircraftManufacturer = new UnitFactory("aircraft-manufacturer"){{
-            // TODO: CHANGE RESEARCH / BUILD COST
-            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140));
+            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140, BioItems.potash, 50, BioItems.phosphorus, 32));
             size = 3;
-            plans.add(new UnitPlan(BioUnits.scout, 60 * 28f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
-            researchCostMultiplier = 0.5f;
-            consumeLiquid(BioLiquids.hemoFluid, 0.2f);
+            plans.add(new UnitPlan(BioUnits.scout, 60 * 28f, with(BioItems.magnesium, 35, BioItems.potash, 45)));
+            researchCostMultiplier = 0.8f;
+            consumeLiquid(BioLiquids.hemoFluid, 0.3f);
         }};
 
         groundManufacturer = new UnitFactory("ground-manufacturer"){{
@@ -727,7 +725,7 @@ public class BioBlocks {
             consumeLiquid(BioLiquids.hemoFluid, 0.2f);
         }};
 
-        unitDocker = new UnitCapUnitCargoLoader("unit-docker"){{
+        unitDocker = new UnitCargoLoader("unit-docker"){{
             researchCost = with(BioItems.magnesium, 120, BioItems.calciticFragment, 50);
             unitType = BioUnits.carrier;
 

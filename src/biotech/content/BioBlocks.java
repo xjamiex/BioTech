@@ -1,24 +1,17 @@
 package biotech.content;
 
 import arc.graphics.Color;
-import arc.graphics.gl.Shader;
-import biotech.BioTech;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.world.blocks.power.PowerConduit;
 import mindustry.content.Fx;
-import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
-import mindustry.entities.part.DrawPart;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootBarrel;
-import mindustry.entities.pattern.ShootMulti;
-import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
-import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
@@ -28,11 +21,9 @@ import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.Router;
 import mindustry.world.blocks.environment.*;
-import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.liquid.LiquidRouter;
-import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.units.UnitCargoLoader;
@@ -67,7 +58,7 @@ public class BioBlocks {
             nerveProtrusion, fleshAmalgam, fleshBoulder, rottenFleshAmalgam,
 
             //turret
-            alive, spike, celluris, dissection, needle,
+            inception, costae, celluris, dissection, needle,
 
             //power
             rotorPipe,
@@ -297,7 +288,7 @@ public class BioBlocks {
         //endregion
 
         //turrets
-        alive = new ItemTurret("alive"){{
+        inception = new ItemTurret("inception"){{
             researchCost = with(BioItems.magnesium, 350, BioItems.calciticFragment, 150);
             health = 1020;
             size = 3;
@@ -357,7 +348,7 @@ public class BioBlocks {
 
         }};
 
-        spike = new ItemTurret("spike"){{
+        costae = new ItemTurret("costae"){{
             health = 1120;
             size = 3;
             requirements(turret, with(BioItems.calciticFragment, 50, BioItems.magnesium, 60));
@@ -631,7 +622,7 @@ public class BioBlocks {
                         width = 10;
                         height = 10;
                         shrinkX = shrinkY = 0;
-                        frontColor = BioPal.magnesiumPurple;
+                        frontColor = BioPal.magnesiumPurpleLight;
                         backColor = BioPal.magnesiumPurple;
                         trailLength = 5;
                         trailWidth = 2;
@@ -639,7 +630,6 @@ public class BioBlocks {
                         trailInterval = 2f;
                         lifetime = 40f;
                         collidesAir = true;
-                        trailEffect = BioFx.needleSpike;
 
                         hitSound = despawnSound = Sounds.bang;
                     }}
@@ -721,8 +711,8 @@ public class BioBlocks {
             researchCost = with(BioItems.magnesium, 300, BioItems.calciticFragment, 150);
             requirements(Category.units, with(BioItems.magnesium, 120, BioItems.calciticFragment, 140));
             size = 3;
-            plans.add(new UnitPlan(BioUnits.strider, 60 * 25f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
-            consumeLiquid(BioLiquids.hemoFluid, 0.2f);
+            plans.add(new UnitPlan(BioUnits.strider, 60 * 35f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
+            consumeLiquid(BioLiquids.hemoFluid, 0.3f);
         }};
 
         unitDocker = new UnitCargoLoader("unit-docker"){{

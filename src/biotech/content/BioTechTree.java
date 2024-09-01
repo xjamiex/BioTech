@@ -33,8 +33,8 @@ public class BioTechTree {
                 });
             });
 
-            node(BioBlocks.alive, Seq.with(new Objectives.Produce(BioItems.carbonicTissue)), () -> {
-                node(BioBlocks.spike, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {
+            node(BioBlocks.inception, Seq.with(new Objectives.Produce(BioItems.carbonicTissue)), () -> {
+                node(BioBlocks.costae, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {
                     node(BioBlocks.needle, Seq.with(new Objectives.Produce(BioItems.potash)), () -> {});
                 });
                 node(BioBlocks.magnesiumWall, () -> {
@@ -49,7 +49,7 @@ public class BioTechTree {
                 });
             });
 
-            node(BioBlocks.hematicSieve, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {
+            node(BioBlocks.hematicSieve, Seq.with(new Objectives.OnSector(BioSectorPresets.crus)), () -> {
             });
 
             nodeProduce(BioItems.magnesium, () -> {

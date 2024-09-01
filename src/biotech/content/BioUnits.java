@@ -5,6 +5,7 @@ import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Log;
 import arc.util.Time;
+import biotech.entities.part.BiologicalRegionPart;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
@@ -343,11 +344,12 @@ public class BioUnits {
                     trailLength = 2;
                     trailInterval = 2f;
                     homingPower = 0.3f;
+                    lifetime = 35f;
                     trailEffect = new ParticleEffect(){{
                         colorFrom = BioPal.bloodRedLight;
                         colorTo = BioPal.bloodRed;
                         particles = 2;
-                        sizeFrom = 1;
+                        sizeFrom = 1.5f;
                         sizeTo = 0;
                     }};
 
@@ -430,9 +432,7 @@ public class BioUnits {
             }});
 
             parts.add(
-                    new RegionPart("-mouth"){{
-                        progress = p -> Interp.exp5.apply(Mathf.sinDeg((p.recoil * 360) * 5.2f)) * 0.4f;
-                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg((p.recoil * 360) * 8f)) * 0.1f;
+                    new BiologicalRegionPart("-mouth"){{
                         growX = 0.6f;
                         growY = 0.5f;
                         moveX = -1.3f;
@@ -441,9 +441,7 @@ public class BioUnits {
                         x = 2f;
                         y = 2f;
                     }},
-                    new RegionPart("-holes"){{
-                        progress = p -> Interp.exp5.apply(Mathf.sinDeg((p.recoil * 360) * 6.5f)) * 0.6f;
-                        growProgress = p -> Interp.exp5.apply(Mathf.sinDeg((p.recoil * 360) * 9.5f)) * 0.1f;
+                    new BiologicalRegionPart("-holes"){{
                         growX = 0.3f;
                         growY = 0.5f;
                         moveX = 1f;

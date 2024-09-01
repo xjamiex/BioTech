@@ -58,6 +58,7 @@ public class BioPlanets {
             alwaysUnlocked = true;
             landCloudColor = BioPal.bloodRed.cpy().a(0.5f);
             updateLighting = false;
+            clearSectorOnLose = true;
             hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems).removeAll(BioItems.andoriItems);
         }};
     }

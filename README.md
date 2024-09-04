@@ -1,9 +1,11 @@
-# Bio Tech
-A mod that adds a brand new planet with its own campaign. The planet seems to be.... Alive?
+# BioTech
+A mod that adds a brand new planet, Andori. Something's off, however... There's living organisms. And the organisms seem to be... the planet itself?
 
-# CONTRIBUTERS :3
-co-creator / director - Endofreeze
+# CREDITS :3
+creator - jammuu#0000
 
-mapper - mrapple_0
+co-creator - EndoFreeze#0000
 
-playtester - chromoxylograph
+mapper - mrapple_0#0000
+
+playtester - chromoxylograph#0000

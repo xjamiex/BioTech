@@ -14,6 +14,9 @@ import mindustry.graphics.Drawf;
 import java.util.Random;
 
 public class BiologicalRegionPart extends RegionPart {
+
+    public static float randProgScale = 0;
+
     public BiologicalRegionPart(String region) {
         super(region);
     }
@@ -26,7 +29,7 @@ public class BiologicalRegionPart extends RegionPart {
         if(under && turretShading) Draw.z(z - 0.0001f);
         Draw.z(Draw.z() + layerOffset);
 
-        float randProg = Time.time + Mathf.random(120f);
+        float randProg = Time.time + Mathf.random(randProgScale);
 
         float prevZ = Draw.z();
         float prog = Mathf.clamp(progress.get(params) + Mathf.sin(randProg, 50f, 0.5f))

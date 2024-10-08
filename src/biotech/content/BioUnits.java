@@ -5,20 +5,25 @@ import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Log;
 import arc.util.Time;
+import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.entities.part.BiologicalRegionPart;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
 import mindustry.ai.types.SuicideAI;
 import mindustry.content.Fx;
+import mindustry.entities.Effect;
+import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.part.HaloPart;
+import mindustry.entities.part.HoverPart;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.unit.MissileUnitType;
@@ -32,8 +37,11 @@ public class BioUnits {
             //air attack
             scout, seer,
 
+            //air specialty
+            smith,
+
             //ground attack
-            strider,
+            strider, nomad,
 
             //core
             watcher,
@@ -288,6 +296,78 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
+        smith = new UnitType("smith"){{
+            constructor = ElevationMoveUnit::create;
+
+            hovering = true;
+            drag = 0.01f;
+            speed = 5.2f;
+            rotateSpeed = 19f;
+            accel = 0.01f;
+            itemCapacity = 0;
+            health = 650f;
+            hitSize = 11f;
+
+            weapons.add(new Weapon(){{
+                shootOnDeath = true;
+                recoil = 20;
+                minWarmup = 0.9f;
+                shootCone = 2f;
+                ejectEffect = Fx.none;
+                range = 10;
+                shootSound = BioSounds.fleshHit;
+                x = shootY = 0f;
+                mirror = false;
+
+                shake = 3f;
+
+                bullet = new ShrapnelBulletType(){{
+                    damage = 125f;
+                    hitSound = BioSounds.fleshHit;
+                    splashDamageRadius = 5f;
+                    splashDamage = 10f;
+                    killShooter = true;
+                    shootEffect = smokeEffect = Fx.shootBig;
+                    hittable = false;
+                    collidesAir = true;
+
+                    fromColor = BioPal.potashOrangeLight;
+                    toColor = BioPal.potashOrange;
+                    width = 10f;
+                    serrationWidth = 2f;
+                    serrationSpacing = 12f;
+                    pierce = true;
+                }};
+            }});
+
+            abilities.add(new MoveEffectAbility(0f, -7f, Pal.sapBulletBack, Fx.missileTrailShort, 4f){{
+                teamColor = true;
+            }});
+            parts.addAll(
+                    new HoverPart(){{
+                        x = 0f;
+                        y = 0;
+                        mirror = true;
+                        radius = 18f;
+                        sides = 3;
+                        phase = 90f;
+                        stroke = 2f;
+                        layerOffset = -1f;
+                        color = BioPal.potashOrangeLight;
+                    }},
+                    new RegionPart("-piston"){{
+                        x = y = 0;
+                        progress = PartProgress.warmup;
+                        layerOffset = -0.001f;
+                        mirror = true;
+                        moveX = 2f;
+                        moveY = 2f;
+                    }}
+            );
+
+            outlineColor = Color.valueOf("2b2626");
+        }};
+
         strider = new UnitType("strider"){{
             constructor = LegsUnit::create;
             aiController = GroundAI::new;
@@ -357,13 +437,167 @@ public class BioUnits {
                 }};
             }});
         }};
-        kaph37 = new UnitType("kaph37"){{
+
+        nomad = new UnitType("nomad"){{
             constructor = LegsUnit::create;
             aiController = GroundAI::new;
 
+            speed = 0.65f;
+            drag = 0.09f;
+            hitSize = 13f;
+            rotateSpeed = 2.0f;
+            health = 1620f;
+            armor = 1f;
+            legStraightness = 0.3f;
+            stepShake = 0.3f;
+
+            legCount = 4;
+            legLength = 15f;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -4f;
+            legBaseOffset = 3f;
+            legMaxLength = 1.1f;
+            legMinLength = 0.9f;
+            legLengthScl = 1f;
+            legForwardScl = 1.1f;
+            rippleScale = 0.5f;
+
+            legMoveSpace = 1.2f;
+            allowLegStep = true;
+            legPhysicsLayer = false;
+
+            shadowElevation = 0.1f;
+            groundLayer = Layer.legUnit - 1f;
+            targetAir = false;
+            researchCostMultiplier = 0f;
+
+            outlineColor = Color.valueOf("2b2626");
+
+            weapons.addAll(
+                    new Weapon("biotech-nomad-laser"){{
+                        x = 10;
+                        y = 0;
+                        alternate = false;
+                        mirror = true;
+                        alwaysContinuous = true;
+                        continuous = true;
+                        range = 100f;
+                        layerOffset = 1;
+
+                        shootSound = Sounds.missile;
+                        inaccuracy = 15f;
+                        bullet = new ContinuousFlameBulletType(){{
+                            colors = new Color[]{BioPal.bloodRed.a(0.55f), BioPal.bloodRed.a(0.7f), BioPal.bloodRedLight.a(0.8f), BioPal.bloodRedLight, Color.white.cpy()};;
+                            shootEffect = Fx.none;
+                            damage = 10f;
+                            pierce = pierceBuilding = false;
+                            pierceCap = 1;
+                            damageInterval = 10;
+
+                            flareColor = BioPal.bloodRedLight;
+                            flareLength = 15f;
+                            flareRotSpeed = 0.3f;
+                            flareWidth = 7f;
+
+                            length = 50f;
+                            width = 2.2f;
+
+                            lifetime = 80f;
+                            trailEffect = hitEffect = new ParticleEffect(){{
+                                colorFrom = BioPal.bloodRedLight;
+                                colorTo = BioPal.bloodRed;
+                                particles = 2;
+                                sizeFrom = 1.5f;
+                                sizeTo = 0;
+                            }};
+                        }};
+                    }},
+                    new Weapon("biotech-nomad-railgun"){{
+                        x = 0;
+                        y = 0;
+                        alternate = false;
+                        mirror = false;
+                        range = 100f;
+
+                        reload = 60f;
+
+                        shootSound = Sounds.missile;
+                        inaccuracy = 2f;
+                        bullet = new BasicBulletType(10, 165){{
+                            sprite = "circle";
+
+                            frontColor = BioPal.bloodRedLight;
+                            backColor = BioPal.bloodRed;
+                            width = 10;
+                            height = 12;
+                            shrinkX = shrinkY = 0;
+                            shootEffect = Fx.none;
+                            pierce = pierceBuilding = true;
+                            pierceCap = 3;
+                            lifetime = 20;
+
+                            trailLength = 20;
+                            trailWidth = 4;
+                            trailColor = BioPal.bloodRedLight;
+
+                            hitEffect = Fx.none;
+                            trailEffect = hitEffect = new ParticleEffect(){{
+                                colorFrom = BioPal.bloodRedLight;
+                                colorTo = BioPal.bloodRed;
+                                particles = 2;
+                                sizeFrom = 1.5f;
+                                sizeTo = 0;
+                            }};
+
+                            fragBullets = 4;
+                            fragBullet = new ContinuousFlameBulletType(){{
+                                colors = new Color[]{BioPal.bloodRed.a(0.55f), BioPal.bloodRed.a(0.7f), BioPal.bloodRedLight.a(0.8f), BioPal.bloodRedLight, Color.white.cpy()};;
+                                shootEffect = Fx.none;
+                                damage = 2f;
+                                pierce = pierceBuilding = false;
+                                pierceCap = 1;
+                                damageInterval = 10;
+
+                                drawFlare = true;
+                                flareLength = 15f;
+                                flareColor = BioPal.bloodRedLight;
+
+                                length = 30f;
+                                width = 3;
+
+                                lifetime = 40f;
+                                trailEffect = hitEffect = new ParticleEffect(){{
+                                    colorFrom = BioPal.bloodRedLight;
+                                    colorTo = BioPal.bloodRed;
+                                    particles = 2;
+                                    sizeFrom = 1.5f;
+                                    sizeTo = 0;
+                                }};
+                            }};
+                        }};
+                    }}
+            );
+
+            parts.add(
+                    new RegionPart("-front"){{
+                        x = 0;
+                        y = 0;
+                        weaponIndex = 1;
+                        mirror = true;
+                        progress = PartProgress.warmup;
+                        moveX = -3;
+                        moveY = -3;
+                    }}
+            );
+        }};
+        kaph37 = new UnitType("kaph37"){{
+            constructor = LegsUnit::create;
+            aiController = SuicideAI::new;
+
             speed = 1f;
             drag = 0.11f;
-            hitSize = 9f;
+            hitSize = 11f;
             rotateSpeed = 3f;
             health = 650;
             armor = 1f;
@@ -406,15 +640,14 @@ public class BioUnits {
                 reload = 24f;
                 shootCone = 180f;
                 ejectEffect = Fx.none;
-                shootSound = BioSounds.fleshHit;
+                range = 1;
                 x = shootY = 0f;
                 mirror = false;
                 bullet = new BulletType(){{
                     collidesTiles = false;
                     collides = false;
-                    hitSound = BioSounds.fleshHit;
 
-                    rangeOverride = 60f;
+                    rangeOverride = 10f;
                     hitEffect = new ParticleEffect(){{
                         sizeFrom = 5;
                         sizeTo = 5;
@@ -422,7 +655,7 @@ public class BioUnits {
                         colorTo = BioPal.bloodRed;
                     }};
                     speed = 0f;
-                    splashDamageRadius = 55f;
+                    splashDamageRadius = 35f;
                     instantDisappear = true;
                     splashDamage = 50f;
                     killShooter = true;
@@ -433,8 +666,9 @@ public class BioUnits {
 
             parts.add(
                     new BiologicalRegionPart("-mouth"){{
-                        growX = 0.6f;
-                        growY = 0.5f;
+                        growX = 0.8f;
+                        growY = 0.8f;
+                        randProgScale = 250f;
                         moveX = -1.3f;
                         moveY = 0.6f;
                         moveRot = 7f;
@@ -442,8 +676,9 @@ public class BioUnits {
                         y = 2f;
                     }},
                     new BiologicalRegionPart("-holes"){{
-                        growX = 0.3f;
-                        growY = 0.5f;
+                        growX = 0.7f;
+                        growY = 0.7f;
+                        randProgScale = 200f;
                         moveX = 1f;
                         moveY = -0.4f;
                         moveRot = -5f;
@@ -562,7 +797,6 @@ public class BioUnits {
             shadowElevation = 0.1f;
             groundLayer = Layer.legUnit - 1f;
             targetAir = false;
-            researchCostMultiplier = 0f;
             researchCostMultiplier = 0f;
             lightOpacity = 0;
             legSpeed = 0.005f;

@@ -36,6 +36,7 @@ public class BioTechTree {
             node(BioBlocks.inception, Seq.with(new Objectives.Produce(BioItems.carbonicTissue)), () -> {
                 node(BioBlocks.costae, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {
                     node(BioBlocks.needle, Seq.with(new Objectives.Produce(BioItems.potash)), () -> {});
+                    node(BioBlocks.celluris, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {});
                 });
                 node(BioBlocks.magnesiumWall, () -> {
                     node(BioBlocks.largeMagnesiumWall);
@@ -61,7 +62,7 @@ public class BioTechTree {
             });
 
             node(BioSectorPresets.ankle, () -> {
-                node(BioSectorPresets.crus, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle), new Objectives.Produce(BioItems.potash)), () -> {});
+                node(BioSectorPresets.crus, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {});
             });
         });
     }

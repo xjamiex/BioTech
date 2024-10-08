@@ -7,7 +7,7 @@ import mindustry.type.Weather;
 
 public class BioSectorPresets {
     public static SectorPreset
-        ankle, crus;
+        ankle, crus, femur;
 
     public static void load(){
         ankle = new SectorPreset("ankle", BioPlanets.andori, 1){{
@@ -18,6 +18,11 @@ public class BioSectorPresets {
         crus = new SectorPreset("crus",BioPlanets.andori, 34){{
             alwaysUnlocked = false;
             captureWave = 26;
+        }};
+
+        femur = new SectorPreset("femur", BioPlanets.andori, 53){{
+            alwaysUnlocked = false;
+            captureWave = 12;
         }};
     }
 }

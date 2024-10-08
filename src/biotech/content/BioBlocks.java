@@ -2,6 +2,8 @@ package biotech.content;
 
 import arc.graphics.Color;
 import biotech.entities.bullet.LightningLaserBulletType;
+import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
+import biotech.world.blocks.enviroment.TallTreeBlock;
 import biotech.world.blocks.power.PowerConduit;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.*;
@@ -10,6 +12,7 @@ import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
@@ -72,6 +75,7 @@ public class BioBlocks {
             //units
             aircraftManufacturer, unitDocker, unitDischarger,
             groundManufacturer,
+            bioUnitSpawner,
 
             //effect
             coreSight
@@ -261,19 +265,19 @@ public class BioBlocks {
             effectColor = Color.valueOf("a69780");
         }};
 
-        nerveProtrusion = new TreeBlock("nerve-protrusion");
-        fleshAmalgam = new TreeBlock("flesh-amalgam"){{
-            variants = 3;
+        nerveProtrusion = new TallTreeBlock("nerve-protrusion");
+        fleshAmalgam = new TallTreeBlock("flesh-amalgam"){{
+            variants = 4;
             clipSize = 192f;
             shadowOffset = -1.1f;
+
         }};
-        fleshBoulder = new TallBlock("flesh-boulder"){{
+        fleshBoulder = new TallTreeBlock("flesh-boulder"){{
             variants = 3;
             clipSize = 192f;
             shadowOffset = -0.9f;
-            shadowAlpha = 0.6f;
         }};
-        rottenFleshAmalgam = new TallBlock("rotten-flesh-amalgam"){{
+        rottenFleshAmalgam = new TallTreeBlock("rotten-flesh-amalgam"){{
             variants = 3;
             clipSize = 192f;
             shadowOffset = -1.1f;
@@ -737,6 +741,22 @@ public class BioBlocks {
             size = 2;
             itemCapacity = 40;
             squareSprite = false;
+        }};
+
+        bioUnitSpawner = new BiologicalStaticSpawner("bio-unit-spawner"){{
+            requirements(units, BuildVisibility.shown, with(BioItems.carbonicTissue, 1));
+            health = 20;
+            size = 8;
+            effect = new ParticleEffect(){{
+                particles = 8;
+                length = 32;
+                sizeFrom = 8;
+                sizeTo = 0;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+            }};
+
+            spawnedUnit = BioUnits.kaph37;
         }};
         //endregion
 

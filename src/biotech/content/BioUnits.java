@@ -21,6 +21,7 @@ import mindustry.entities.part.HoverPart;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.pattern.ShootSpread;
+import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -496,7 +497,7 @@ public class BioUnits {
                             damageInterval = 10;
 
                             flareColor = BioPal.bloodRedLight;
-                            flareLength = 15f;
+                            flareLength = 10f;
                             flareRotSpeed = 0.3f;
                             flareWidth = 7f;
 
@@ -524,7 +525,7 @@ public class BioUnits {
 
                         shootSound = Sounds.missile;
                         inaccuracy = 2f;
-                        bullet = new BasicBulletType(10, 165){{
+                        bullet = new BasicBulletType(10, 85){{
                             sprite = "circle";
 
                             frontColor = BioPal.bloodRedLight;
@@ -532,7 +533,6 @@ public class BioUnits {
                             width = 10;
                             height = 12;
                             shrinkX = shrinkY = 0;
-                            shootEffect = Fx.none;
                             pierce = pierceBuilding = true;
                             pierceCap = 3;
                             lifetime = 20;
@@ -541,7 +541,8 @@ public class BioUnits {
                             trailWidth = 4;
                             trailColor = BioPal.bloodRedLight;
 
-                            hitEffect = Fx.none;
+                            shootEffect = BioFx.fourSpike;
+                            hitEffect = despawnEffect = Fx.none;
                             trailEffect = hitEffect = new ParticleEffect(){{
                                 colorFrom = BioPal.bloodRedLight;
                                 colorTo = BioPal.bloodRed;
@@ -561,10 +562,11 @@ public class BioUnits {
 
                                 drawFlare = true;
                                 flareLength = 15f;
+                                flareWidth = 10;
                                 flareColor = BioPal.bloodRedLight;
 
-                                length = 30f;
-                                width = 3;
+                                length = 2f;
+                                width = 2;
 
                                 lifetime = 40f;
                                 trailEffect = hitEffect = new ParticleEffect(){{

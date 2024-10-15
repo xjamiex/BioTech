@@ -30,4 +30,10 @@ public class BioTech extends Mod{
         Planets.erekir.hiddenItems.addAll(BioItems.andoriItems);
         Planets.serpulo.hiddenItems.addAll(BioItems.andoriItems);
     }
+
+    @Override
+    public void init() {
+        super.init();
+        BioTeams.load();
+    }
 }

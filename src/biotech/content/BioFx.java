@@ -1,11 +1,13 @@
 package biotech.content;
 
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.util.Tmp;
 import mindustry.Vars;
 import mindustry.entities.Effect;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 
 import java.util.Random;
@@ -30,12 +32,15 @@ public class BioFx {
             Lines.endLine();
         }),
 
-        needleSpike = new Effect(50f, e -> {
-            float offset = 4;
-            color(BioPal.magnesiumPurple, Color.clear.add(0, 0, 0, 100), e.fin());
-            Fill.tri(e.x, e.y,
-                    e.x + getRandomNum(offset, -offset), e.y + getRandomNum(offset, -offset),
-                    e.x + getRandomNum(offset, -offset), e.y + getRandomNum(offset, -offset));
+        fourSpike = new Effect(60, e -> {
+            color(Color.white);
+            for(int i = 0; i <= 4; i++) {
+                Drawf.tri(e.x, e.y, 3, 40f * e.fout(), i * 90);
+            }
+            color(BioPal.bloodRedLight);
+            for(int i = 0; i <= 4; i++) {
+                Drawf.tri(e.x, e.y, 6, 40f * e.fout(), i * 90);
+            }
         });
 
     public static float getRandomNum(float c, float f){

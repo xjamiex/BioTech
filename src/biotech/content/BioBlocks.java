@@ -5,7 +5,10 @@ import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
 import biotech.world.blocks.enviroment.TallTreeBlock;
 import biotech.world.blocks.power.PowerConduit;
+import biotech.world.blocks.production.BoostableDrill;
+import biotech.world.blocks.production.DrillBooster;
 import mindustry.content.Fx;
+import mindustry.content.Items;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
@@ -47,7 +50,7 @@ public class BioBlocks {
             magnesiumConveyor, splitter, conveyorOverpass,
 
             //drill
-            bioDrill, boneCrusher, bioPiercer,
+            bioDrill, boneCrusher, bioPiercer, drillBooster,
 
             //env
             flesh, rottenFlesh, decayedFlesh, scarredFlesh,
@@ -155,7 +158,7 @@ public class BioBlocks {
         //endregion
 
         //drills
-        bioDrill = new Drill("bio-drill"){{
+        bioDrill = new BoostableDrill("bio-drill"){{
             researchCost = with(BioItems.magnesium, 60);
             requirements(Category.production, with(BioItems.magnesium, 40, BioItems.calciticFragment, 35));
             tier = 1;
@@ -219,6 +222,12 @@ public class BioBlocks {
             output = BioItems.calciticFragment;
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.04f;
+        }};
+
+        drillBooster = new DrillBooster("drill-booster"){{
+            requirements(production, with(BioItems.carbonicTissue, 1));
+            health = 1500;
+            size = 2;
         }};
         //endregion
 

@@ -1,20 +1,13 @@
 package biotech.world.blocks.production;
 
-import arc.Core;
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.math.geom.Point2;
 import arc.util.Log;
 import mindustry.game.Team;
-import mindustry.gen.Building;
 import mindustry.type.Item;
 import mindustry.world.Edges;
 import mindustry.world.Tile;
-import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.production.Drill;
-
-import static mindustry.Vars.*;
 
 public class BoostableDrill extends Drill {
 
@@ -40,8 +33,8 @@ public class BoostableDrill extends Drill {
             //what am i doing with my life
             if (tile.build == null) continue;
             if (tile.build.tile.nearby(edge).build == null) continue;
-            if (tile.build.tile.nearby(edge).block() instanceof DrillBooster) {
-                boost += 1;
+            if (tile.build.tile.nearby(edge).block() instanceof DrillUpgrader) {
+                boost = 1;
             }
         }
         return boost;

@@ -1,20 +1,23 @@
 package biotech.world.blocks.production;
 
+import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.TextureRegion;
 import arc.struct.EnumSet;
-import mindustry.gen.Building;
+import mindustry.graphics.Drawf;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.Env;
 
-import static mindustry.Vars.world;
+public class DrillUpgrader extends Block {
 
-public class DrillBooster extends Block {
-    public DrillBooster(String name) {
+    public static TextureRegion arrowRegion;
+    public DrillUpgrader(String name) {
         super(name);
-        rotate = true;
+        rotate = false;
         update = true;
         solid = true;
+        drawArrow = false;
 
         envEnabled |= Env.space;
         flags = EnumSet.of(BlockFlag.drill);

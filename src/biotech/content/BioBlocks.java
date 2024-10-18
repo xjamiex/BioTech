@@ -1,21 +1,20 @@
 package biotech.content;
 
+import arc.Core;
 import arc.graphics.Color;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
 import biotech.world.blocks.enviroment.TallTreeBlock;
 import biotech.world.blocks.power.PowerConduit;
 import biotech.world.blocks.production.BoostableDrill;
-import biotech.world.blocks.production.DrillBooster;
+import biotech.world.blocks.production.DrillUpgrader;
 import mindustry.content.Fx;
-import mindustry.content.Items;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
@@ -50,7 +49,7 @@ public class BioBlocks {
             magnesiumConveyor, splitter, conveyorOverpass,
 
             //drill
-            bioDrill, boneCrusher, bioPiercer, drillBooster,
+            bioDrill, boneCrusher, bioPiercer, drillUpgrader,
 
             //env
             flesh, rottenFlesh, decayedFlesh, scarredFlesh,
@@ -224,7 +223,7 @@ public class BioBlocks {
             ambientSoundVolume = 0.04f;
         }};
 
-        drillBooster = new DrillBooster("drill-booster"){{
+        drillUpgrader = new DrillUpgrader("drill-upgrader"){{
             requirements(production, with(BioItems.carbonicTissue, 1));
             health = 1500;
             size = 2;

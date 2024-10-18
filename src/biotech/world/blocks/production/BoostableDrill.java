@@ -4,8 +4,12 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
+import arc.math.geom.Point2;
+import arc.util.Log;
 import mindustry.game.Team;
+import mindustry.gen.Building;
 import mindustry.type.Item;
+import mindustry.world.Edges;
 import mindustry.world.Tile;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.production.Drill;
@@ -24,57 +28,39 @@ public class BoostableDrill extends Drill {
     }
 
     @Override
-    public void drawPlace(int x, int y, int rotation, boolean valid){
-        super.drawPlace(x, y, rotation, valid);
+    public boolean canMine(Tile tile) {
+        if (tile == null || tile.block().isStatic()) return false;
+        Item drops = tile.drop();
+        return drops != null && drops.hardness <= (tier + checkBooster(tile)) && drops != blockedItem;
+    }
 
-        Tile tile = world.tile(x, y);
-        if(tile == null) return;
-
-        countOre(tile);
-
-        if(returnItem != null){
-            float width = drawPlaceText(Core.bundle.formatFloat("bar.drillspeed", 60f / getDrillTime(returnItem) * returnCount, 2), x, y, valid);
-            float dx = x * tilesize + offset - width/2f - 4f, dy = y * tilesize + offset + size * tilesize / 2f + 5, s = iconSmall / 4f;
-            Draw.mixcol(Color.darkGray, 1f);
-            Draw.rect(returnItem.fullIcon, dx, dy - 1, s, s);
-            Draw.reset();
-            Draw.rect(returnItem.fullIcon, dx, dy, s, s);
-
-            if(drawMineItem){
-                Draw.color(returnItem.color);
-                Draw.rect(itemRegion, tile.worldx() + offset, tile.worldy() + offset);
-                Draw.color();
-            }
-        }else{
-            Tile to = tile.getLinkedTilesAs(this, tempTiles).find(t -> t.drop() != null && (t.drop().hardness > tier || t.drop() == blockedItem));
-            Item item = to == null ? null : to.drop();
-            if(item != null){
-                drawPlaceText(Core.bundle.get("bar.drilltierreq"), x, y, valid);
+    public int checkBooster(Tile tile) {
+        int boost = 0;
+        for (Point2 edge : Edges.getEdges(this.size)) {
+            //what am i doing with my life
+            if (tile.build == null) continue;
+            if (tile.build.tile.nearby(edge).build == null) continue;
+            if (tile.build.tile.nearby(edge).block() instanceof DrillBooster) {
+                boost += 1;
             }
         }
+        return boost;
     }
 
-    @Override
-    public boolean canMine(Tile tile) {
-        if(tile == null || tile.block().isStatic()) return false;
-        Item drops = tile.drop();
-        return drops != null && drops.hardness <= tier && drops != blockedItem;
-    }
+    public class BoostableDrillBuild extends DrillBuild {
 
-    public class boostableDrillBuild extends DrillBuild {
-
-        public int boostedTier = 1;
+        public int boostedTier = 0;
 
         @Override
-        public void updateTile(){
-            if(boostedTier < tier) return;
-            if(timer(timerDump, dumpTime)){
+        public void updateTile() {
+            if(timer(timerDump, dumpTime)) {
                 dump(dominantItem != null && items.has(dominantItem) ? dominantItem : null);
             }
 
-            if(dominantItem == null){
+            if(dominantItem == null) {
                 return;
             }
+            Log.info(tier + boostedTier);
 
             timeDrilled += warmup * delta();
 

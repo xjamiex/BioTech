@@ -9,12 +9,15 @@ import biotech.world.blocks.power.PowerConduit;
 import biotech.world.blocks.production.BoostableDrill;
 import biotech.world.blocks.production.DrillUpgrader;
 import mindustry.content.Fx;
+import mindustry.content.Liquids;
+import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootBarrel;
 import mindustry.gen.Sounds;
+import mindustry.graphics.CacheLayer;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
@@ -58,6 +61,7 @@ public class BioBlocks {
             fleshWall, rottenFleshWall, decayedFleshWall,
             boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall, gneissWall, marlWall,
             poreHole,
+            plasmoidPuddle,
 
             //props
             nerveProtrusion, fleshAmalgam, fleshBoulder, rottenFleshAmalgam,
@@ -271,6 +275,19 @@ public class BioBlocks {
             variants = 3;
             effectSpacing = 100f;
             effectColor = Color.valueOf("a69780");
+        }};
+        plasmoidPuddle = new Floor("plasmoid-puddle"){{
+            speedMultiplier = 0.4f;
+            variants = 0;
+            liquidDrop = BioLiquids.plasmoid;
+            liquidMultiplier = 1.2f;
+            isLiquid = true;
+            status = StatusEffects.shocked;
+            statusDuration = 120f;
+            drownTime = 200f;
+            cacheLayer = CacheLayer.water;
+            albedo = 0.8f;
+            supportsOverlay = true;
         }};
 
         nerveProtrusion = new TallTreeBlock("nerve-protrusion");

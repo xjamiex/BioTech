@@ -489,7 +489,7 @@ public class BioUnits {
                         shootSound = Sounds.missile;
                         inaccuracy = 15f;
                         bullet = new ContinuousFlameBulletType(){{
-                            colors = new Color[]{BioPal.bloodRed.a(0.55f), BioPal.bloodRed.a(0.7f), BioPal.bloodRedLight.a(0.8f), BioPal.bloodRedLight, Color.white.cpy()};;
+                            colors = new Color[]{BioPal.bloodRed.a(0.55f), BioPal.bloodRed.a(0.7f), BioPal.bloodRedLight.a(0.8f), BioPal.bloodRedLight, Color.white.cpy()};
                             shootEffect = Fx.none;
                             damage = 10f;
                             pierce = pierceBuilding = false;
@@ -553,7 +553,7 @@ public class BioUnits {
 
                             fragBullets = 4;
                             fragBullet = new ContinuousFlameBulletType(){{
-                                colors = new Color[]{BioPal.bloodRed.a(0.55f), BioPal.bloodRed.a(0.7f), BioPal.bloodRedLight.a(0.8f), BioPal.bloodRedLight, Color.white.cpy()};;
+                                colors = new Color[]{BioPal.bloodRed.a(0.55f), BioPal.bloodRed.a(0.7f), BioPal.bloodRedLight.a(0.8f), BioPal.bloodRedLight, Color.white.cpy()};
                                 shootEffect = Fx.none;
                                 damage = 2f;
                                 pierce = pierceBuilding = false;

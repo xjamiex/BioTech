@@ -79,8 +79,8 @@ public class BioBlocks {
             magnesiumWall, largeMagnesiumWall,
 
             //units
-            aircraftManufacturer, unitDocker, unitDischarger,
-            groundManufacturer,
+            experimentalManufacturer, unitDocker, unitDischarger,
+            descentManufacturer,
             bioUnitSpawner,
 
             //effect
@@ -228,7 +228,7 @@ public class BioBlocks {
         }};
 
         drillUpgrader = new DrillUpgrader("drill-upgrader"){{
-            requirements(production, with(BioItems.carbonicTissue, 1));
+            requirements(production, with(BioItems.potash, 120));
             health = 1500;
             size = 2;
         }};
@@ -728,19 +728,20 @@ public class BioBlocks {
         //endregion
 
         //units
-        aircraftManufacturer = new UnitFactory("aircraft-manufacturer"){{
-            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.carbonicTissue, 150, BioItems.calciticFragment, 140, BioItems.potash, 50, BioItems.phosphorus, 32));
+        experimentalManufacturer = new UnitFactory("experimental-manufacturer"){{
+            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.calciticFragment, 140, BioItems.potash, 50, BioItems.phosphorus, 32));
             size = 3;
-            plans.add(new UnitPlan(BioUnits.scout, 60 * 28f, with(BioItems.magnesium, 35, BioItems.potash, 45)));
+            plans.add(new UnitPlan(BioUnits.smith, 60 * 28f, with(BioItems.potash, 15, BioItems.phosphorus, 45)));
             researchCostMultiplier = 0.8f;
-            consumeLiquid(BioLiquids.hemoFluid, 0.3f);
+            consumeLiquid(BioLiquids.hemoFluid, 0.4f);
         }};
 
-        groundManufacturer = new UnitFactory("ground-manufacturer"){{
-            researchCost = with(BioItems.magnesium, 300, BioItems.calciticFragment, 150);
-            requirements(Category.units, with(BioItems.magnesium, 120, BioItems.calciticFragment, 140));
+        descentManufacturer = new UnitFactory("descent-manufacturer"){{
+            researchCost = with(BioItems.magnesium, 300, BioItems.calciticFragment, 250);
+            requirements(Category.units, with(BioItems.magnesium, 190, BioItems.calciticFragment, 140));
             size = 3;
-            plans.add(new UnitPlan(BioUnits.strider, 60 * 35f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
+            plans.add(new UnitPlan(BioUnits.strider, 60 * 35f, with(BioItems.magnesium, 35, BioItems.calciticFragment, 15)));
+            plans.add(new UnitPlan(BioUnits.scout, 60 * 26f, with(BioItems.magnesium, 20, BioItems.potash, 15)));
             consumeLiquid(BioLiquids.hemoFluid, 0.3f);
         }};
 

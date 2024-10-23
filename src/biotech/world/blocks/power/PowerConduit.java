@@ -5,13 +5,14 @@ import arc.struct.EnumSet;
 import arc.util.Strings;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
+import mindustry.world.blocks.liquid.ArmoredConduit;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.power.PowerGenerator;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
 
-public class PowerConduit extends Conduit {
+public class PowerConduit extends ArmoredConduit {
     public float powerProduction = 0f;
     public Stat generationType = Stat.basePowerGeneration;
 

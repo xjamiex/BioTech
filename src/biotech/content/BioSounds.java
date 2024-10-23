@@ -11,7 +11,8 @@ public class BioSounds {
         fleshHit = new Sound(),
     motherDeath = new Sound(),
     fetusCries = new Sound(),
-    wail = new Sound();
+    wail = new Sound(),
+    shootMedium = new Sound();
 
     public static void load(){
 
@@ -19,6 +20,7 @@ public class BioSounds {
         wail = loadSound("wail");
         motherDeath = loadSound("motherDeath");
         fetusCries = loadSound("fetusCries");
+        shootMedium = loadSound("shootMedium");
     }
 
     private static Sound loadSound(String soundName){

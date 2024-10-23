@@ -7,6 +7,7 @@ import arc.util.Log;
 import arc.util.Time;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.entities.part.BiologicalRegionPart;
+import biotech.type.BiologicalUnitType;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.CargoAI;
 import mindustry.ai.types.GroundAI;
@@ -16,6 +17,7 @@ import mindustry.entities.Effect;
 import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
+import mindustry.entities.effect.SeqEffect;
 import mindustry.entities.part.HaloPart;
 import mindustry.entities.part.HoverPart;
 import mindustry.entities.part.RegionPart;
@@ -215,32 +217,17 @@ public class BioUnits {
             parts.addAll(
                     new HaloPart(){{
                         x = 0;
-                        y = -5;
+                        y = -7;
                         sides = 5;
                         shapes = 1;
                         rotateSpeed = 5;
                         color = BioPal.bloodRed;
                         colorTo = BioPal.bloodRedLight;
                         radius = 0;
-                        radiusTo = 3;
+                        radiusTo = 2;
                         stroke = 0;
-                        strokeTo = 3;
+                        strokeTo = 2;
                         layer = Layer.effect;
-                    }},
-                    new HaloPart(){{
-                        x = 0;
-                        y = -5;
-                        sides = 5;
-                        shapes = 1;
-                        rotateSpeed = -5;
-                        color = BioPal.bloodRed;
-                        colorTo = BioPal.bloodRedLight;
-                        radius = 0;
-                        radiusTo = 6;
-                        stroke = 0;
-                        strokeTo = 1.5f;
-                        layer = Layer.effect;
-                        hollow = true;
                     }},
                     new RegionPart("-wings"){{
                         x = y = 0;
@@ -268,12 +255,17 @@ public class BioUnits {
                         shootSound = Sounds.missileLarge;
                         shoot = new ShootSpread(5, 20f);
 
+                        shoot.firstShotDelay = BioFx.seerCharge.lifetime + BioFx.seerWarmup.lifetime;
+
                         bullet = new MissileBulletType(4.2f, 65){{
                             width = 10;
                             height = 15;
                             shrinkX = shrinkY = 0;
                             backColor = BioPal.bloodRedLight;
                             frontColor = BioPal.bloodRedLight;
+
+                            chargeEffect = new SeqEffect(BioFx.seerWarmup, BioFx.seerCharge);
+                            shootEffect = BioFx.fourSpike(4, 25);
 
                             sprite = "biotech-double-rhombus";
 
@@ -486,7 +478,7 @@ public class BioUnits {
                         range = 100f;
                         layerOffset = 1;
 
-                        shootSound = Sounds.missile;
+                        shootSound = Sounds.flame2;
                         inaccuracy = 15f;
                         bullet = new ContinuousFlameBulletType(){{
                             colors = new Color[]{BioPal.bloodRed.a(0.55f), BioPal.bloodRed.a(0.7f), BioPal.bloodRedLight.a(0.8f), BioPal.bloodRedLight, Color.white.cpy()};
@@ -521,11 +513,11 @@ public class BioUnits {
                         mirror = false;
                         range = 100f;
 
-                        reload = 60f;
+                        shoot.firstShotDelay = reload = 120f;
 
-                        shootSound = Sounds.missile;
+                        shootSound = BioSounds.shootMedium;
                         inaccuracy = 2f;
-                        bullet = new BasicBulletType(10, 85){{
+                        bullet = new BasicBulletType(10, 185){{
                             sprite = "circle";
 
                             frontColor = BioPal.bloodRedLight;
@@ -537,11 +529,22 @@ public class BioUnits {
                             pierceCap = 3;
                             lifetime = 20;
 
+                            chargeEffect = new SeqEffect(BioFx.nomadBeginWarmup, BioFx.nomadWarmup, BioFx.nomadRelease);
+                            shootEffect = new ParticleEffect(){{
+                                cone = 40;
+                                colorFrom = BioPal.bloodRedLight;
+                                colorTo = BioPal.bloodRed;
+                                sizeFrom = 7;
+                                sizeTo = 0;
+                                particles = 20;
+                                interp = Interp.exp5Out;
+                                length = 40;
+                            }};
+
                             trailLength = 20;
                             trailWidth = 4;
                             trailColor = BioPal.bloodRedLight;
 
-                            shootEffect = BioFx.fourSpike;
                             hitEffect = despawnEffect = Fx.none;
                             trailEffect = hitEffect = new ParticleEffect(){{
                                 colorFrom = BioPal.bloodRedLight;
@@ -593,7 +596,7 @@ public class BioUnits {
                     }}
             );
         }};
-        kaph37 = new UnitType("kaph37"){{
+        kaph37 = new BiologicalUnitType("kaph37"){{
             constructor = LegsUnit::create;
             aiController = SuicideAI::new;
 

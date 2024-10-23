@@ -8,9 +8,7 @@ import biotech.world.blocks.enviroment.TallTreeBlock;
 import biotech.world.blocks.power.PowerConduit;
 import biotech.world.blocks.production.BoostableDrill;
 import biotech.world.blocks.production.DrillUpgrader;
-import mindustry.content.Fx;
-import mindustry.content.Liquids;
-import mindustry.content.StatusEffects;
+import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
@@ -22,6 +20,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
+import mindustry.type.UnitType;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
@@ -34,6 +33,7 @@ import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.liquid.LiquidRouter;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitCargoLoader;
 import mindustry.world.blocks.units.UnitCargoUnloadPoint;
 import mindustry.world.blocks.units.UnitFactory;
@@ -46,7 +46,7 @@ import static mindustry.type.ItemStack.with;
 public class BioBlocks {
     public static Block
             //liquids
-            bioPress, liquidPipe, liquidSplitter, liquidOverpass,
+            bioPress, liquidPipe, liquidSplitter, liquidOverpass, bioSiphon,
 
             //distribution
             magnesiumConveyor, splitter, conveyorOverpass,
@@ -59,7 +59,7 @@ public class BioBlocks {
             flint, bone, myostone, flourspar, dolomite, alloyFloor, squareAlloyFloor, gneiss, marl,
             oreMagnesium, orePhosphorus,
             fleshWall, rottenFleshWall, decayedFleshWall,
-            boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall, gneissWall, marlWall,
+            boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall, gneissWall, marlWall, lipidMarbleWall,
             poreHole,
             plasmoidPuddle,
 
@@ -80,7 +80,7 @@ public class BioBlocks {
 
             //units
             experimentalManufacturer, unitDocker, unitDischarger,
-            descentManufacturer,
+            descentManufacturer, osylithReformer,
             bioUnitSpawner,
 
             //effect
@@ -130,6 +130,15 @@ public class BioBlocks {
             arrowSpacing = 6f;
             range = 4;
             hasPower = false;
+        }};
+
+        bioSiphon = new Pump("bio-siphon"){{
+            requirements(Category.liquid, with(BioItems.magnesium, 50, BioItems.calciticFragment, 120));
+            pumpAmount = 0.04f;
+            liquidCapacity = 30f;
+            size = 2;
+            drawer = new DrawDefault();
+            squareSprite = false;
         }};
         //endregion
 
@@ -269,6 +278,7 @@ public class BioBlocks {
         decayedFleshWall = new StaticWall("decayed-flesh-wall");
         gneissWall = new StaticWall("gneiss-wall");
         marlWall = new StaticWall("marl-wall");
+        lipidMarbleWall = new StaticWall("lipid-marble-wall");
 
         poreHole = new SteamVent("pore-hole"){{
             parent = blendGroup = flesh;
@@ -740,9 +750,25 @@ public class BioBlocks {
             researchCost = with(BioItems.magnesium, 300, BioItems.calciticFragment, 250);
             requirements(Category.units, with(BioItems.magnesium, 190, BioItems.calciticFragment, 140));
             size = 3;
-            plans.add(new UnitPlan(BioUnits.strider, 60 * 35f, with(BioItems.magnesium, 35, BioItems.calciticFragment, 15)));
-            plans.add(new UnitPlan(BioUnits.scout, 60 * 26f, with(BioItems.magnesium, 20, BioItems.potash, 15)));
+            plans.add(new UnitPlan(BioUnits.strider, 60 * 15f, with(BioItems.magnesium, 35, BioItems.calciticFragment, 15)));
+            plans.add(new UnitPlan(BioUnits.scout, 60 * 12f, with(BioItems.magnesium, 20, BioItems.potash, 15)));
             consumeLiquid(BioLiquids.hemoFluid, 0.3f);
+        }};
+
+        osylithReformer = new Reconstructor("osylith-reformer"){{
+            requirements(Category.units, with(BioItems.phosphorus, 40, BioItems.potash, 100, BioItems.calciticFragment, 120, BioItems.magnesium, 260));
+
+            size = 4;
+            consumeLiquid(BioLiquids.plasmoid, 1.2f);
+            consumeItems(with(BioItems.carminite, 35, BioItems.phosphorus, 50));
+
+            constructTime = 60f * 25f;
+
+            upgrades.addAll(
+                    new UnitType[]{BioUnits.scout, BioUnits.seer},
+                    new UnitType[]{BioUnits.strider, BioUnits.nomad}
+            );
+            squareSprite = false;
         }};
 
         unitDocker = new UnitCargoLoader("unit-docker"){{

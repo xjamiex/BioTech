@@ -59,6 +59,7 @@ public class BiologicalStaticSpawner extends UnitBlock {
 
                 for (int i = 0; i < spawnAmount + Mathf.random(-5, 5); i++) {
                     Unit unit = spawnedUnit.spawn(Team.crux, tile.worldx(), tile.worldy());
+                    unit.speedMultiplier = Mathf.randomSeed(unit.id, -0.5f, 1.5f);
                     payload = new UnitPayload(unit);
                     payVector.setZero();
                     Events.fire(new EventType.UnitCreateEvent(payload.unit, this));

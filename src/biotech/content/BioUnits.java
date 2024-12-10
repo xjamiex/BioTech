@@ -8,15 +8,16 @@ import arc.util.Time;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
-import mindustry.ai.types.BuilderAI;
-import mindustry.ai.types.CargoAI;
-import mindustry.ai.types.GroundAI;
-import mindustry.ai.types.SuicideAI;
+import biotech.type.bullets.SpeedUpBulletType;
+import mindustry.ai.types.*;
 import mindustry.content.Fx;
+import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
 import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
+import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
+import mindustry.entities.effect.RadialEffect;
 import mindustry.entities.effect.SeqEffect;
 import mindustry.entities.part.HaloPart;
 import mindustry.entities.part.HoverPart;
@@ -25,11 +26,16 @@ import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.game.Team;
 import mindustry.gen.*;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.unit.MissileUnitType;
+import mindustry.type.weapons.PointDefenseWeapon;
+import mindustry.world.blocks.defense.turrets.PointDefenseTurret;
+
+import static arc.graphics.g2d.Draw.color;
 
 public class BioUnits {
     public static UnitType
@@ -41,7 +47,7 @@ public class BioUnits {
             scout, seer,
 
             //air specialty
-            smith,
+            smith, anvil,
 
             //ground attack
             strider, nomad,
@@ -265,7 +271,7 @@ public class BioUnits {
                             frontColor = BioPal.bloodRedLight;
 
                             chargeEffect = new SeqEffect(BioFx.seerWarmup, BioFx.seerCharge);
-                            shootEffect = BioFx.fourSpike(4, 25);
+                            shootEffect = BioFx.fourSpike(BioPal.bloodRedLight, 4, 25);
 
                             sprite = "biotech-double-rhombus";
 
@@ -361,6 +367,102 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
+        anvil = new UnitType("anvil"){{
+            constructor = UnitEntity::create;
+            aiController = FlyingAI::new;
+
+            flying = true;
+            drag = 0.03f;
+            speed = 3.2f;
+            rotateSpeed = 2f;
+            accel = 0.02f;
+            itemCapacity = 0;
+            health = 1320f;
+            hitSize = 7f;
+            engineOffset = 8;
+            engineSize = 5;
+            lowAltitude = true;
+
+            weapons.addAll(
+                    new PointDefenseWeapon("biotech-anvil-point-defense"){{
+                        x = 5;
+                        y = 0;
+                        mirror = true;
+                        alternate = false;
+                        color = BioPal.potashOrangeLight;
+                        reload = 15;
+                        range = 120;
+                        layerOffset = 1;
+
+                        shake = 1f;
+                    }},
+
+                    new Weapon("biotech-anvil-orb"){{
+                        x = 0;
+                        y = 0;
+                        mirror = false;
+                        alternate = false;
+                        shoot.firstShotDelay = 240;
+                        reload = 280;
+                        range = 180;
+                        shootSound = Sounds.shootBig;
+                        shootStatus = StatusEffects.unmoving;
+                        shootStatusDuration = 240;
+
+                        shake = 5f;
+
+                        bullet = new SpeedUpBulletType(20, 325, "circle"){{
+                            backColor = BioPal.potashOrange;
+                            frontColor = BioPal.potashOrangeLight;
+                            width = 20;
+                            height = 20;
+                            shrinkX = shrinkY = 0;
+                            chargeEffect = new MultiEffect(new SeqEffect(BioFx.smithBeginWarmup, BioFx.smithWarmup));
+                            shootEffect = BioFx.smithShoot;
+                            splashDamage = 50;
+                            splashDamageRadius = 10;
+                            pierceCap = 4;
+                            pierceBuilding = pierce = true;
+
+                            trailColor = BioPal.potashOrangeLight;
+                            trailInterval = 3f;
+                            trailLength = 20;
+                            trailWidth = 4f;
+                            trailRotation = true;
+                            trailEffect = new Effect(16f, e -> {
+                                color(BioPal.potashOrangeLight);
+                                for(int s : Mathf.signs){
+                                    Drawf.tri(e.x, e.y, 3f, 15f * e.fslope(), e.rotation + 90f*s);
+                                }
+                            });
+
+                            hitEffect = despawnEffect = BioFx.fourSpike(BioPal.potashOrangeLight, 8, 30);
+
+                            velocityBegin = 0.5f;
+                            velocityIncrease = 10f;
+                            accelerateBegin = 0.05f;
+                            accelerateEnd = 0.95f;
+                            accelInterp = Interp.exp5;
+                        }};
+                    }}
+            );
+
+            parts.addAll(
+                    new RegionPart("-wing"){{
+                        x = 0;
+                        y = 0;
+                        mirror = true;
+                        progress = PartProgress.charge;
+                        moveX = -2;
+                        moveY = 4;
+                        moveRot = 12;
+                        weaponIndex = 2;
+                    }}
+            );
+
+            outlineColor = Color.valueOf("2b2626");
+        }};
+
         strider = new UnitType("strider"){{
             constructor = LegsUnit::create;
             aiController = GroundAI::new;
@@ -416,7 +518,7 @@ public class BioUnits {
                     trailWidth = 2;
                     trailLength = 2;
                     trailInterval = 2f;
-                    homingPower = 0.3f;
+                    homingPower = 0.02f;
                     lifetime = 35f;
                     trailEffect = new ParticleEffect(){{
                         colorFrom = BioPal.bloodRedLight;
@@ -489,9 +591,9 @@ public class BioUnits {
                             damageInterval = 10;
 
                             flareColor = BioPal.bloodRedLight;
-                            flareLength = 10f;
+                            flareLength = 6f;
                             flareRotSpeed = 0.3f;
-                            flareWidth = 7f;
+                            flareWidth = 5f;
 
                             length = 50f;
                             width = 2.2f;
@@ -692,8 +794,6 @@ public class BioUnits {
                     }}
 
             );
-
-            outlineColor = Color.valueOf("2e0808");
         }};
         mother = new UnitType("mother"){{
             weapons.add(new Weapon(){

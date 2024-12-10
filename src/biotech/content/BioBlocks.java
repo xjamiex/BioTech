@@ -59,12 +59,12 @@ public class BioBlocks {
             flint, bone, myostone, flourspar, dolomite, alloyFloor, squareAlloyFloor, gneiss, marl,
             oreMagnesium, orePhosphorus,
             fleshWall, rottenFleshWall, decayedFleshWall,
-            boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall, gneissWall, marlWall, lipidMarbleWall,
+            boneWall, decayedBoneWall, dolomiteWall, flintWall, floursparWall, myostoneWall, alloyWall, gneissWall, marlWall,
             poreHole,
             plasmoidPuddle,
 
             //props
-            nerveProtrusion, fleshAmalgam, fleshBoulder, rottenFleshAmalgam,
+            nerveProtrusion, fleshAmalgam, fleshBoulder, rottenFleshAmalgam, rottenFleshBoulder,
 
             //turret
             inception, costae, celluris, dissection, needle,
@@ -271,14 +271,15 @@ public class BioBlocks {
         dolomiteWall = new StaticWall("flint-wall");
         flintWall = new StaticWall("dolomite-wall");
         floursparWall = new StaticWall("flourspar-wall");
-        fleshWall = new StaticWall("flesh-wall");
+        fleshWall = new StaticWall("flesh-wall") {{
+            variants = 8;
+        }};
         myostoneWall = new StaticWall("myostone-wall");
         alloyWall = new StaticWall("alloy-wall");
         rottenFleshWall = new StaticWall("rotten-flesh-wall");
         decayedFleshWall = new StaticWall("decayed-flesh-wall");
         gneissWall = new StaticWall("gneiss-wall");
         marlWall = new StaticWall("marl-wall");
-        lipidMarbleWall = new StaticWall("lipid-marble-wall");
 
         poreHole = new SteamVent("pore-hole"){{
             parent = blendGroup = flesh;
@@ -302,20 +303,24 @@ public class BioBlocks {
 
         nerveProtrusion = new TallTreeBlock("nerve-protrusion");
         fleshAmalgam = new TallTreeBlock("flesh-amalgam"){{
-            variants = 4;
+            variants = 5;
             clipSize = 192f;
             shadowOffset = -1.1f;
 
         }};
         fleshBoulder = new TallTreeBlock("flesh-boulder"){{
             variants = 3;
-            clipSize = 192f;
             shadowOffset = -0.9f;
         }};
         rottenFleshAmalgam = new TallTreeBlock("rotten-flesh-amalgam"){{
-            variants = 3;
+            variants = 4;
             clipSize = 192f;
             shadowOffset = -1.1f;
+        }};
+
+        rottenFleshBoulder = new TallTreeBlock("rotten-flesh-boulder"){{
+            variants = 3;
+            shadowOffset = -0.9f;
         }};
 
         oreMagnesium = new OreBlock("ore-magnesium"){{

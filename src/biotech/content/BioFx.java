@@ -9,6 +9,7 @@ import arc.math.Mathf;
 import arc.util.Tmp;
 import mindustry.Vars;
 import mindustry.entities.Effect;
+import mindustry.entities.effect.SeqEffect;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 import static arc.graphics.g2d.Draw.alpha;
 import static arc.graphics.g2d.Draw.color;
+import static arc.math.Angles.randLenVectors;
 
 public class BioFx {
 
@@ -52,13 +54,13 @@ public class BioFx {
             Draw.color(BioPal.bloodRedLight);
             Lines.stroke(e.fin() * 3);
             Lines.circle(e.x, e.y, e.fin(Interp.exp10) * 5);
-            Fill.circle(e.x, e.y, e.fin(Interp.exp10) * 3);
+            Fill.circle(e.x, e.y, e.fin(Interp.exp10) * 2);
         }),
 
         nomadWarmup = new Effect(90, e -> {
             color(BioPal.bloodRedLight);
             for(int i = 0; i <= 4; i++) {
-                Drawf.tri(e.x, e.y, 4, 20 * e.fin(), i * 90 + (e.fin() * 200));
+                Drawf.tri(e.x, e.y, 5, 20 * e.fin(), i * 90);
             }
 
             Lines.stroke(3);
@@ -69,24 +71,59 @@ public class BioFx {
         nomadRelease = new Effect(10, e -> {
             color(BioPal.bloodRedLight);
             for(int i = 0; i <= 4; i++) {
-                Drawf.tri(e.x, e.y, 4, 20 * e.fout(Interp.exp10Out), i * 90 + (e.fin() * 50));
+                Drawf.tri(e.x, e.y, 5, 20 * e.fout(Interp.exp10Out), i * 90);
             }
 
-            Lines.stroke(e.fout() *3);
+            Lines.stroke(e.fout() * 3);
             Lines.circle(e.x, e.y, e.fout(Interp.exp10Out) * 5);
             Fill.circle(e.x, e.y, e.fout(Interp.exp10Out) * 2);
+        }),
+
+        smithBeginWarmup = new Effect(20, e -> {
+            color(BioPal.potashOrangeLight);
+            Lines.stroke(e.fin(Interp.exp5Out) * 2);
+            Lines.circle(e.x, e.y, e.fin(Interp.exp5Out) * 5);
+            Fill.circle(e.x, e.y, e.fin(Interp.exp5Out) * 2);
+        }),
+
+        smithWarmup = new SeqEffect(
+                BioFx.anvilCharge(5, 2, 25),
+                BioFx.anvilCharge(10, 2, 30),
+                BioFx.anvilCharge(15, 2, 35),
+                BioFx.anvilCharge(20, 2, 45)
+        ),
+
+        smithShoot = new Effect(60, e -> {
+            color(BioPal.potashOrangeLight);
+            alpha(e.fout());
+            Lines.stroke(e.fout(Interp.exp5Out) * 2);
+            Lines.circle(e.x, e.y, e.fin(Interp.exp5Out) * 14);
+            Fill.circle(e.x, e.y, e.fin(Interp.exp5Out) * 5);
         });
 
-    public static Effect fourSpike(float width, float length){
+    public static Effect fourSpike(Color color, float width, float length){
         return new Effect(60, e -> {
             color(Color.white);
             for(int i = 0; i <= 4; i++) {
                 Drawf.tri(e.x, e.y, width * 0.5f, length * e.fout(), i * 90);
             }
-            color(BioPal.bloodRedLight);
+            color(color);
             for(int i = 0; i <= 4; i++) {
                 Drawf.tri(e.x, e.y, width, length * e.fout(), i * 90);
             }
+        });
+    }
+
+    public  static Effect anvilCharge(int amount, float radius, float length){
+        return new Effect(55, e -> {
+            Draw.color(BioPal.potashOrangeLight);
+            Lines.stroke(2);
+            Lines.circle(e.x, e.y, 5);
+            Fill.circle(e.x, e.y, 2);
+
+            randLenVectors(e.id, amount, length * e.fout(Interp.exp5), (x, y) -> {
+                Fill.circle(e.x + x, e.y + y, e.fin() * radius);
+            });
         });
     }
 

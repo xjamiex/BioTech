@@ -14,7 +14,7 @@ public class BioPal {
     cellBlue = Color.valueOf("318ce0"),
     magnesiumPurple = Color.valueOf("c27ceb"),
     magnesiumPurpleLight = Color.valueOf("dea6ff"),
-    potashOrangeLight = Color.valueOf("ffe25e"),
+    potashOrangeLight = Color.valueOf("ffcc85"),
     potashOrange = Color.valueOf("f7b63e")
 
     ;

@@ -76,6 +76,8 @@ public class BioTechTree {
                 node(BioSectorPresets.crus, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {
                     node(BioSectorPresets.femur, Seq.with(new Objectives.SectorComplete(BioSectorPresets.crus)), () -> {
                     });
+                    node(BioSectorPresets.putridum, Seq.with(new Objectives.SectorComplete(BioSectorPresets.crus), new Objectives.Produce(BioItems.phosphorus)), () -> {
+                    });
                 });
             });
         });

@@ -1,0 +1,150 @@
+block.biotech-flesh.name = Chair
+block.biotech-flesh.description = Viande.
+block.biotech-flint.name = Silex
+block.biotech-flint.description = Le silex, une roche sedimentaire siliceuse et type du mineral quartz. Categorisé en tant qu'une catégorie de chaille qui est trouvé dans de la craie out du calcaire marneux.
+block.biotech-bone.name = Os
+block.biotech-bone.description = Fait de proteines, collagène, and minéraux, surtout du calcium. Le collagène donne un cadre pour l'incorporation de minéraux, surtout du phosphate de calcium dans le cadre de collagène.
+block.biotech-myostone.name = Myolithe
+block.biotech-myostone.description = Muscle Durci.
+block.biotech-flourspar.name = Farspar
+block.biotech-flourspar.description = Menthe.
+block.biotech-dolomite.name = Dolomite
+block.biotecj-dolomite.description = Magnesium drogué.
+block.biotech-decayed-flesh.name = Chair Décomposée
+block.biotech-rotten-flesh.name = Chair Pourrie
+block.biotech-scarred-flesh.name = Chaire Cicatrisée
+block.biotech-gneiss.name = Gneiss
+block.biotech-marl.name = Marne
+block.biotech-flint-wall.name = Mur De Silex
+block.biotech-flint-wall.description = Silex mais mur!?
+block.biotech-dolomite-wall.name = Mur De Dolomite
+block.biotech-dolomite-wall.description = Dolomite mais mur!!?
+block.biotech-flourspar-wall.name = Mur De Flarspar
+block.biotech-flourspar-wall.description = mhm
+block.biotech-myostone-wall.name = Mur De Myolithe
+block.biotech-myostone-wall.description = Pierre Dentifrice :D
+block.biotech-alloy-wall.name = Mur D'alliage
+block.biotech-gneiss-wall.name = Mur De Gneiss
+block.biotech-marl-wall.name = Mur De Marne
+block.biotech-plasmoid-puddle.name = Flaque De Plasmoide
+
+block.biotech-ore-magnesium.name = Minerai De Magnesium
+block.biotech-ore-phosphorous.name = Minerai De Phosphore
+block.biotech-flesh-wall.name = Mur De Chair
+block.biotech-rotten-flesh-wall.name = Mur De Chair Pourrie
+block.biotech-decayed-flesh-wall.name = Mur De Chair Décomposée
+block.biotech-bone-wall.name = Mur D'os
+block.biotech-decayed-bone-wall.name = Mur D'os Décomposé
+
+block.biotech-pore-hole.name = Pore
+block.biotech-nerve-protrusion.name = Protrusion Nerveuse
+block.biotech-flesh-amalgam.name = Amalgame De Chair
+block.biotech-rotten-flesh-amalgam.name = Amalgam De Chair Pourrie
+block.biotech-flesh-boulder.name = Boulet De Chair
+
+block.biotech-magnesium-wall.name = Mur En Magnesium
+block.biotech-magnesium-wall.description = Protège les structures contre les projectiles ennemis.
+block.biotech-large-magnesium-wall.name = Grand Mur En Magnesium
+block.biotech-large-magnesium-wall.description = Protège les structures contre les projectiles ennemis.
+
+block.biotech-inception.name = Création
+block.biotech-inception.description = Lance des bouts de chair vers les ennemis, fais des dégats de zone.
+block.biotech-costae.name = Costae
+block.biotech-costae.description = Lance des éclatements de fragment d'os aiguisé contre les aeronéfs ennemis.
+block.biotech-celluris.name = Celluris
+block.biotech-celluris.description = Tire un obus d'artillerie à longe portée qui explose en plusieurs plus petit missiles autoguidés.
+block.biotech-dissection.name = Dissection
+block.biotech-dissection.description =  Tire un court laser chargé à une cadence rapide.
+block.biotech-needle.name = Aiguille
+block.biotech-needle.description = Une petite tourelle rapide a construire. Utile pour la mise en place de bases temporaires.
+
+block.biotech-hematic-sieve.name = Filtre Hématique
+block.biotech-hematic-sieve.description = Filtres le sang pour en sortir de la potasse.
+
+block.biotech-core-sight.name = Core: Vue
+block.biotech-core-sight.description = Noyaux de la base. Fait de matériaux biologiques. Une fois détruit, le secteur est perdu.
+
+block.biotech-experimental-manufacturer.name = Fabrique Expérimentale
+block.biotech-experimental-manufacturer.description = Fabrique des unités basique de classe expérimentale.
+block.biotech-descent-manufacturer.name = Fabrique De Descente
+block.biotech-descent-manufacturer.description = Fabrique des unités d'attaque.
+block.biotech-unit-docker.name = Docker De Cargo
+block.biotech-unit-docker.description = Fabrique un drone de transport basique, emméne des items aux déchargeurs d'unité avec le même filtre d'items.
+block.biotech-unit-discharger.name = Déchargeur De Cargo
+block.biotech-unit-discharger.description = Décharges les drones de transport.
+block.biotech-osylith-reformer.name =  Reformateur Osylithe
+block.biotech-osylith-reformer.description = Réforme les unités en un tier plus élevé.
+
+block.biotech-bio-press.name = Centrifuge à Tissu
+block.biotech-bio-press.description = Presse du tissu carbonique pour en extraire le sang.
+block.biotech-bio-drill.name = Foreuse Biotique
+block.biotech-bio-drill-description = Mines basic resources, requires blood to function. Extrait des ressources basiques. Nécessite du sang pour fonctionner.
+block.biotech-bone-crusher.name = Fraise Biotique
+block.biotech-bone-crusher.description = Extrait des os des grosses zones d'os qui réside dans certaine zones de la planète.
+block.biotech-bio-piercer.name = Perceur De Tissue
+block.biotech-bio-piercer.description = Arrache des bouts de chair des sols de chair.
+block.biotech-drill-upgrader.name = Améliorateur De Foreuse
+block.biotech-drill-upgrader.description = Booste les foreuses connéctés avec une durabilité plus grandes pour leur permettre de miner des matériaux plus durs.
+
+block.biotech-magnesium-convayor.name = Conveyeur De Magnésium
+block.biotech-magnesium-convayor.description = Transporte des items.
+block.biotech-splitter.name = Diviseur
+block.biotech-splitter.description = Route des items.
+block.biotech-conveyor-overpass.name = Pont De Convoyeur
+block.biotech-conveyor-overpass.description = Utilisé pour passer des structures ou des murs.
+
+block.biotech-liquid-pipe.name = Canal à Fluides
+block.biotech-liquid-pipe.description = Transportes des fluides.
+block.biotech-liquid-splitter.name = Diviseurs De Fluides
+block.biotech-liquid-splitter.description = Route les canaux à fluides.
+block.biotech-liquid-overpass.name = Ponts à Fluides
+block.biotech-liquid-overpass.description = Utilisé pour passer des structures ou des murs.
+block.biotech-bio-siphon.name = Siphon Biotique
+block.biotech-bio-siphon.description = Siphonne des liquides lentement.
+
+block.biotech-rotor-pipe.name = Tuyau à Rotor
+block.biotech-rotor-pipe.description = Utilise le flux de liquides pour generer de l'électricité.
+
+item.biotech-carbonic-tissue.name = Tissue Carbonique
+item.biotech-carbonic-tissue.description = Utilisé pour de la technologie et des munitions biologique de base, maleable mais durable.
+item.biotech-calcitic-fragment.name = Fragment Calcitique
+item.biotech-calcitic-fragment.description = Utilisé pour du transport de liquide et des munitions, très robuste.
+item.biotech-magnesium.name = Magnesium
+item.biotech-magnesium.description = Metal utilisé pour la plupart des structures.
+item.biotech-potash.name = Potasse
+item.biotech-potash.description = A resource used for reinforcing structures and also used to make mashed potato. Une ressource utilisée pour renforcer des structures et aussi utilisée pour faire de la purée de pommes de terre.
+item.biotech-phosphorus.name = Phosphore
+item.biotech-phosphorus.description =  Minéral explosif utilisé dans de la machinerie améliorée et des mecanismes caloriques.
+item.biotech-carminite.name = Carminite
+item.biotech-carminite.description = Sang Condensé. Utilisé principalement pour faire fonctionner de l'infrastructure de tier 2.
+item.biotech-stem-capsule.name = Capsule Souche
+item.biotech-stem-capsule.description = Une capsule surtout utilisé comme munition.
+
+liquid.biotech-hemo-fluid.name = Hemo Fluide
+liquid.biotech-hemo-fluid.description = Utilisé comme munition et dans la technologie biologique de base, chaud.
+liquid.biotech-hemo-fluid.details = Substance faite de créatures mortes qui vivait sur Andori.
+
+unit.biotech-carrier.name = Transporteur
+unit.biotech-watcher.name = Observateur
+unit.biotech-watcher.description = Defends le noyaux Vue en utilisant des helixes de missile autoguidés. Construit des structures.
+unit.biotech-scout.name = Scout
+unit.biotech-scout.description = Tire des balles fragmentaires aux cibles ennemis terrestre.
+unit.biotech-scout.details = Réference tf2 réelle.
+unit.biotech-strider.name = Arpenteur
+unit.biotech-strider.description = Tire des missiles semi autoguidés. Possible à produire en masse.
+unit.biotech-seer.name = Voyant
+unit.biotech-seer.description = Une unité d'assaut aérien. Tire 4 missile autoguidés devastateurs pour les convoyeurs.
+unit.biotech-nomad.name = Nomade
+unit.biotech-nomad.description =  Une unité d'assault spécialiste de tier deux. Tire deux lasers fondant et une balle incendiaire. Peux percer deux fois.
+unit.biotech-smith.name = Forgeron
+unit.biotech-smith.description = Un bombardier kamikaze qui concentre son energie en un gros laser quand il explose.
+
+unit.biotech-kaph37.name = Kaph-37
+unit.biotech-kaph37.description = Résident Araigné.
+
+team.septaris.name = Septaris
+
+planet.biotech-andori.name = Andori
+sector.biotech-ankle.name = Cheville
+sector.biotech-crus.name = Crus
+sector.biotech-femur.name = Fémur

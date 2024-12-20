@@ -2,6 +2,7 @@ package biotech.content;
 
 import arc.Core;
 import arc.graphics.Color;
+import arc.math.Mathf;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
 import biotech.world.blocks.enviroment.TallTreeBlock;
@@ -112,24 +113,25 @@ public class BioBlocks {
             squareSprite = false;
         }};
 
-        liquidPipe = new Conduit("liquid-pipe"){{
-            requirements(Category.liquid, with(BioItems.calciticFragment, 1));
-            health = 143;
-            botColor = Color.valueOf("262525");
-        }};
-
-        liquidSplitter = new LiquidRouter("liquid-splitter"){{
-            requirements(Category.liquid, with(BioItems.calciticFragment, 2));
-            health = 143;
-            size = 1;
-        }};
-
         liquidOverpass = new LiquidBridge("liquid-overpass"){{
             requirements(Category.liquid, with(BioItems.calciticFragment, 5));
             fadeIn = moveArrows = false;
             arrowSpacing = 6f;
             range = 4;
             hasPower = false;
+        }};
+
+        liquidPipe = new Conduit("liquid-pipe"){{
+            requirements(Category.liquid, with(BioItems.calciticFragment, 1));
+            health = 143;
+            botColor = Color.valueOf("262525");
+            bridgeReplacement = BioBlocks.liquidOverpass;
+        }};
+
+        liquidSplitter = new LiquidRouter("liquid-splitter"){{
+            requirements(Category.liquid, with(BioItems.calciticFragment, 2));
+            health = 143;
+            size = 1;
         }};
 
         bioSiphon = new Pump("bio-siphon"){{
@@ -756,7 +758,7 @@ public class BioBlocks {
             researchCost = with(BioItems.magnesium, 300, BioItems.calciticFragment, 250);
             requirements(Category.units, with(BioItems.magnesium, 190, BioItems.calciticFragment, 140));
             size = 3;
-            plans.add(new UnitPlan(BioUnits.strider, 60 * 15f, with(BioItems.magnesium, 35, BioItems.calciticFragment, 15)));
+            plans.add(new UnitPlan(BioUnits.strider, 60 * 15f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
             plans.add(new UnitPlan(BioUnits.scout, 60 * 12f, with(BioItems.magnesium, 20, BioItems.potash, 15)));
             consumeLiquid(BioLiquids.hemoFluid, 0.3f);
         }};
@@ -803,18 +805,8 @@ public class BioBlocks {
 
         bioUnitSpawner = new BiologicalStaticSpawner("bio-unit-spawner"){{
             requirements(units, BuildVisibility.shown, with(BioItems.carbonicTissue, 1));
-            health = 20;
+            health = 999999999;
             size = 8;
-            effect = new ParticleEffect(){{
-                particles = 8;
-                length = 32;
-                sizeFrom = 8;
-                sizeTo = 0;
-                colorFrom = BioPal.bloodRedLight;
-                colorTo = BioPal.bloodRed;
-            }};
-
-            spawnedUnit = BioUnits.kaph37;
         }};
         //endregion
 

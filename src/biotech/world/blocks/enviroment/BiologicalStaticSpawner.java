@@ -9,6 +9,7 @@ import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.game.EventType;
 import mindustry.game.Team;
+import mindustry.gen.Bullet;
 import mindustry.gen.Call;
 import mindustry.gen.Sounds;
 import mindustry.gen.Unit;
@@ -26,7 +27,6 @@ public class BiologicalStaticSpawner extends UnitBlock {
 
     public BiologicalStaticSpawner(String name) {
         super(name);
-        targetable = false;
         update = true;
         hasPower = false;
         hasItems = false;
@@ -38,7 +38,8 @@ public class BiologicalStaticSpawner extends UnitBlock {
         commandable = false;
         ambientSound = Sounds.respawning;
         customShadow = true;
-        destructible = false;
+        destructible = targetable = false;
+        breakable = false;
     }
 
     public class BiologicalStaticSpawnerBuild extends UnitBuild {
@@ -81,6 +82,11 @@ public class BiologicalStaticSpawner extends UnitBlock {
             Draw.rect(customShadowRegion, x, y);
             Draw.alpha(1);
             Draw.rect(region, x, y);
+        }
+
+        @Override
+        public boolean collide(Bullet other) {
+            return false;
         }
     }
 }

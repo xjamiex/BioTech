@@ -93,12 +93,12 @@ public class BioFx {
                 BioFx.anvilCharge(20, 2, 45)
         ),
 
-        smithShoot = new Effect(60, e -> {
+        smithShoot = new Effect(90, e -> {
             color(BioPal.potashOrangeLight);
             alpha(e.fout());
-            Lines.stroke(e.fout(Interp.exp5Out) * 2);
-            Lines.circle(e.x, e.y, e.fin(Interp.exp5Out) * 14);
-            Fill.circle(e.x, e.y, e.fin(Interp.exp5Out) * 5);
+            Lines.stroke(e.fout(Interp.exp5Out) * 3);
+            Lines.circle(e.x, e.y, e.fin(Interp.exp5Out) * 20);
+            Fill.circle(e.x, e.y, e.fin(Interp.exp5Out) * 8);
         });
 
     public static Effect fourSpike(Color color, float width, float length){

@@ -417,12 +417,23 @@ public class BioUnits {
                             width = 20;
                             height = 20;
                             shrinkX = shrinkY = 0;
+                            hitSound = despawnSound = Sounds.shockBlast;
                             chargeEffect = new MultiEffect(new SeqEffect(BioFx.smithBeginWarmup, BioFx.smithWarmup));
-                            shootEffect = BioFx.smithShoot;
+                            shootEffect = new MultiEffect(BioFx.smithShoot, new ParticleEffect(){{
+                                colorTo = BioPal.potashOrange;
+                                colorFrom = BioPal.potashOrangeLight;
+                                particles = 15;
+                                length = 60;
+                                randLength = true;
+                                cone = 45;
+                                sizeFrom = 4;
+                                sizeTo = 0;
+                            }});
                             splashDamage = 50;
                             splashDamageRadius = 10;
                             pierceCap = 4;
                             pierceBuilding = pierce = true;
+                            recoil = 5;
 
                             trailColor = BioPal.potashOrangeLight;
                             trailInterval = 3f;
@@ -432,11 +443,11 @@ public class BioUnits {
                             trailEffect = new Effect(16f, e -> {
                                 color(BioPal.potashOrangeLight);
                                 for(int s : Mathf.signs){
-                                    Drawf.tri(e.x, e.y, 3f, 15f * e.fslope(), e.rotation + 90f*s);
+                                    Drawf.tri(e.x, e.y, 4f, 20f * e.fslope(), e.rotation + 90f*s);
                                 }
                             });
 
-                            hitEffect = despawnEffect = BioFx.fourSpike(BioPal.potashOrangeLight, 8, 30);
+                            hitEffect = despawnEffect = BioFx.fourSpike(BioPal.potashOrangeLight, 10, 38);
 
                             velocityBegin = 0.5f;
                             velocityIncrease = 10f;

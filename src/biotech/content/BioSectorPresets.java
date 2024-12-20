@@ -23,8 +23,8 @@ public class BioSectorPresets {
 
         femur = new SectorPreset("femur", BioPlanets.andori, 53){{
             alwaysUnlocked = false;
-            captureWave = 12;
             difficulty = 2;
+            captureWave = 11;
         }};
 
         putridum = new SectorPreset("putridum", BioPlanets.andori, 86){{

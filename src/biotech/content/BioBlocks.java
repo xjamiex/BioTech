@@ -240,6 +240,7 @@ public class BioBlocks {
             requirements(production, with(BioItems.potash, 120));
             health = 1500;
             size = 2;
+            consumePower(0.1f);
         }};
         //endregion
 

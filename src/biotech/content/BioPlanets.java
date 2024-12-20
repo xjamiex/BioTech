@@ -41,7 +41,7 @@ public class BioPlanets {
             //doesn't play well with configs
             prebuildBase = false;
             ruleSetter = r -> {
-                r.waveTeam = Team.crux;
+                r.waveTeam = BioTeams.septaris;
                 r.placeRangeCheck = false;
                 r.showSpawns = false;
                 r.weather.add(new Weather.WeatherEntry(){{

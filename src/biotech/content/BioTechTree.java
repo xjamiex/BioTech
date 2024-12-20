@@ -20,19 +20,21 @@ public class BioTechTree {
             });
 
             node(BioBlocks.descentManufacturer, Seq.with(new Objectives.Research(BioBlocks.boneCrusher)), () -> {
-                node(BioUnits.strider, () -> {
-                    node(BioUnits.nomad, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {});
-                });
-                node(BioUnits.scout, Seq.with(new Objectives.SectorComplete(BioSectorPresets.crus)), () -> {
-                    node(BioUnits.seer, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {});
-                });
+                node(BioUnits.strider, () -> {});
+                node(BioUnits.scout, Seq.with(new Objectives.SectorComplete(BioSectorPresets.crus)), () -> {});
                 node(BioBlocks.experimentalManufacturer, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
                     node(BioUnits.smith);
+                    node(BioBlocks.osylithReformer, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
+                        node(BioUnits.nomad, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {});
+                        node(BioUnits.seer, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {});
+                    });
                 });
             });
 
             node(BioBlocks.bioDrill, () -> {
-                node(BioBlocks.drillUpgrader, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {});
+                node(BioBlocks.rotorPipe, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
+                    node(BioBlocks.drillUpgrader);
+                });
                     node(BioBlocks.bioPiercer, () -> {
                         node(BioBlocks.bioPress, () -> {
                             node(BioBlocks.liquidPipe, () -> {

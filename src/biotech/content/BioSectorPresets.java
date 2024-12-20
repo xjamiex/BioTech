@@ -27,7 +27,7 @@ public class BioSectorPresets {
             difficulty = 2;
         }};
 
-        putridum = new SectorPreset("putridum", BioPlanets.andori, 12){{
+        putridum = new SectorPreset("putridum", BioPlanets.andori, 86){{
             alwaysUnlocked = false;
             difficulty = 2;
         }};

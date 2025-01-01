@@ -378,7 +378,7 @@ public class BioUnits {
             accel = 0.02f;
             itemCapacity = 0;
             health = 1320f;
-            hitSize = 7f;
+            hitSize = 14f;
             engineOffset = 8;
             engineSize = 5;
             lowAltitude = true;

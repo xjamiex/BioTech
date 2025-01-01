@@ -33,8 +33,8 @@ public class BoostableDrill extends Drill {
             //what am i doing with my life
             if (tile.build == null) continue;
             if (tile.build.tile.nearby(edge).build == null) continue;
-            if (tile.build.tile.nearby(edge).block() instanceof DrillUpgrader) {
-                boost = 1;
+            if (tile.build.tile.nearby(edge).block() instanceof DrillUpgrader upgrader) {
+                boost = upgrader.boost;
             }
         }
         return boost;

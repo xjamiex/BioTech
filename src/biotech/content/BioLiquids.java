@@ -14,7 +14,7 @@ public class BioLiquids {
             boilPoint = 0.5f;
             gasColor = Color.grays(0.9f);
             alwaysUnlocked = true;
-            color = BioPal.bloodRedLight;
+            color = BioPal.bloodRed;
         }};
 
         plasmoid = new Liquid("plasmoid") {{

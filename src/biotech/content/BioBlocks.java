@@ -74,7 +74,7 @@ public class BioBlocks {
             rotorPipe,
 
             //production
-            hematicSieve,
+            hematicSieve, hemoCrystallizer,
 
             //defense
             magnesiumWall, largeMagnesiumWall,
@@ -723,6 +723,30 @@ public class BioBlocks {
             }};
 
             consumeLiquid(BioLiquids.hemoFluid, 0.35f);
+        }};
+
+        hemoCrystallizer = new GenericCrafter("hemo-crystallizer"){{
+            requirements(Category.crafting, with(BioItems.magnesium, 50, BioItems.calciticFragment, 50));
+            squareSprite = false;
+            hasItems = true;
+            liquidCapacity = 60f;
+            craftTime = 4 * 60f;
+            outputItem = new ItemStack(BioItems.carminite, 3);
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(BioLiquids.hemoFluid, 3), new DrawDefault());
+            size = 4;
+            health = 1120;
+            hasLiquids = true;
+            craftEffect = new ParticleEffect(){{
+                particles = 5;
+                length = 8;
+                sizeFrom = 3;
+                sizeTo = 0;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+            }};
+
+            consumeLiquid(BioLiquids.hemoFluid, 0.40f);
+            consumeItem(BioItems.magnesium, 1);
         }};
         //endregion
 

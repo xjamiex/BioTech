@@ -32,7 +32,7 @@ public class BioTechTree {
             });
 
             node(BioBlocks.bioDrill, () -> {
-                node(BioBlocks.rotorPipe, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
+                node(BioBlocks.magnesiumBurner, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
                     node(BioBlocks.drillUpgrader);
                 });
                     node(BioBlocks.bioPiercer, () -> {

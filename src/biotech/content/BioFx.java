@@ -6,6 +6,8 @@ import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Interp;
 import arc.math.Mathf;
+import arc.math.Rand;
+import arc.math.geom.Vec2;
 import arc.util.Tmp;
 import mindustry.Vars;
 import mindustry.entities.Effect;
@@ -18,12 +20,16 @@ import java.util.Random;
 
 import static arc.graphics.g2d.Draw.alpha;
 import static arc.graphics.g2d.Draw.color;
+import static arc.graphics.g2d.Lines.lineAngle;
+import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
 
 public class BioFx {
 
     static int[] laserOffsets = new int[]{0, 1, 1, 0, -1, -1};
-    static Random rand = new Random();
+    public static final Rand rand = new Rand();
+    public static final Vec2 v = new Vec2();
+
     public static Effect
         lightningSpiral = new Effect(20f, e -> {
             color(BioPal.supportGreenLight, Pal.heal, e.fin());
@@ -99,6 +105,18 @@ public class BioFx {
             Lines.stroke(e.fout(Interp.exp5Out) * 3);
             Lines.circle(e.x, e.y, e.fin(Interp.exp5Out) * 20);
             Fill.circle(e.x, e.y, e.fin(Interp.exp5Out) * 8);
+        }),
+
+        glistenTrail = new Effect(13, e -> {
+            color(BioPal.plasmoidBlueLight, e.color, e.fin());
+            stroke(0.4f + e.fout() * 1.7f);
+            rand.setSeed(e.id);
+
+            for(int i = 0; i < 2; i++){
+                float rot = e.rotation + rand.range(15f) + 180f;
+                v.trns(rot, rand.random(e.fin() * 27f));
+                lineAngle(e.x + v.x, e.y + v.y, rot, e.fout() * rand.random(2f, 7f) + 1.5f);
+            }
         });
 
     public static Effect fourSpike(Color color, float width, float length){

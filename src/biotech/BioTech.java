@@ -4,6 +4,8 @@ import arc.*;
 import arc.struct.Seq;
 import arc.util.*;
 import biotech.content.*;
+import biotech.ui.BioSpawnerDialog;
+import biotech.ui.BioUI;
 import biotech.ui.ButtonPref;
 import mindustry.content.Planets;
 import mindustry.content.TechTree;
@@ -47,6 +49,8 @@ public class BioTech extends Mod{
         super.init();
         BioTeams.load();
         loadSettings();
+
+        BioUI.load();
     }
 
     void loadSettings(){

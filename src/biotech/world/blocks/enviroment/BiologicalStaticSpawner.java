@@ -1,21 +1,16 @@
 package biotech.world.blocks.enviroment;
 
-import arc.Events;
 import arc.graphics.g2d.Draw;
-import arc.math.Mathf;
+import arc.scene.ui.layout.Table;
 import biotech.content.BioUnits;
-import mindustry.Vars;
+import biotech.ui.BioUI;
 import mindustry.content.Fx;
-import mindustry.entities.Damage;
 import mindustry.entities.Effect;
-import mindustry.game.EventType;
-import mindustry.game.Team;
+import mindustry.game.Waves;
 import mindustry.gen.*;
 import mindustry.type.UnitType;
+import mindustry.ui.Styles;
 import mindustry.world.blocks.environment.Prop;
-import mindustry.world.blocks.payloads.UnitPayload;
-import mindustry.world.blocks.units.UnitBlock;
-import mindustry.world.blocks.units.UnitFactory;
 
 public class BiologicalStaticSpawner extends Prop {
 
@@ -30,7 +25,7 @@ public class BiologicalStaticSpawner extends Prop {
         hasPower = false;
         hasItems = false;
         solid = false;
-        configurable = false;
+        configurable = true;
         clearOnDoubleTap = false;
         outputsPayload = false;
         rotate = false;
@@ -39,6 +34,10 @@ public class BiologicalStaticSpawner extends Prop {
         customShadow = true;
         destructible = targetable = false;
         breakable = false;
+
+        config(Waves.class, (BiologicalStaticSpawnerBuild build, Waves waves) -> {
+
+        });
     }
 
     public class BiologicalStaticSpawnerBuild extends Building {
@@ -54,6 +53,18 @@ public class BiologicalStaticSpawner extends Prop {
         @Override
         public boolean collide(Bullet other) {
             return false;
+        }
+
+        @Override
+        public void configure(Object value) {
+            super.configure(value);
+        }
+
+        @Override
+        public void buildConfiguration(Table table){
+            table.button(Icon.pencil, Styles.cleari, () -> {
+                BioUI.spawner.show();
+            }).size(40);
         }
     }
 }

@@ -106,7 +106,7 @@ public class BioBlocks {
         //liquid
         bioPress = new GenericCrafter("bio-press") {{
             researchCost = with(BioItems.magnesium, 200, BioItems.calciticFragment, 75);
-            requirements(production, with(BioItems.magnesium, 100, BioItems.calciticFragment, 50));
+            requirements(crafting, with(BioItems.magnesium, 100, BioItems.calciticFragment, 50));
             group = BlockGroup.drills;
             size = 2;
             ambientSound = Sounds.hum;
@@ -335,7 +335,7 @@ public class BioBlocks {
             shadowOffset = -0.9f;
         }};
 
-        dolomiteCluster = new Prop("dolomite-cluster"){{
+        dolomiteCluster = new TallBlock("dolomite-cluster"){{
             variants = 3;
         }};
 
@@ -925,9 +925,10 @@ public class BioBlocks {
         }};
 
         bioUnitSpawner = new BiologicalStaticSpawner("bio-unit-spawner") {{
-            requirements(units, BuildVisibility.shown, with(BioItems.carbonicTissue, 1));
+            requirements(units, BuildVisibility.hidden, with(BioItems.carbonicTissue, 1));
             health = 999999999;
             size = 8;
+            unitCapModifier = 999;
         }};
         //endregion
 

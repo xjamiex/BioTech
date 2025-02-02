@@ -35,7 +35,6 @@ public class BioSpawnerDialog extends BaseDialog {
         buttons.defaults().size(160f, 64f);
         buttons.button("@add", Icon.add, () -> {
             BaseDialog wave = new BaseDialog("@add");
-            wave.cont.ta
         }).name("add");
         addCloseButton();
     }

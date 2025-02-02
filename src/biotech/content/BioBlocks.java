@@ -707,7 +707,7 @@ public class BioBlocks {
             requirements(turret, with(BioItems.magnesium, 100, BioItems.potash, 50));
 
             range = 140;
-            shootSound = Sounds.shootAlt;
+            shootSound = Sounds.shootBig;
             inaccuracy = 20f;
             rotateSpeed = 2f;
             reload = 440;
@@ -715,6 +715,18 @@ public class BioBlocks {
             targetAir = true;
             targetGround = true;
             recoil = 6;
+
+            shootEffect = new MultiEffect(
+                    BioFx.fourSpike(BioPal.plasmoidBlueLight, 4, 25),
+                    new WaveEffect(){{
+                        strokeFrom = 3;
+                        strokeTo = 0;
+                        colorFrom = colorTo = BioPal.plasmoidBlueLight;
+                        sizeFrom = 0;
+                        sizeTo = 12;
+                    }}
+            );
+            shootY = 3;
 
             consumePower(10f);
 

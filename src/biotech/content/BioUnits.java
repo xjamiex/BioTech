@@ -56,7 +56,7 @@ public class BioUnits {
             watcher,
 
             //immune
-            kaph37, mother
+            kaph37, kaph31, mother
 
     ;
 
@@ -804,6 +804,116 @@ public class BioUnits {
                         y = -2f;
                     }}
 
+            );
+        }};
+        kaph31 = new BiologicalUnitType("kaph31"){{
+            constructor = LegsUnit::create;
+            aiController = SuicideAI::new;
+
+            speed = 0.92f;
+            drag = 0.12f;
+            hitSize = 14f;
+            rotateSpeed = 2f;
+            health = 950;
+            armor = 1.5f;
+            legStraightness = 0.3f;
+            stepShake = 1f;
+            drawCell = false;
+
+            legCount = 6;
+            legLength = 19f;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -4f;
+            legBaseOffset = 4f;
+            legMaxLength = 1.2f;
+            legMinLength = 1.1f;
+            legLengthScl = 1.1f;
+            legForwardScl = 1.1f;
+            legSpeed = 0.5f;
+            rippleScale = 0.2f;
+
+            legMoveSpace = 1.3f;
+            allowLegStep = true;
+            legPhysicsLayer = false;
+
+            deathExplosionEffect = new ParticleEffect(){{
+                sizeFrom = 5;
+                sizeTo = 0;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+            }};
+
+            shadowElevation = 0.1f;
+            groundLayer = Layer.legUnit - 1f;
+            targetAir = false;
+            researchCostMultiplier = 0f;
+            lightOpacity = 0;
+
+            weapons.add(new Weapon(){{
+                shootOnDeath = true;
+                reload = 24f;
+                shootCone = 180f;
+                ejectEffect = Fx.none;
+                range = 1;
+                x = shootY = 0f;
+                mirror = false;
+                bullet = new BulletType(){{
+                    collidesTiles = false;
+                    collides = false;
+
+                    rangeOverride = 10f;
+                    hitEffect = new ParticleEffect(){{
+                        sizeFrom = 5;
+                        sizeTo = 5;
+                        colorFrom = BioPal.bloodRedLight;
+                        colorTo = BioPal.bloodRed;
+                    }};
+                    speed = 0f;
+                    splashDamageRadius = 35f;
+                    instantDisappear = true;
+                    splashDamage = 50f;
+                    killShooter = true;
+                    hittable = false;
+                    collidesAir = true;
+                }};
+            }});
+
+            parts.add(
+                    new BiologicalRegionPart("-spike"){{
+                        growX = 0.2f;
+                        growY = 0.2f;
+                        randProgScale = 250f;
+                        moveX = -2f;
+                        moveY = 1.6f;
+                        moveRot = 7f;
+                        x = 0f;
+                        y = 0f;
+                    }},
+                    new BiologicalRegionPart("-eye"){{
+                        growX = 0.2f;
+                        growY = 0.2f;
+                        randProgScale = 292f;
+                        moveX = 0.5f;
+                        moveY = -2f;
+                        moveRot = -5f;
+                        x = 0f;
+                        y = 0f;
+                    }},
+                    new BiologicalRegionPart("-pupil-1"){{;
+                        randProgScale = 292f;
+                        moveX = 0.5f;
+                        moveY = -0.5f;
+                        x = 0f;
+                        y = 0f;
+                    }},
+                    new BiologicalRegionPart("-pupil-2"){{
+                        randProgScale = 292f;
+                        moveX = 0.5f;
+                        moveY = -0.5f;
+                        x = 0f;
+                        y = 0f;
+                    }}
             );
         }};
         mother = new UnitType("mother"){{

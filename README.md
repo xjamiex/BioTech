@@ -9,3 +9,5 @@ co-creator - EndoFreeze#0000
 mapper - mrapple_0#0000
 
 playtester - chromoxylograph#0000
+
+immune spawner developer - https://github.com/JiroCab

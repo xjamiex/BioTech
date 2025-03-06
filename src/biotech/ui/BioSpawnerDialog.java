@@ -1,7 +1,7 @@
 package biotech.ui;
 
+import arc.*;
 import arc.func.*;
-import arc.graphics.*;
 import arc.scene.event.*;
 import arc.scene.style.*;
 import arc.scene.ui.*;
@@ -9,12 +9,13 @@ import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;
 import biotech.world.blocks.enviroment.BiologicalStaticSpawner.*;
-import mindustry.*;
 import mindustry.content.*;
 import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.BaseDialog;
+
+import java.util.*;
 
 import static mindustry.Vars.*;
 
@@ -22,6 +23,7 @@ public class BioSpawnerDialog extends BaseDialog {
     public Seq<SpawnPlan> spawnPlans;
     public Table spawnTable = new Table();
     public Cell<ScrollPane> canvas;
+    Cons<SpawnPlan[]> consumer = s -> {};
 
     int size = 60;
 
@@ -35,20 +37,36 @@ public class BioSpawnerDialog extends BaseDialog {
 
         shown(this::setup);
         onResize(this::setup);
+
+        hidden(() -> {
+            if(spawnPlans != null){
+                //prevents crash bc java/arc is being java/arc -RushieWashie
+                SpawnPlan[] out = new SpawnPlan[spawnPlans.size];
+                for(int i = 0; i < spawnPlans.size; i++) out[i] = spawnPlans.get(i);
+                consumer.get(out);
+            }
+        });
     }
 
 
-    public Dialog show(SpawnPlan[] spawnPlans){
+    public void show(SpawnPlan[] spawnPlans, Cons<SpawnPlan[]> modified){
         if(spawnPlans != null)this.spawnPlans = Seq.with(spawnPlans);
         else this.spawnPlans = new Seq<>();
-        return super.show();
+
+        this.consumer = result -> {
+            if(!Arrays.equals(result, spawnPlans)){
+                modified.get(result);
+            }
+        };
+
+        super.show();
     }
 
     private void setup(){
         buttons.clearChildren();
         buttons.defaults().size(160f, 64f);
         buttons.button("@add", Icon.add, () -> {
-            SpawnPlan p = new SpawnPlan(UnitTypes.dagger, 700, 1, StatusEffects.none, 0);
+            SpawnPlan p = new SpawnPlan(UnitTypes.dagger, 10 * Time.toSeconds, 1, StatusEffects.none, 0);
             spawnPlans.add(p);
             rebuild();
         }).name("add");
@@ -104,11 +122,11 @@ public class BioSpawnerDialog extends BaseDialog {
                         img.clicked(() -> effectPicker(plan));
                         e.add(img).size(size * 0.85f).scaling(Scaling.bounded);
 
-                        number(":", i -> plan.effectTime = i,() -> plan.effectTime, e);
+                        number(":", i -> plan.effectTime = i * Time.toSeconds,() -> plan.effectTime / Time.toSeconds, e);
                     }).growX().row();
                     s.table( e-> {
-                        numberi("amount:", i -> plan.amount = i,() -> plan.amount, e);
-                        numberi("time:", i -> plan.time = i,() -> plan.time, e);
+                        numberi(Core.bundle.get("filter.option.amount") + ":", i -> plan.amount = i,() -> plan.amount, e);
+                        number(Core.bundle.get("sectors.time"),i -> plan.time = i * Time.toSeconds,() ->plan.time / Time.toSeconds, e);
                     }).growX();
                 }).pad(1.5f).growX().width(canvas.maxWidth()).row();
             }
@@ -176,7 +194,6 @@ public class BioSpawnerDialog extends BaseDialog {
         }).padTop(0).row();
     }
 
-
     void number(String text, Floatc cons, Floatp prov,  Table main){
         number(text, cons, prov, 0f, Float.MAX_VALUE, main);
     }
@@ -186,7 +203,9 @@ public class BioSpawnerDialog extends BaseDialog {
             t.left();
             t.add(text).left().padRight(5);
             t.field((prov.get()) + "", s -> cons.get(Strings.parseFloat(s)))
-            .valid(f -> Strings.parseFloat(f) >= min && Strings.parseFloat(f) <= max).width(130f).left();
+            .valid(f -> Strings.parseFloat(f) >= min && Strings.parseFloat(f) <= max)
+            .tooltip(Core.bundle.get("unit.seconds"))
+            .width(130f).left();
         }).padTop(0).row();
     }
 

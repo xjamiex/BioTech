@@ -118,7 +118,8 @@ public class BiologicalStaticSpawner extends Prop {
             StringBuilder out = new StringBuilder();
             for(int i = 0; i < plans.length; i++){
                 SpawnPlan plan = plans[i];
-                out.append(plan.dataToString(timers[i])).append(" ");
+                if(timers != null) out.append(plan.dataToString(timers[i])).append(" ");
+                else out.append(plan.dataToString(-1)).append(" ");
             }
             write.str(out.toString());
         }

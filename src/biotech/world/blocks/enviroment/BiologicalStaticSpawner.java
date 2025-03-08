@@ -99,7 +99,7 @@ public class BiologicalStaticSpawner extends Prop {
 
         @Override
         public byte version() {
-            return 1;
+            return 2;
         }
 
         @Override
@@ -108,7 +108,10 @@ public class BiologicalStaticSpawner extends Prop {
             if( plans == null ) return;
 
             StringBuilder out = new StringBuilder();
-            for(SpawnPlan plan : plans) out.append(plan.dataToString()).append(" ");
+            for(int i = 0; i < plans.length; i++){
+                SpawnPlan plan = plans[i];
+                out.append(plan.dataToString(timers[i])).append(" ");
+            }
             write.str(out.toString());
         }
 
@@ -121,14 +124,17 @@ public class BiologicalStaticSpawner extends Prop {
             String in = read.str();
             String[] buffer = in.split(" ");
             Seq<SpawnPlan> sp = new Seq<>();
+            Seq<Float> tim = new Seq<>();
 
-            for(String data : buffer){
+            for(int i = 0; i < buffer.length; i++){
+                String data = buffer[i];
                 String[] plan = data.split(",");
                 UnitType unit = Vars.content.unit(plan[0]);
                 float time = Float.parseFloat(plan[1]);
                 int amount = Integer.parseInt(plan[2]);
                 StatusEffect sta = Vars.content.statusEffect(plan[3]);
                 float dur = Float.parseFloat(plan[4]);
+                if(revision >= 2) tim.add(Float.parseFloat(plan[5]));
 
                 if(unit == null) continue;
                 if(sta == null) sta = StatusEffects.none;
@@ -139,6 +145,10 @@ public class BiologicalStaticSpawner extends Prop {
             SpawnPlan[] out = new SpawnPlan[buffer.length];
             for(int i = 0; i < buffer.length; i++) out[i] = sp.get(i);
             plans = out;
+
+            float[] out2 = new float[tim.size];
+            for(int i = 0; i < tim.size; i++) out2[i] = tim.get(i);
+            timers = out2;
 
         }
 
@@ -171,6 +181,10 @@ public class BiologicalStaticSpawner extends Prop {
 
         public String dataToString(){
             return unit.name + "," + time + "," + amount + "," + effect.name + "," + effectTime;
+        }
+
+        public String dataToString(float timer){
+            return unit.name + "," + time + "," + amount + "," + effect.name + "," + effectTime + "," + timer;
         }
     }
 }

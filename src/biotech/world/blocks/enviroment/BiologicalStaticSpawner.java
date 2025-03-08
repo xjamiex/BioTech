@@ -2,6 +2,7 @@ package biotech.world.blocks.enviroment;
 
 import arc.audio.*;
 import arc.graphics.g2d.*;
+import arc.math.*;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.io.*;
@@ -45,14 +46,17 @@ public class BiologicalStaticSpawner extends Prop {
 
     public class BiologicalStaticSpawnerBuild extends Building {
         SpawnPlan[] plans;
-        float[] timers;
+        public float[] timers;
 
         @Override
         public void update(){
             super.update();
 
             if(plans == null || plans.length == 0) return;
-            if(timers == null || timers.length != plans.length) timers = new float[plans.length];
+            if(timers == null || timers.length != plans.length){
+                timers = new float[plans.length];
+                for(int i = 0; i < plans.length; i++) timers[i] = plans[i].time;
+            }
 
             for(int i = 0; i < plans.length; i++){
                 timers[i]--;
@@ -63,10 +67,11 @@ public class BiologicalStaticSpawner extends Prop {
 
                 timers[i] = plan.time;
                 for(int j = 0; j < plan.amount; j++){
-                    Unit u = plan.unit.spawn(x, y);
+                    float fx = x + Mathf.random(-size, size), fy = y + Mathf.random(-size, size);
+                    Unit u = plan.unit.spawn(team, fx, fy);
                     u.apply(plan.effect, plan.effectTime);
 
-                    spawnFx.at(u.x, u.y, 0, u);
+                    spawnFx.at(fy , fy, 0, u);
                 }
                 spawnSound.at(x, y);
             }
@@ -94,7 +99,10 @@ public class BiologicalStaticSpawner extends Prop {
 
         @Override
         public void buildConfiguration(Table table){
-            table.button(Icon.pencil, Styles.cleari, () -> BioUI.spawner.show(plans, this::configure)).size(40);
+            table.button(Icon.pencil, Styles.cleari, () -> BioUI.spawner.show(plans, p ->{
+                configure(p);
+                timers = null;
+            } )).size(40);
         }
 
         @Override

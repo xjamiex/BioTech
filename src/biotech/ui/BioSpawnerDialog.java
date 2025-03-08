@@ -11,6 +11,7 @@ import arc.util.*;
 import biotech.world.blocks.enviroment.BiologicalStaticSpawner.*;
 import mindustry.content.*;
 import mindustry.gen.*;
+import mindustry.input.*;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.BaseDialog;
@@ -29,9 +30,7 @@ public class BioSpawnerDialog extends BaseDialog {
 
     public BioSpawnerDialog() {
         super("spawner");
-        clearChildren();
         addCloseListener();
-        makeButtonOverlay();
 
         setup();
 
@@ -63,7 +62,7 @@ public class BioSpawnerDialog extends BaseDialog {
     }
 
     private void setup(){
-        buttons.clearChildren();
+        buttons.clear();
         buttons.defaults().size(160f, 64f);
         buttons.button("@add", Icon.add, () -> {
             SpawnPlan p = new SpawnPlan(UnitTypes.dagger, 10 * Time.toSeconds, 1, StatusEffects.none, 0);
@@ -81,7 +80,6 @@ public class BioSpawnerDialog extends BaseDialog {
         cont.clear();
         cont.defaults();
         cont.table(a -> canvas = a.pane(spawnTable).size(a.getWidth(), a.getWidth()).scrollX(false).growX());
-
 
         spawnTable.clear();
         spawnTable.defaults();
@@ -140,18 +138,21 @@ public class BioSpawnerDialog extends BaseDialog {
     void effectPicker(SpawnPlan plan){
         BaseDialog dialog = new BaseDialog("@waves.edit");
         dialog.addCloseButton();
-        dialog.setFillParent(false);
 
         dialog.cont.pane( t -> {
             t.defaults().size(280f, 64f).pad(2f);
             int c = 0;
             for(StatusEffect item : content.statusEffects()){
+
+                StringBuilder tip = new StringBuilder(item.localizedName);
+                if(item.isModded()) tip.append("\n(").append(item.minfo.mod.meta.displayName()).append(")");
+
                 t.button(new TextureRegionDrawable((item == StatusEffects.none) ? Icon.none.getRegion() : item.uiIcon), Styles.flati, iconLarge, () -> {
                     plan.effect = item;
                     rebuild();
                     dialog.hide();
-                }).size(iconXLarge).scaling(Scaling.bounded).tooltip(item.localizedName);
 
+                }).size(iconXLarge).scaling(Scaling.bounded).tooltip(tip.toString());
                 if(++c % 6 == 0) t.row();
             }
         });
@@ -161,23 +162,29 @@ public class BioSpawnerDialog extends BaseDialog {
 
     void unitPicker(SpawnPlan plan){
         BaseDialog dialog = new BaseDialog("@waves.edit");
+        //For advance mapmakers and funnies
         dialog.addCloseButton();
-        dialog.setFillParent(false);
+        boolean advanced = Core.input.keyDown(Binding.boost);
+        
         dialog.cont.pane( t -> {
-            t.defaults().size(280f, 64f).pad(2f);
+            t.defaults().size(280f, 64f).pad(2f).scrollX(false);
             int c = 0;
             for(UnitType item : content.units()){
-                if(!item.unlockedNow() || item.isHidden() || !item.logicControllable) continue;
+                if(!advanced && (!item.unlockedNow() || item.isHidden() || !item.logicControllable)) continue;
+
+                StringBuilder tip = new StringBuilder(item.localizedName);
+                if(item.isModded()) tip.append("\n(").append(item.minfo.mod.meta.displayName()).append(")");
 
                 t.button(new TextureRegionDrawable(item.uiIcon), Styles.flati, iconLarge, () -> {
                     plan.unit = item;
                     rebuild();
                     dialog.hide();
-                }).size(iconXLarge).scaling(Scaling.bounded).tooltip(item.localizedName);
+                }).size(iconXLarge).scaling(Scaling.bounded).tooltip(tip.toString() );
 
                 if(++c % 6 == 0) t.row();
             }
         });
+
         dialog.show();
     }
 

@@ -114,7 +114,10 @@ public class BiologicalStaticSpawner extends Prop {
         @Override
         public void write(Writes write){
             super.write(write);
-            if( plans == null ) return;
+            if( plans == null ){
+                write.str(" ");
+                return;
+            }
 
             StringBuilder out = new StringBuilder();
             for(int i = 0; i < plans.length; i++){
@@ -136,9 +139,9 @@ public class BiologicalStaticSpawner extends Prop {
             Seq<SpawnPlan> sp = new Seq<>();
             Seq<Float> tim = new Seq<>();
 
-            for(int i = 0; i < buffer.length; i++){
-                String data = buffer[i];
+            for(String data : buffer){
                 String[] plan = data.split(",");
+                if(plan.length <= 4) return;
                 UnitType unit = Vars.content.unit(plan[0]);
                 float time = Float.parseFloat(plan[1]);
                 int amount = Integer.parseInt(plan[2]);

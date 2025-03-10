@@ -5,14 +5,17 @@ import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Log;
 import arc.util.Time;
+import biotech.BioTech;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
+import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
+import mindustry.entities.abilities.LiquidExplodeAbility;
 import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
@@ -56,7 +59,7 @@ public class BioUnits {
             watcher,
 
             //immune
-            kaph37, kaph31, mother
+            kaph50, kaph37, kaph31, mother
 
     ;
 
@@ -709,11 +712,97 @@ public class BioUnits {
                     }}
             );
         }};
+
+        kaph50 = new BiologicalUnitType("kaph50"){{
+            constructor = LegsUnit::create;
+            aiController = SuicideAI::new;
+
+            speed = 0.9f;
+            drag = 0.11f;
+            hitSize = 11f;
+            rotateSpeed = 3f;
+            health = 450;
+            armor = 1f;
+            legStraightness = 0.3f;
+            stepShake = 0f;
+            drawCell = false;
+
+            legCount = 4;
+            legLength = 10f;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -7.5f;
+            legBaseOffset = 2f;
+            legMaxLength = 2.1f;
+            legMinLength = 1.4f;
+            legLengthScl = 1.1f;
+            legForwardScl = 1.3f;
+            legSpeed = 0.2f;
+            rippleScale = 0.2f;
+
+            legMoveSpace = 1.2f;
+            allowLegStep = true;
+            legPhysicsLayer = false;
+
+            deathExplosionEffect = new ParticleEffect(){{
+                sizeFrom = 5;
+                sizeTo = 0;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+            }};
+
+            shadowElevation = 0.1f;
+            groundLayer = Layer.legUnit - 1f;
+            targetAir = false;
+            researchCostMultiplier = 0f;
+            lightOpacity = 0;
+
+            parts.addAll(
+                    new BiologicalRegionPart("-body"){{
+                        growX = 0.5f;
+                        growY = 0.6f;
+                        randProgScale = 250f;
+                        moveX = -0.3f;
+                        moveY = 0.6f;
+                        moveRot = 3f;
+                    }}
+            );
+
+            weapons.add(new Weapon(){{
+                shootOnDeath = true;
+                shootCone = 180f;
+                ejectEffect = Fx.none;
+                range = 1;
+                x = shootY = 0f;
+                mirror = false;
+                bullet = new BulletType(){{
+                    collidesTiles = false;
+                    collides = false;
+
+                    rangeOverride = 10f;
+                    hitEffect = new ParticleEffect(){{
+                        sizeFrom = 5;
+                        sizeTo = 5;
+                        colorFrom = BioPal.bloodRedLight;
+                        colorTo = BioPal.bloodRed;
+                    }};
+                    speed = 0f;
+                    splashDamageRadius = 25f;
+                    instantDisappear = true;
+                    splashDamage = 40f;
+                    killShooter = true;
+                    hittable = false;
+                    collidesAir = true;
+                    shootEffect = Fx.none;
+                }};
+            }});
+        }};
+
         kaph37 = new BiologicalUnitType("kaph37"){{
             constructor = LegsUnit::create;
             aiController = SuicideAI::new;
 
-            speed = 1f;
+            speed = 0.7f;
             drag = 0.11f;
             hitSize = 11f;
             rotateSpeed = 3f;
@@ -779,6 +868,7 @@ public class BioUnits {
                     killShooter = true;
                     hittable = false;
                     collidesAir = true;
+                    shootEffect = Fx.none;
                 }};
             }});
 
@@ -806,11 +896,12 @@ public class BioUnits {
 
             );
         }};
+
         kaph31 = new BiologicalUnitType("kaph31"){{
             constructor = LegsUnit::create;
-            aiController = SuicideAI::new;
+            aiController = GroundAI::new;
 
-            speed = 0.92f;
+            speed = 0.5f;
             drag = 0.12f;
             hitSize = 14f;
             rotateSpeed = 2f;
@@ -850,32 +941,27 @@ public class BioUnits {
             researchCostMultiplier = 0f;
             lightOpacity = 0;
 
-            weapons.add(new Weapon(){{
-                shootOnDeath = true;
-                reload = 24f;
-                shootCone = 180f;
+            weapons.add(new Weapon("biotech-kaph-gastric-gun"){{
+                x = 3;
+                y = 7.5f;
+                top = false;
+                reload = 5f;
+                shootCone = 45f;
+                loopSound = Sounds.spray;
+                shootSound = Sounds.none;
                 ejectEffect = Fx.none;
                 range = 1;
-                x = shootY = 0f;
                 mirror = false;
-                bullet = new BulletType(){{
-                    collidesTiles = false;
-                    collides = false;
-
-                    rangeOverride = 10f;
-                    hitEffect = new ParticleEffect(){{
-                        sizeFrom = 5;
-                        sizeTo = 5;
-                        colorFrom = BioPal.bloodRedLight;
-                        colorTo = BioPal.bloodRed;
-                    }};
-                    speed = 0f;
-                    splashDamageRadius = 35f;
-                    instantDisappear = true;
-                    splashDamage = 50f;
-                    killShooter = true;
-                    hittable = false;
-                    collidesAir = true;
+                bullet = new LiquidBulletType(BioLiquids.heraticAcid){{
+                    lifetime = 60f;
+                    inaccuracy = 15;
+                    speed = 4.5f;
+                    knockback = 0.2f;
+                    puddleSize = 7f;
+                    orbSize = 3f;
+                    damage = 6f;
+                    drag = 0.05f;
+                    statusDuration = 60f * 4f;
                 }};
             }});
 

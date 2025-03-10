@@ -53,6 +53,7 @@ public class BiologicalStaticSpawner extends Prop {
             super.update();
 
             if(plans == null || plans.length == 0) return;
+            if(!enabled) return;
             if(timers == null || timers.length != plans.length){
                 timers = new float[plans.length];
                 for(int i = 0; i < plans.length; i++) timers[i] = plans[i].time;

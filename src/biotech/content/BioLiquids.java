@@ -5,7 +5,7 @@ import mindustry.type.Liquid;
 import mindustry.world.Block;
 
 public class BioLiquids {
-    public static Liquid hemoFluid, plasmoid;
+    public static Liquid hemoFluid, plasmoid, heraticAcid;
 
     public static void load() {
         hemoFluid = new Liquid("hemo-fluid") {{
@@ -24,6 +24,15 @@ public class BioLiquids {
             gasColor = Color.grays(0.5f);
             alwaysUnlocked = false;
             color = Color.valueOf("b09ede");
+        }};
+
+        heraticAcid = new Liquid("heratic-acid") {{
+            heatCapacity = 0.8f;
+            viscosity = 0.7f;
+            boilPoint = 0.1f;
+            gasColor = Color.valueOf("64702e").a(0.5f);
+            alwaysUnlocked = false;
+            color = Color.valueOf("a2b038");
         }};
     }
 }

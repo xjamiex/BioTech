@@ -64,7 +64,7 @@ public class BioBlocks {
             bioDrill, boneCrusher, bioPiercer, drillUpgrader,
 
             //env
-            flesh, rottenFlesh, decayedFlesh, scarredFlesh,
+            flesh, rottenFlesh, decayedFlesh, scarredFlesh, adiposeTissue,
             flint, bone, myostone, flourspar, dolomite, alloyFloor, squareAlloyFloor, gneiss, marl,
             oreMagnesium, orePhosphorus,
             fleshWall, rottenFleshWall, decayedFleshWall,
@@ -74,7 +74,7 @@ public class BioBlocks {
 
             //props
             nerveProtrusion, fleshAmalgam, fleshBoulder, rottenFleshAmalgam, rottenFleshBoulder,
-            dolomiteCluster,
+            dolomiteCluster, fleshTag,
 
             //turret
             inception, costae, celluris, dissection, needle, glisten,
@@ -271,6 +271,7 @@ public class BioBlocks {
         rottenFlesh = new Floor("rotten-flesh", 4);
         decayedFlesh = new Floor("decayed-flesh", 4);
         scarredFlesh = new Floor("scarred-flesh", 4);
+        adiposeTissue = new Floor("adipose-tissue", 4);
         gneiss = new Floor("gneiss", 4);
         marl = new Floor("marl", 4);
         boneWall = new StaticWall("bone-wall");
@@ -337,6 +338,16 @@ public class BioBlocks {
 
         dolomiteCluster = new TallBlock("dolomite-cluster"){{
             variants = 3;
+        }};
+
+        fleshTag = new Prop("flesh-tag"){{
+            variants = 3;
+            hasShadow = customShadow = true;
+            flesh.asFloor().decoration = this;
+            rottenFlesh.asFloor().decoration = this;
+            decayedFlesh.asFloor().decoration = this;
+            scarredFlesh.asFloor().decoration = this;
+            adiposeTissue.asFloor().decoration = this;
         }};
 
         oreMagnesium = new OreBlock("ore-magnesium") {{
@@ -418,7 +429,7 @@ public class BioBlocks {
             shootY = 0.7f;
 
             shootSound = Sounds.shootAlt;
-            inaccuracy = 10f;
+            inaccuracy = 2f;
             rotateSpeed = 2f;
             reload = 86;
             minWarmup = 0.90f;
@@ -429,7 +440,7 @@ public class BioBlocks {
             shoot.shotDelay = 3f;
 
             ammo(
-                    BioItems.calciticFragment, new BasicBulletType(5.5f, 30) {{
+                    BioItems.calciticFragment, new BasicBulletType(5.5f, 50) {{
                         sprite = "biotech-triangle";
                         shootEffect = hitEffect = despawnEffect = new WaveEffect() {{
                             colorFrom = BioPal.boneWhiteLight;

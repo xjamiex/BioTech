@@ -53,7 +53,6 @@ public class BoostableDrill extends Drill {
             if(dominantItem == null) {
                 return;
             }
-            Log.info(tier + boostedTier);
 
             timeDrilled += warmup * delta();
 

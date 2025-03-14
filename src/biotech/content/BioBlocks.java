@@ -377,7 +377,7 @@ public class BioBlocks {
             targetGround = true;
 
             ammo(
-                    BioItems.carbonicTissue, new BasicBulletType(3f, 145) {{
+                    BioItems.carbonicTissue, new BasicBulletType(3f, 120) {{
                         sprite = "biotech-meatball";
                         shootEffect = trailEffect = new ParticleEffect() {{
                             particles = 6;
@@ -410,6 +410,7 @@ public class BioBlocks {
 
                         splashDamage = 25;
                         splashDamageRadius = 35f;
+                        ammoMultiplier = 1f;
 
                         hitSound = despawnSound = Sounds.dullExplosion;
                     }}
@@ -951,7 +952,6 @@ public class BioBlocks {
             requirements(units, BuildVisibility.hidden, with(BioItems.carbonicTissue, 1));
             health = 999999999;
             size = 8;
-            unitCapModifier = 999;
         }};
         //endregion
 

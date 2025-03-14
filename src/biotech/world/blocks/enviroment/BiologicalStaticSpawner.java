@@ -16,6 +16,7 @@ import mindustry.ui.*;
 import mindustry.world.blocks.environment.*;
 
 public class BiologicalStaticSpawner extends Prop {
+
     public static Effect spawnFx = Fx.none;
     public static Sound spawnSound = Sounds.none;
 
@@ -78,14 +79,6 @@ public class BiologicalStaticSpawner extends Prop {
             }
 
 
-        }
-
-        @Override
-        public void draw() {
-            Draw.alpha(0.5f);
-            Draw.rect(customShadowRegion, x, y);
-            Draw.alpha(1);
-            Draw.rect(region, x, y);
         }
 
         @Override

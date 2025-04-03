@@ -704,6 +704,7 @@ public class BioBlocks {
                         trailInterval = 2f;
                         lifetime = 40f;
                         collidesAir = true;
+                        ammoMultiplier = 2.1f;
 
                         hitSound = despawnSound = Sounds.bang;
                     }}

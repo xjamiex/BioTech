@@ -11,6 +11,8 @@ import arc.math.geom.Vec2;
 import arc.util.Tmp;
 import mindustry.Vars;
 import mindustry.entities.Effect;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.SeqEffect;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
@@ -117,7 +119,16 @@ public class BioFx {
                 v.trns(rot, rand.random(e.fin() * 27f));
                 lineAngle(e.x + v.x, e.y + v.y, rot, e.fout() * rand.random(2f, 7f) + 1.5f);
             }
-        });
+        }),
+
+        immuneSpawnerExplode = new MultiEffect(
+                new ParticleEffect(){{
+                    particles = 15;
+                    sizeFrom = 8;
+                    sizeTo = 0;
+                    colorFrom = colorTo = BioPal.bloodRedLight;
+                }}
+        );
 
     public static Effect fourSpike(Color color, float width, float length){
         return new Effect(60, e -> {

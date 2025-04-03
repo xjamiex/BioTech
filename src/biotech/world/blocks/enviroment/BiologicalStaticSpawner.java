@@ -15,10 +15,18 @@ import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.environment.*;
 
+import static mindustry.Vars.tilesize;
+
 public class BiologicalStaticSpawner extends Prop {
 
     public static Effect spawnFx = Fx.none;
     public static Sound spawnSound = Sounds.none;
+
+    public int explosionRadius = 12;
+    public int explosionDamage = 0;
+    public float explosionShake = 0f, explosionShakeDuration = 6f;
+    public Effect explodeEffect = Fx.none;
+    public Sound explodeSound = Sounds.none;
 
     public BiologicalStaticSpawner(String name) {
         super(name);
@@ -77,8 +85,21 @@ public class BiologicalStaticSpawner extends Prop {
                 }
                 spawnSound.at(x, y);
             }
+        }
 
+        @Override
+        public void onDestroyed() {
+            super.onDestroyed();
+            if(explosionDamage > 0){
+                Damage.damage(x, y, explosionRadius * tilesize, explosionDamage);
+            }
 
+            explodeEffect.at(this);
+            explodeSound.at(this);
+
+            if(explosionShake > 0){
+                Effect.shake(explosionShake, explosionShakeDuration, this);
+            }
         }
 
         @Override

@@ -1,38 +1,60 @@
 package biotech;
 
 import arc.*;
+import arc.audio.Music;
 import arc.struct.Seq;
 import arc.util.*;
 import biotech.content.*;
 import biotech.ui.BioSpawnerDialog;
 import biotech.ui.BioUI;
 import biotech.ui.ButtonPref;
+import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
+import mindustry.Vars;
+import mindustry.audio.SoundControl;
 import mindustry.content.Planets;
 import mindustry.content.TechTree;
+import mindustry.core.World;
 import mindustry.ctype.UnlockableContent;
+import mindustry.game.EventType;
 import mindustry.game.EventType.*;
 import mindustry.game.Saves;
 import mindustry.game.Schematic;
 import mindustry.game.Schematics;
+import mindustry.gen.Building;
+import mindustry.gen.Groups;
 import mindustry.gen.Icon;
+import mindustry.gen.Unit;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
+import mindustry.world.Tile;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static arc.Core.bundle;
 import static arc.Core.settings;
 import static mindustry.Vars.*;
 
-public class BioTech extends Mod{
+public class BioTech extends Mod {
 
-    public BioTech(){
-        //AAAAAA
+    public static Music mothersWail;
+
+    public BioTech() {
+        Events.on(EventType.SectorCaptureEvent.class, event -> {
+            for (Building building : Groups.build) {
+                if (building instanceof BiologicalStaticSpawner.BiologicalStaticSpawnerBuild build) {
+                    Tile tile = build.tile;
+                    tile.remove();
+                    BioFx.immuneSpawnerExplode.at(tile);
+                }
+            }
+        });
     }
 
     @Override
-    public void loadContent(){
+    public void loadContent() {
         BioItems.load();
         BioLiquids.load();
-        BioSounds.load();
         BioStatusEffects.load();
         BioUnits.load();
         BioBlocks.load();
@@ -48,12 +70,20 @@ public class BioTech extends Mod{
     public void init() {
         super.init();
         BioTeams.load();
+        BioSounds.load();
         loadSettings();
+
+        loadMusic();
 
         BioUI.load();
     }
 
-    void loadSettings(){
+    public static void loadMusic() {
+        Core.assets.load("soundtracks/mothers-wail.ogg", arc.audio.Music.class).loaded = a -> mothersWail = a;
+    }
+
+
+    void loadSettings() {
         ui.settings.addCategory(bundle.get("setting.biotech-category"), Icon.settings, t -> {
 
             t.pref(new ButtonPref(bundle.get("setting.biotech-clear-tech-tree"), Icon.trash,() -> {

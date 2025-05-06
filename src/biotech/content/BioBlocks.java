@@ -366,7 +366,7 @@ public class BioBlocks {
             requirements(turret, with(BioItems.calciticFragment, 60, BioItems.magnesium, 60));
             maxAmmo = 5;
 
-            range = 150;
+            range = 120;
             shootY = 0.7f;
             shootSound = Sounds.shootBig;
             inaccuracy = 2f;
@@ -410,7 +410,7 @@ public class BioBlocks {
 
                         splashDamage = 25;
                         splashDamageRadius = 35f;
-                        ammoMultiplier = 1f;
+                        ammoMultiplier = 1.5f;
 
                         hitSound = despawnSound = Sounds.dullExplosion;
                     }}
@@ -472,6 +472,7 @@ public class BioBlocks {
                         trailInterval = 2f;
                         lifetime = 60;
                         collidesGround = false;
+                        ammoMultiplier = 1.5f;
 
                         pierce = true;
 

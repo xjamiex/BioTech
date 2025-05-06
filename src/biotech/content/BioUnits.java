@@ -721,7 +721,7 @@ public class BioUnits {
             drag = 0.11f;
             hitSize = 11f;
             rotateSpeed = 3f;
-            health = 450;
+            health = 150;
             armor = 1f;
             legStraightness = 0.3f;
             stepShake = 0f;

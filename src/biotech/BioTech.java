@@ -25,6 +25,7 @@ import mindustry.gen.Groups;
 import mindustry.gen.Icon;
 import mindustry.gen.Unit;
 import mindustry.mod.*;
+import mindustry.type.UnitType;
 import mindustry.ui.dialogs.*;
 import mindustry.world.Tile;
 
@@ -49,6 +50,17 @@ public class BioTech extends Mod {
                 }
             }
         });
+
+        Events.on(EventType.UnitSpawnEvent.class, event -> {
+            for (Unit unit : Groups.unit) {
+                if (unit.type == BioUnits.ima) {
+                    BioVars.imaCutscene.enabled = true;
+                    break;
+                }
+            }
+        });
+
+        Events.on(EventType.WorldLoadEvent.class, you -> BioVars.postInit());
     }
 
     @Override

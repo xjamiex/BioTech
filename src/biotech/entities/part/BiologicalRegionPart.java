@@ -1,15 +1,19 @@
 package biotech.entities.part;
 
-import arc.Core;
+import arc.*;
+import arc.KeyBinds.*;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
+import arc.input.*;
 import arc.math.Interp;
+import arc.math.Interp.*;
 import arc.math.Mathf;
 import arc.util.Log;
 import arc.util.Time;
 import arc.util.Tmp;
 import mindustry.entities.part.RegionPart;
 import mindustry.graphics.Drawf;
+import mindustry.input.*;
 
 import java.util.Random;
 
@@ -29,7 +33,7 @@ public class BiologicalRegionPart extends RegionPart {
         if(under && turretShading) Draw.z(z - 0.0001f);
         Draw.z(Draw.z() + layerOffset);
 
-        float randProg = Time.time + Mathf.random(randProgScale);
+        float randProg = (Time.time + Mathf.random(randProgScale)) * Mathf.randomSeed(BioPartProgParams.bioparams.id, 0.5f, 1.1f);
 
         float prevZ = Draw.z();
         float prog = Mathf.clamp(progress.get(params) + Mathf.sin(randProg, 50f, 0.5f))

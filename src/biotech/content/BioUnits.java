@@ -10,6 +10,7 @@ import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
+import biotech.type.unit.*;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.content.Liquids;
@@ -65,7 +66,7 @@ public class BioUnits {
 
     public static void load() {
 
-        carrier = new UnitType("carrier"){{
+        carrier = new BioTechUnitType("carrier"){{
             controller = u -> new CargoAI();
             constructor = BuildingTetherPayloadUnit::create;
             allowedInPayloads = false;
@@ -90,7 +91,7 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        watcher = new UnitType("watcher"){{
+        watcher = new BioTechUnitType("watcher"){{
             aiController = BuilderAI::new;
             isEnemy = false;
             constructor = UnitEntity::create;
@@ -140,7 +141,7 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        scout = new UnitType("scout"){{
+        scout = new BioTechUnitType("scout"){{
             constructor = UnitEntity::create;
 
             lowAltitude = true;
@@ -208,7 +209,7 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        seer = new UnitType("seer"){{
+        seer = new BioTechUnitType("seer"){{
             constructor = UnitEntity::create;
 
             lowAltitude = true;
@@ -298,7 +299,7 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        smith = new UnitType("smith"){{
+        smith = new BioTechUnitType("smith"){{
             constructor = ElevationMoveUnit::create;
 
             hovering = true;
@@ -370,7 +371,7 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        anvil = new UnitType("anvil"){{
+        anvil = new BioTechUnitType("anvil"){{
             constructor = UnitEntity::create;
             aiController = FlyingAI::new;
 
@@ -477,7 +478,7 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        strider = new UnitType("strider"){{
+        strider = new BioTechUnitType("strider"){{
             constructor = LegsUnit::create;
             aiController = GroundAI::new;
 
@@ -547,7 +548,7 @@ public class BioUnits {
             }});
         }};
 
-        nomad = new UnitType("nomad"){{
+        nomad = new BioTechUnitType("nomad"){{
             constructor = LegsUnit::create;
             aiController = GroundAI::new;
 

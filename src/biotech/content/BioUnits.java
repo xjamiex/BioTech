@@ -10,6 +10,7 @@ import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
+import biotech.type.unit.ImaUnitType;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.content.Liquids;
@@ -1003,96 +1004,7 @@ public class BioUnits {
             );
         }};
 
-        ima = new BiologicalUnitType("k-42-ima"){{
-            shadowElevation = 0.1f;
-            groundLayer = Layer.legUnit - 1f;
-            targetAir = false;
-            researchCostMultiplier = 0f;
-            lightOpacity = 0;
-            deathSound = BioSounds.motherDeath;
-            legPairOffset = 5;
-            parts.addAll(
-                    new BiologicalRegionPart("-body-left"){{
-                        growX = -0.1f;
-                        growY = 0.1f;
-                        randProgScale = 211f;
-                        moveX = 2f;
-                        moveY = 0f;
-                        moveRot = -2f;
-                        x = 0f;
-                        y = 0f;
-                    }},
-                    new BiologicalRegionPart("-body-right"){{
-                        growX = 0.2f;
-                        growY = 0.2f;
-                        randProgScale = 53f;
-                        moveX = 3.1f;
-                        moveY = 1.2f;
-                        moveRot = 3f;
-                        x = 0f;
-                        y = 0f;
-                    }},
-                    new BiologicalRegionPart("-jaw-left"){{
-                        growX = 0.2f;
-                        growY = 0.2f;
-                        randProgScale = 667f;
-                        moveX = 2f;
-                        moveY = -1.6f;
-                        moveRot = -5f;
-                        x = 0f;
-                        y = 0f;
-                    }},
-                    new BiologicalRegionPart("-jaw-right"){{
-                        growX = 0.2f;
-                        growY = 0.2f;
-                        randProgScale = 321f;
-                        moveX = 1f;
-                        moveY = 1.1f;
-                        moveRot = 4f;
-                        x = 0f;
-                        y = 0f;
-                    }}
-            );
-            constructor = LegsUnit::create;
-            aiController = GroundAI::new;
-
-            speed = 0.2f;
-            drag = 0.11f;
-            hitSize = 12f;
-            rotateSpeed = 1.2f;
-            health = 8250f;
-            armor = 2f;
-            legStraightness = 0.25f;
-            stepShake = 0.1f;
-            drawCell = false;
-
-            legCount = 5;
-            legLength = 19f;
-            lockLegBase = true;
-            legContinuousMove = true;
-            legExtension = -4f;
-            legBaseOffset = 5f;
-            legMaxLength = 2.2f;
-            legMinLength = 1.5f;
-            legLengthScl = 1.1f;
-            legForwardScl = 1.05f;
-            legSpeed = 0.07f;
-            rippleScale = 0.2f;
-            mechStepParticles = true;
-
-            legMoveSpace = 1.7f;
-            allowLegStep = true;
-            legPhysicsLayer = false;
-
-            deathExplosionEffect = new ParticleEffect(){{
-                sizeFrom = 12;
-                sizeTo = 0;
-                lightOpacity = 0;
-                lifetime = 250;
-                layer = 10;
-                colorFrom = BioPal.bloodRedLight;
-                colorTo = BioPal.bloodRed;
-            }};
+        ima = new ImaUnitType("k-42-ima"){{
         }};
     }
 }

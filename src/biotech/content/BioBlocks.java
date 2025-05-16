@@ -854,7 +854,18 @@ public class BioBlocks {
             liquidCapacity = 60f;
             craftTime = 4 * 60f;
             outputItem = new ItemStack(BioItems.carminite, 3);
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(BioLiquids.hemoFluid, 3), new DrawDefault());
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawLiquidTile(BioLiquids.hemoFluid, 3),
+                    new DrawDefault(),
+                    new DrawRegion("-fan"){{
+                        x = -4.5f;
+                        y = -4.5f;
+                        spinSprite = true;
+                        rotateSpeed = 1;
+                    }},
+                    new DrawRegion("-top")
+            );
             size = 4;
             health = 1120;
             hasLiquids = true;

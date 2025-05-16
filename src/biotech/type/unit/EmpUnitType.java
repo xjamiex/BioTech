@@ -27,7 +27,7 @@ import javax.sound.sampled.Line;
 
 import static mindustry.Vars.*;
 
-public class EmpUnitType extends UnitType {
+public class EmpUnitType extends BioTechUnitType {
 
     public static float empRadius;
     public static float empDamage;

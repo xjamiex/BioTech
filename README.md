@@ -10,4 +10,4 @@ mapper - mrapple_0
 
 playtester - chromoxylograph
 
-immune spawner developer - RushieWashie (https://github.com/JiroCab)
+immune spawner developer & others - RushieWashie (https://github.com/JiroCab)

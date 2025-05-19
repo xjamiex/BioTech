@@ -28,7 +28,7 @@ import mindustry.mod.*;
 import mindustry.type.UnitType;
 import mindustry.ui.dialogs.*;
 import mindustry.world.Tile;
-import template.gen.EntityRegistry;
+import biotech.gen.EntityRegistry;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

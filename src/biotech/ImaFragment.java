@@ -11,6 +11,7 @@ import arc.scene.Group;
 import arc.util.Log;
 import arc.util.Time;
 import mindustry.Vars;
+import mindustry.core.GameState;
 import mindustry.logic.LExecutor;
 
 import static arc.Core.graphics;
@@ -76,30 +77,29 @@ public class ImaFragment extends Element {
                 drawIdx++;
                 timeOffset = frames;
                 if(drawIdx >= times.length){
-                    Vars.control.resume();
-                    Log.info("HUHHH");
+                    Vars.state.set(GameState.State.playing);
                     enabled = false;
                 } else {
-                    Vars.control.pause();
+                    Vars.state.set(GameState.State.paused);
                 }
             }
         }
 
         Draw.color(Color.white);
         switch(drawIdx){
-            case 0 -> drawLine("biotech-ima-cutscene-line-1");
-            case 1 -> drawLine("biotech-ima-cutscene-line-2");
-            case 2 -> drawLine("biotech-ima-cutscene-line-3");
-            case 3 -> drawLine("biotech-ima-cutscene-line-4");
-            case 4 -> drawLine("biotech-ima-cutscene-line-5");
+            case 0 -> drawLine("biotech-ima-cutscene-line-1", 1);
+            case 1 -> drawLine("biotech-ima-cutscene-line-2", 1);
+            case 2 -> drawLine("biotech-ima-cutscene-line-3", 1);
+            case 3 -> drawLine("biotech-ima-cutscene-line-4", 1);
+            case 4 -> drawLine("biotech-ima-cutscene-line-5", 3);
         }
     }
 
-    void drawLine(String textSprite) {
+    void drawLine(String textSprite, float offset) {
         Draw.alpha(Mathf.random());
-        Draw.rect(Core.atlas.find("biotech-ima-cutscene-eye"), camera.position.x + Mathf.random(-1, 1), camera.position.y + 25 + Mathf.random(-1, 1), camera.height, camera.height);
+        Draw.rect(Core.atlas.find("biotech-ima-cutscene-eye"), camera.position.x + Mathf.random(-offset, offset), camera.position.y + 25 + Mathf.random(-1, 1), camera.height, camera.height);
         Draw.alpha(Mathf.random());
-        Draw.rect(Core.atlas.find(textSprite), camera.position.x + Mathf.random(-1, 1), camera.position.y + Mathf.random(-1, 1), camera.width, camera.height);
+        Draw.rect(Core.atlas.find(textSprite), camera.position.x + Mathf.random(-offset, offset), camera.position.y + Mathf.random(-1, 1), camera.width, camera.height);
     }
 
     void rect() {

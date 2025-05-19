@@ -28,6 +28,7 @@ import mindustry.mod.*;
 import mindustry.type.UnitType;
 import mindustry.ui.dialogs.*;
 import mindustry.world.Tile;
+import template.gen.EntityRegistry;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -65,6 +66,7 @@ public class BioTech extends Mod {
 
     @Override
     public void loadContent() {
+        EntityRegistry.register();
 
         BioItems.load();
         BioLiquids.load();

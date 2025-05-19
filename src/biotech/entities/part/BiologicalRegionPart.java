@@ -19,8 +19,6 @@ import java.util.Random;
 
 public class BiologicalRegionPart extends RegionPart {
 
-    public static float randProgScale = 0;
-
     public BiologicalRegionPart(String region) {
         super(region);
     }
@@ -33,7 +31,7 @@ public class BiologicalRegionPart extends RegionPart {
         if(under && turretShading) Draw.z(z - 0.0001f);
         Draw.z(Draw.z() + layerOffset);
 
-        float randProg = (Time.time + Mathf.random(randProgScale)) * Mathf.randomSeed(BioPartProgParams.bioparams.id, 0.5f, 1.1f);
+        float randProg = (Time.time * Mathf.randomSeed((long) (BioPartProgParams.bioparams.id), 0.5f, 1.1f));
 
         float prevZ = Draw.z();
         float prog = Mathf.clamp(progress.get(params) + Mathf.sin(randProg, 50f, 0.5f))

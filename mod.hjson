@@ -17,7 +17,7 @@ description: "Meatballs."
 version: 0.2
 
 #the minimum game build required to run this mod
-minGameVersion: 145
+minGameVersion: 147
 
 #this is a java mod
 java: true

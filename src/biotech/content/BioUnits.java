@@ -762,7 +762,6 @@ public class BioUnits {
                     new BiologicalRegionPart("-body"){{
                         growX = 0.5f;
                         growY = 0.6f;
-                        randProgScale = 250f;
                         moveX = -0.3f;
                         moveY = 0.6f;
                         moveRot = 3f;
@@ -877,7 +876,6 @@ public class BioUnits {
                     new BiologicalRegionPart("-mouth"){{
                         growX = 0.8f;
                         growY = 0.8f;
-                        randProgScale = 250f;
                         moveX = -1.3f;
                         moveY = 0.6f;
                         moveRot = 7f;
@@ -887,7 +885,6 @@ public class BioUnits {
                     new BiologicalRegionPart("-holes"){{
                         growX = 0.7f;
                         growY = 0.7f;
-                        randProgScale = 200f;
                         moveX = 1f;
                         moveY = -0.4f;
                         moveRot = -5f;
@@ -970,7 +967,6 @@ public class BioUnits {
                     new BiologicalRegionPart("-spike"){{
                         growX = 0.2f;
                         growY = 0.2f;
-                        randProgScale = 250f;
                         moveX = -2f;
                         moveY = 1.6f;
                         moveRot = 7f;
@@ -980,7 +976,6 @@ public class BioUnits {
                     new BiologicalRegionPart("-eye"){{
                         growX = 0.2f;
                         growY = 0.2f;
-                        randProgScale = 292f;
                         moveX = 0.5f;
                         moveY = -2f;
                         moveRot = -5f;
@@ -988,14 +983,12 @@ public class BioUnits {
                         y = 0f;
                     }},
                     new BiologicalRegionPart("-pupil-1"){{;
-                        randProgScale = 292f;
                         moveX = 0.5f;
                         moveY = -0.5f;
                         x = 0f;
                         y = 0f;
                     }},
                     new BiologicalRegionPart("-pupil-2"){{
-                        randProgScale = 292f;
                         moveX = 0.5f;
                         moveY = -0.5f;
                         x = 0f;
@@ -1004,7 +997,6 @@ public class BioUnits {
             );
         }};
 
-        ima = new ImaUnitType("k-42-ima"){{
-        }};
+        ima = new ImaUnitType("k-42-ima"){{}};
     }
 }

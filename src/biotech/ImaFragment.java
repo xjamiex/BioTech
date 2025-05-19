@@ -1,11 +1,14 @@
 package biotech;
 
+import arc.Core;
 import arc.graphics.Camera;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
+import arc.math.Mathf;
 import arc.scene.Element;
 import arc.scene.Group;
+import arc.util.Log;
 import arc.util.Time;
 import mindustry.Vars;
 import mindustry.logic.LExecutor;
@@ -25,7 +28,7 @@ public class ImaFragment extends Element {
 
     static int timeOffset = 0;
     static int drawIdx = 0;
-    static int[] times = {6 * 60, 3 * 60, 10 * 60, 3 * 60, 15 * 60, 4 * 60, 17 * 60, 28 * 60, 10};
+    static int[] times = {4 * 60, 4 * 60, 4 * 60, 4 * 60, 7 * 60};
 
     public void build(Group parent) {
         parent.fill((x, y, width, height) -> render());
@@ -33,7 +36,6 @@ public class ImaFragment extends Element {
 
     void render() {
         if (!enabled) return;
-        Vars.control.pause();
 
         int sw = graphics.getWidth();
         int sh = graphics.getHeight();
@@ -58,7 +60,7 @@ public class ImaFragment extends Element {
         rect();
 
         waitTime += Time.delta;
-        if(waitTime < 640f){
+        if(waitTime < 400f){
             alpha += 0.005f;
             return;
         }
@@ -74,32 +76,30 @@ public class ImaFragment extends Element {
                 drawIdx++;
                 timeOffset = frames;
                 if(drawIdx >= times.length){
+                    Vars.control.resume();
+                    Log.info("HUHHH");
                     enabled = false;
+                } else {
+                    Vars.control.pause();
                 }
             }
         }
 
         Draw.color(Color.white);
         switch(drawIdx){
-            case 0 -> tidesOfAffection();
-            case 1 -> placeholder();
-            case 2 -> reset();
+            case 0 -> drawLine("biotech-ima-cutscene-line-1");
+            case 1 -> drawLine("biotech-ima-cutscene-line-2");
+            case 2 -> drawLine("biotech-ima-cutscene-line-3");
+            case 3 -> drawLine("biotech-ima-cutscene-line-4");
+            case 4 -> drawLine("biotech-ima-cutscene-line-5");
         }
     }
 
-    void tidesOfAffection() {
-        Draw.color(Color.darkGray);
-        rect();
-    }
-
-    void placeholder() {
-        Draw.color(Color.gray);
-        rect();
-    }
-
-    void reset() {
-        enabled = false;
-        Vars.control.resume();
+    void drawLine(String textSprite) {
+        Draw.alpha(Mathf.random());
+        Draw.rect(Core.atlas.find("biotech-ima-cutscene-eye"), camera.position.x + Mathf.random(-1, 1), camera.position.y + 25 + Mathf.random(-1, 1), camera.height, camera.height);
+        Draw.alpha(Mathf.random());
+        Draw.rect(Core.atlas.find(textSprite), camera.position.x + Mathf.random(-1, 1), camera.position.y + Mathf.random(-1, 1), camera.width, camera.height);
     }
 
     void rect() {

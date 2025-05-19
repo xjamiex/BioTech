@@ -1,0 +1,9 @@
+{
+    "displayName": "BioTech",
+    "description": "What does 'Alive' mean?",
+    "version": "v0.23",
+    "minGameVersion": "146",
+    "author": "Jammuu",
+    "java": true,
+    "main": "biotech.BioTech"
+}

@@ -65,6 +65,7 @@ public class BioTech extends Mod {
 
     @Override
     public void loadContent() {
+
         BioItems.load();
         BioLiquids.load();
         BioStatusEffects.load();
@@ -73,9 +74,6 @@ public class BioTech extends Mod {
         BioPlanets.load();
         BioSectorPresets.load();
         BioTechTree.load();
-
-        Planets.erekir.hiddenItems.addAll(BioItems.andoriItems);
-        Planets.serpulo.hiddenItems.addAll(BioItems.andoriItems);
     }
 
     @Override

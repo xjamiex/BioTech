@@ -1,7 +1,6 @@
 package biotech.entities.part;
 
 import arc.*;
-import arc.KeyBinds.*;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
 import arc.input.*;

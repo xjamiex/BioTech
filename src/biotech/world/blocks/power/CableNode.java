@@ -39,9 +39,9 @@ public class CableNode extends PowerNode {
     protected void getPotentialLinks(Tile tile, Team team, Cons<Building> others) {
         if(!autolink) return;
 
-        Boolf<Building> valid = other -> other != null && other.tile() != tile && other.block.connectedPower && other.power != null &&
+        Boolf<Building> valid = other -> other != null && other.tile != tile && other.block.connectedPower && other.power != null &&
                 (other.block instanceof CableNode) &&
-                overlaps(tile.x * tilesize + offset, tile.y * tilesize + offset, other.tile(), laserRange * tilesize) && other.team == team &&
+                overlaps(tile.x * tilesize + offset, tile.y * tilesize + offset, other.tile, laserRange * tilesize) && other.team == team &&
                 !graphs.contains(other.power.graph) &&
                 !PowerNode.insulated(tile, other.tile) &&
                 !(other instanceof PowerNodeBuild obuild && obuild.power.links.size >= ((PowerNode)obuild.block).maxNodes) &&

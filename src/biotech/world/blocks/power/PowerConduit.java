@@ -48,7 +48,7 @@ public class PowerConduit extends ArmoredConduit {
     public class PowerConduitBuild extends ConduitBuild {
         @Override
         public float getPowerProduction() {
-            return powerProduction * liquids().currentAmount();
+            return powerProduction * liquids.currentAmount();
         }
     }
 }

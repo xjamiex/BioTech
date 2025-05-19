@@ -145,7 +145,7 @@ public class BioSpawnerDialog extends BaseDialog {
             for(StatusEffect item : content.statusEffects()){
 
                 StringBuilder tip = new StringBuilder(item.localizedName);
-                if(item.isModded()) tip.append("\n(").append(item.minfo.mod.meta.displayName()).append(")");
+                if(item.isModded()) tip.append("\n(").append(item.minfo.mod.meta.displayName).append(")");
 
                 t.button(new TextureRegionDrawable((item == StatusEffects.none) ? Icon.none.getRegion() : item.uiIcon), Styles.flati, iconLarge, () -> {
                     plan.effect = item;
@@ -173,7 +173,7 @@ public class BioSpawnerDialog extends BaseDialog {
                 if(!advanced && (!item.unlockedNow() || item.isHidden() || !item.logicControllable)) continue;
 
                 StringBuilder tip = new StringBuilder(item.localizedName);
-                if(item.isModded()) tip.append("\n(").append(item.minfo.mod.meta.displayName()).append(")");
+                if(item.isModded()) tip.append("\n(").append(item.minfo.mod.meta.displayName).append(")");
 
                 t.button(new TextureRegionDrawable(item.uiIcon), Styles.flati, iconLarge, () -> {
                     plan.unit = item;

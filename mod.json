@@ -2,7 +2,7 @@
     "displayName": "BioTech",
     "description": "What does 'Alive' mean?",
     "version": "v0.23",
-    "minGameVersion": "146",
+    "minGameVersion": "149",
     "author": "Jammuu",
     "java": true,
     "main": "biotech.BioTech"

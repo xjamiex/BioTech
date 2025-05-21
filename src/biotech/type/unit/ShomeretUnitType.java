@@ -5,10 +5,10 @@ import biotech.type.BiologicalUnitType;
 import mindustry.gen.LegsUnit;
 import mindustry.gen.Unit;
 
-public class ImaUnitType extends BiologicalUnitType {
+public class ShomeretUnitType extends BiologicalUnitType {
     public static int state;
 
-    public ImaUnitType(String name) {
+    public ShomeretUnitType(String name) {
         super(name);
         speed = 0;
         constructor = LegsUnit::create;

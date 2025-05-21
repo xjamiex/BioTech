@@ -3,32 +3,25 @@ package biotech.content;
 import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.Mathf;
-import arc.util.Log;
 import arc.util.Time;
-import biotech.BioTech;
-import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
-import biotech.type.unit.ImaUnitType;
+import biotech.type.unit.ShomeretUnitType;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
-import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
-import mindustry.entities.abilities.LiquidExplodeAbility;
 import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
-import mindustry.entities.effect.RadialEffect;
 import mindustry.entities.effect.SeqEffect;
 import mindustry.entities.part.HaloPart;
 import mindustry.entities.part.HoverPart;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.pattern.ShootSpread;
-import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
@@ -37,7 +30,6 @@ import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.unit.MissileUnitType;
 import mindustry.type.weapons.PointDefenseWeapon;
-import mindustry.world.blocks.defense.turrets.PointDefenseTurret;
 
 import static arc.graphics.g2d.Draw.color;
 
@@ -60,7 +52,7 @@ public class BioUnits {
             watcher,
 
             //immune
-            kaph50, kaph37, kaph31, ima
+            kaph50, kaph37, kaph31, ima, shomeret
 
     ;
 
@@ -997,6 +989,101 @@ public class BioUnits {
             );
         }};
 
-        ima = new ImaUnitType("k-42-ima"){{}};
+        ima = new BiologicalUnitType("ima"){{
+            weapons.add(new Weapon(){
+                {
+                    reload = 900f;
+                    shootCone = inaccuracy = 360f;
+                    ejectEffect = Fx.none;
+                    shootSound = BioSounds.fleshHit;
+                    alwaysShooting = true;
+                    x = shootY = 0f;
+                    mirror = false;
+                    shoot.shots = 3;
+                    bullet = new BulletType() {{
+                        spawnUnit = BioUnits.kaph50;
+                    }};
+                }});
+            shadowElevation = 0.1f;
+            groundLayer = Layer.legUnit - 1f;
+            targetAir = false;
+            researchCostMultiplier = 0f;
+            lightOpacity = 0;
+            legSpeed = 0.005f;
+            deathSound = BioSounds.motherDeath;
+            legPairOffset = 5;
+            parts.add(
+                    new BiologicalRegionPart("-bl"){{
+                        growX = 0.1f;
+                        growY = 0.14f;
+                        moveX = 0.5f;
+                        moveY = 0.5f;
+                        moveRot = -5f;
+                    }},
+                    new BiologicalRegionPart("-m"){{
+                        growX = -0.22f;
+                        growY = -0.17f;
+                        moveX = 1f;
+                        moveY = -0.4f;
+                        moveRot = -14f;
+                    }},
+                    new BiologicalRegionPart("-tl"){{
+                        growX = -0.25f;
+                        growY = 0.15f;
+                        moveX = 1f;
+                        moveY = -0.5f;
+                        moveRot = -10f;
+                    }},
+                    new BiologicalRegionPart("-tr"){{
+                        growX = 0.25f;
+                        growY = -0.15f;
+                        moveX = -1f;
+                        moveY = 0.5f;
+                        moveRot = -10f;
+                    }}
+            );
+            constructor = LegsUnit::create;
+            aiController = GroundAI::new;
+
+            speed = 0.2f;
+            drag = 0.11f;
+            hitSize = 12f;
+            rotateSpeed = 1.2f;
+            health = 10250;
+            armor = 0f;
+            legStraightness = 0.25f;
+            stepShake = 0.1f;
+            drawCell = false;
+
+            legCount = 5;
+            legLength = 13f;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -4f;
+            legBaseOffset = 5f;
+            legMaxLength = 2.2f;
+            legMinLength = 1.5f;
+            legLengthScl = 1.1f;
+            legForwardScl = 1.1f;
+            legSpeed = 0.05f;
+            rippleScale = 0.2f;
+            mechStepParticles = true;
+
+            legMoveSpace = 1.7f;
+            allowLegStep = true;
+            legPhysicsLayer = false;
+
+            deathExplosionEffect = new ParticleEffect(){{
+                sizeFrom = 12;
+                sizeTo = 0;
+                lightOpacity = 0;
+                lifetime = 250;
+                layer = 10;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRed;
+            }};
+        }};
+
+        shomeret = new ShomeretUnitType("a-91-shomeret"){{}};
     }
 }

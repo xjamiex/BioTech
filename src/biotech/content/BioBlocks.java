@@ -87,6 +87,7 @@ public class BioBlocks {
 
             //defense
             magnesiumWall, largeMagnesiumWall,
+            carminiteWall, largeCarminiteWall,
 
             //units
             experimentalManufacturer, unitDocker, unitDischarger,
@@ -890,15 +891,26 @@ public class BioBlocks {
         //defense
         magnesiumWall = new Wall("magnesium-wall") {{
             researchCost = with(BioItems.magnesium, 300);
-            requirements(Category.defense, with(BioItems.magnesium, 15));
+            requirements(Category.defense, with(BioItems.magnesium, 10));
             researchCost = with(BioItems.magnesium, 50);
             health = 250;
         }};
 
         largeMagnesiumWall = new Wall("large-magnesium-wall") {{
             researchCost = with(BioItems.magnesium, 1200);
-            requirements(Category.defense, with(BioItems.magnesium, 15 * 4));
+            requirements(Category.defense, with(BioItems.magnesium, 10 * 4));
             health = 250 * 4;
+            size = 2;
+        }};
+
+        carminiteWall = new Wall("carminite-wall") {{
+            requirements(Category.defense, with(BioItems.carminite, 10, BioItems.potash, 3));
+            health = 400;
+        }};
+
+        largeCarminiteWall = new Wall("large-carminite-wall") {{
+            requirements(Category.defense, with(BioItems.carminite, 10 * 4, BioItems.potash, 12));
+            health = 400 * 4;
             size = 2;
         }};
         //endregion

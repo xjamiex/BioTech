@@ -37,6 +37,7 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.liquid.LiquidRouter;
+import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.PowerGenerator;
 import mindustry.world.blocks.power.PowerNode;
@@ -80,7 +81,7 @@ public class BioBlocks {
             inception, costae, celluris, dissection, needle, glisten,
 
             //power
-            magnesiumBurner, cablePole,
+            magnesiumBurner, cablePole, cableAccumulator,
 
             //production
             hematicSieve, hemoCrystallizer,
@@ -118,7 +119,7 @@ public class BioBlocks {
 
             consumeItem(BioItems.carbonicTissue, 4);
             hasLiquids = true;
-            outputLiquid = new LiquidStack(BioLiquids.hemoFluid, 17 / 60f);
+            outputLiquid = new LiquidStack(BioLiquids.hemoFluid, 16 / 60f);
             liquidCapacity = 40f;
             squareSprite = false;
         }};
@@ -146,7 +147,7 @@ public class BioBlocks {
 
         bioSiphon = new Pump("bio-siphon") {{
             requirements(Category.liquid, with(BioItems.magnesium, 50, BioItems.calciticFragment, 120));
-            pumpAmount = 0.04f;
+            pumpAmount = 10 / 60f;
             liquidCapacity = 30f;
             size = 2;
             drawer = new DrawDefault();
@@ -721,7 +722,7 @@ public class BioBlocks {
             size = 2;
             requirements(turret, with(BioItems.magnesium, 100, BioItems.potash, 50));
 
-            range = 140;
+            range = 340;
             shootSound = Sounds.shootBig;
             inaccuracy = 20f;
             rotateSpeed = 2f;
@@ -743,7 +744,7 @@ public class BioBlocks {
             );
             shootY = 3;
 
-            consumePower(10f);
+            consumePower(100 / 60f);
 
             outlineColor = Color.valueOf("2b2626");;
 
@@ -751,7 +752,7 @@ public class BioBlocks {
                 spawnUnit = new MissileUnitType("glisten-missile"){{
                     speed = 3.6f;
                     maxRange = 6f;
-                    lifetime = 60 * 1.25f;
+                    lifetime = 60 * 2f;
                     outlineColor = Color.valueOf("2b2626");
                     engineColor = trailColor = BioPal.magnesiumPurpleLight;
                     engineLayer = Layer.effect;
@@ -805,10 +806,10 @@ public class BioBlocks {
             health = 500;
             size = 2;
             requirements(Category.power, with(BioItems.magnesium, 40, BioItems.calciticFragment, 50, BioItems.potash, 35));
-            powerProduction = 100 / 60f;
+            powerProduction = 150 / 60f;
             itemDuration = 120f;
             consumeItem(BioItems.magnesium, 1);
-            consumeLiquid(BioLiquids.hemoFluid, 20 / 60f);
+            consumeLiquid(BioLiquids.hemoFluid, 16 / 60f);
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(), new DrawDefault());
         }};
 
@@ -821,6 +822,13 @@ public class BioBlocks {
             laserColor1 = Color.white;
             laserColor2 = Color.lightGray;
         }};
+
+        cableAccumulator = new Battery("cable-accumulator"){{
+            requirements(Category.power, with(BioItems.calciticFragment, 10, BioItems.magnesium, 5));
+            consumePowerBuffered(3500f);
+            baseExplosiveness = 1f;
+            size = 2;
+        }};
         //endregion
 
         //production
@@ -830,7 +838,7 @@ public class BioBlocks {
             hasItems = true;
             liquidCapacity = 60f;
             craftTime = 2 * 60f;
-            outputItem = new ItemStack(BioItems.potash, 3);
+            outputItem = new ItemStack(BioItems.potash, 6);
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(BioLiquids.hemoFluid, 2), new DrawDefault());
             size = 3;
             health = 850;
@@ -845,7 +853,7 @@ public class BioBlocks {
 
             }};
 
-            consumeLiquid(BioLiquids.hemoFluid, 0.35f);
+            consumeLiquid(BioLiquids.hemoFluid, 32 / 60f);
         }};
 
         hemoCrystallizer = new GenericCrafter("hemo-crystallizer") {{
@@ -912,6 +920,7 @@ public class BioBlocks {
             requirements(Category.defense, with(BioItems.carminite, 10 * 4, BioItems.potash, 12));
             health = 400 * 4;
             size = 2;
+
         }};
         //endregion
 
@@ -937,10 +946,10 @@ public class BioBlocks {
             requirements(Category.units, with(BioItems.phosphorus, 40, BioItems.potash, 100, BioItems.calciticFragment, 120, BioItems.magnesium, 260));
 
             size = 4;
-            consumeLiquid(BioLiquids.plasmoid, 1.2f);
+            consumeLiquid(BioLiquids.plasmoid, 0.f);
             consumeItems(with(BioItems.carminite, 35, BioItems.phosphorus, 50));
 
-            constructTime = 60f * 25f;
+            constructTime = 60f / 25f;
 
             upgrades.addAll(
                     new UnitType[]{BioUnits.scout, BioUnits.seer},

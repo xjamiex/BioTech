@@ -7,7 +7,9 @@ import arc.util.Time;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
+import biotech.type.unit.BioTechUnitType;
 import biotech.type.unit.ShomeretUnitType;
+import mindustry.ai.UnitCommand;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
@@ -30,6 +32,7 @@ import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.unit.MissileUnitType;
 import mindustry.type.weapons.PointDefenseWeapon;
+import mindustry.type.weapons.RepairBeamWeapon;
 
 import static arc.graphics.g2d.Draw.color;
 
@@ -37,7 +40,7 @@ public class BioUnits {
     public static UnitType
 
             //air support
-            carrier,
+            carrier, rectifier,
 
             //air attack
             scout, seer,
@@ -83,7 +86,55 @@ public class BioUnits {
             outlineColor = Color.valueOf("2b2626");
         }};
 
-        watcher = new UnitType("watcher"){{
+        rectifier = new BioTechUnitType("rectifier"){{
+            lowAltitude = false;
+            flying = true;
+            drag = 0.04f;
+            speed = 0.5f;
+            rotateSpeed = 2f;
+            accel = 0.08f;
+            health = 3400f;
+            hitSize = 17f;
+            engineSize = 5.3f;
+            engineOffset = 8.5f;
+            engineColor = BioPal.plasmoidBlueLight;
+
+            constructor = UnitEntity::create;
+            aiController = RepairAI::new;
+            defaultCommand = UnitCommand.repairCommand;
+            parts.add(
+                    new RegionPart("-front"){{
+                        progress = PartProgress.charge;
+                    }}
+            );
+
+            weapons.add(
+                new RepairBeamWeapon(){{
+                    y = x = 0;
+                    widthSinMag = 0.11f;
+                    reload = 40f;
+                    rotate = false;
+                    beamWidth = 0.86f;
+                    mirror = false;
+                    shootCone = 40f;
+
+                    repairSpeed = 1.6f / 2f;
+                    fractionRepairSpeed = 0.03f;
+
+                    targetUnits = false;
+                    targetBuildings = true;
+                    autoTarget = true;
+                    controllable = false;
+                    laserColor = BioPal.plasmoidBlueLight;
+                    healColor = BioPal.plasmoidBlueLight;
+
+                    bullet = new BulletType(){{
+                        maxRange = 65f;
+                }};
+            }});
+        }};
+
+        watcher = new BioTechUnitType("watcher"){{
             aiController = BuilderAI::new;
             isEnemy = false;
             constructor = UnitEntity::create;
@@ -129,11 +180,9 @@ public class BioUnits {
                         }};
                     }}
             );
-
-            outlineColor = Color.valueOf("2b2626");
         }};
 
-        scout = new UnitType("scout"){{
+        scout = new BioTechUnitType("scout"){{
             constructor = UnitEntity::create;
 
             lowAltitude = true;
@@ -197,11 +246,9 @@ public class BioUnits {
                         }};
                     }}
             );
-
-            outlineColor = Color.valueOf("2b2626");
         }};
 
-        seer = new UnitType("seer"){{
+        seer = new BioTechUnitType("seer"){{
             constructor = UnitEntity::create;
 
             lowAltitude = true;
@@ -287,11 +334,9 @@ public class BioUnits {
                         }};
                     }}
             );
-
-            outlineColor = Color.valueOf("2b2626");
         }};
 
-        smith = new UnitType("smith"){{
+        smith = new BioTechUnitType("smith"){{
             constructor = ElevationMoveUnit::create;
 
             hovering = true;
@@ -359,11 +404,9 @@ public class BioUnits {
                         moveY = 2f;
                     }}
             );
-
-            outlineColor = Color.valueOf("2b2626");
         }};
 
-        anvil = new UnitType("anvil"){{
+        anvil = new BioTechUnitType("anvil"){{
             constructor = UnitEntity::create;
             aiController = FlyingAI::new;
 
@@ -466,11 +509,9 @@ public class BioUnits {
                         weaponIndex = 2;
                     }}
             );
-
-            outlineColor = Color.valueOf("2b2626");
         }};
 
-        strider = new UnitType("strider"){{
+        strider = new BioTechUnitType("strider"){{
             constructor = LegsUnit::create;
             aiController = GroundAI::new;
 
@@ -503,8 +544,6 @@ public class BioUnits {
             groundLayer = Layer.legUnit - 1f;
             targetAir = false;
             researchCostMultiplier = 0f;
-
-            outlineColor = Color.valueOf("2b2626");
 
             weapons.add(new Weapon("biotech-strider-cannon"){{
                 x = 0;
@@ -540,7 +579,7 @@ public class BioUnits {
             }});
         }};
 
-        nomad = new UnitType("nomad"){{
+        nomad = new BioTechUnitType("nomad"){{
             constructor = LegsUnit::create;
             aiController = GroundAI::new;
 
@@ -573,8 +612,6 @@ public class BioUnits {
             groundLayer = Layer.legUnit - 1f;
             targetAir = false;
             researchCostMultiplier = 0f;
-
-            outlineColor = Color.valueOf("2b2626");
 
             weapons.addAll(
                     new Weapon("biotech-nomad-laser"){{

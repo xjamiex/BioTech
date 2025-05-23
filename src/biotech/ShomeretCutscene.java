@@ -8,16 +8,14 @@ import arc.graphics.g2d.Fill;
 import arc.math.Mathf;
 import arc.scene.Element;
 import arc.scene.Group;
-import arc.util.Log;
 import arc.util.Time;
 import mindustry.Vars;
 import mindustry.core.GameState;
-import mindustry.logic.LExecutor;
 
 import static arc.Core.graphics;
 import static arc.graphics.g2d.Draw.rect;
 
-public class ImaFragment extends Element {
+public class ShomeretCutscene extends Element {
 
     private final Camera camera = new Camera();
 
@@ -33,6 +31,10 @@ public class ImaFragment extends Element {
 
     public void build(Group parent) {
         parent.fill((x, y, width, height) -> render());
+    }
+
+    public void begin(){
+        enabled = true;
     }
 
     void render() {

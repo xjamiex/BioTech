@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Time;
+import biotech.BioVars;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;

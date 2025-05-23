@@ -750,6 +750,7 @@ public class BioBlocks {
 
             shootType = new BasicBulletType(0, 0) {{
                 spawnUnit = new MissileUnitType("glisten-missile"){{
+                    hidden = true;
                     speed = 3.6f;
                     maxRange = 6f;
                     lifetime = 60 * 2f;

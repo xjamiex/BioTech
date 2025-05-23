@@ -73,7 +73,6 @@ public class BiologicalStaticSpawner extends Prop {
                 if(timers[i] > 0) continue;
 
                 SpawnPlan plan = plans[i];
-                if(team.data().countType(plan.unit) >= team.data().unitCap) continue;
 
                 timers[i] = plan.time;
                 for(int j = 0; j < plan.amount; j++){

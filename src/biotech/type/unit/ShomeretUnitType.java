@@ -6,6 +6,7 @@ import biotech.content.BioUnits;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import mindustry.content.Fx;
+import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.game.Team;
 import mindustry.gen.LegsUnit;
@@ -23,7 +24,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         super(name);
         speed = 0;
         constructor = LegsUnit::create;
-        health = 200000;
+        health = 100000;
         drawCell = false;
 
         //dormant
@@ -80,19 +81,14 @@ public class ShomeretUnitType extends BiologicalUnitType {
             cutsceneFinished = true;
         }
 
-        if (unit.damaged() && state == 0) state = 1;
-        if (unit.health < unit.maxHealth / 2 && state == 1) state = 2;
+        if (unit.health < unit.maxHealth / 2 && state == 0) state = 1;
 
-        if (state > 0) {
-            new ParticleEffect(){{
-
-            }}.at(unit.x, unit.y);
-            if (spawnCooldown <= 0) {
-                ima.spawn(unit.x, unit.y);
-                spawnCooldown = 10 * 60;
-            } else {
-                spawnCooldown--;
-            }
+        //ima shitter
+        if (spawnCooldown <= 0) {
+            ima.spawn(unit.x, unit.y);
+            spawnCooldown = 10 * 60;
+        } else {
+            spawnCooldown--;
         }
     }
 }

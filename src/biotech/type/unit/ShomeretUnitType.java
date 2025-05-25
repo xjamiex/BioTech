@@ -1,17 +1,25 @@
 package biotech.type.unit;
 
+import arc.graphics.Color;
 import biotech.BioVars;
 import biotech.content.BioFx;
+import biotech.content.BioPal;
+import biotech.content.BioSounds;
 import biotech.content.BioUnits;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.bullet.BulletType;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.game.Team;
 import mindustry.gen.LegsUnit;
+import mindustry.gen.Sounds;
 import mindustry.gen.Unit;
+import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
+import mindustry.type.Weapon;
 
 public class ShomeretUnitType extends BiologicalUnitType {
     public static int state;
@@ -26,6 +34,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         constructor = LegsUnit::create;
         health = 100000;
         drawCell = false;
+        rotateSpeed = 0;
 
         //dormant
         state = 0;
@@ -64,6 +73,38 @@ public class ShomeretUnitType extends BiologicalUnitType {
                     moveRot = 3f;
                 }}
         );
+
+        weapons.add(
+                new Weapon("shomeret-shockwave"){{
+                    x = y = 0;
+                    reload = 5 * 60;
+                    shoot.shots = 360;
+                    shoot.shotDelay = 0.02f;
+                    rotate = true;
+                    inaccuracy = 320;
+                    bullet = new BasicBulletType(4, 1){{
+                        shake = 1;
+                        despawnEffect = hitEffect = Fx.none;
+                        drag = 0.004f;
+                        lifetime = 9 * 60;
+                        knockback = 20f;
+                        backColor = frontColor = trailColor = Color.clear;
+                        trailLength = 5;
+                        trailWidth = 2;
+                        trailInterval = 2;
+                        trailEffect = new ParticleEffect(){{
+                            layer = Layer.blockUnder;
+                            lifetime = 20f;
+                            length = 50;
+                            particles = 10;
+                            sizeFrom = 8;
+                            sizeTo = 0;
+                            colorFrom = BioPal.bloodRed.a(0.04f);
+                            colorTo = BioPal.bloodRed.mul(Color.gray).a(0.04f);
+                        }};
+                    }};
+                }}
+        );
     }
 
     @Override
@@ -77,7 +118,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         super.update(unit);
 
         if (!cutsceneFinished) {
-            BioVars.shomeretCutscene.begin();
+            //BioVars.shomeretCutscene.begin();
             cutsceneFinished = true;
         }
 
@@ -85,7 +126,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
 
         //ima shitter
         if (spawnCooldown <= 0) {
-            ima.spawn(unit.x, unit.y);
+            //ima.spawn(unit.x, unit.y);
             spawnCooldown = 10 * 60;
         } else {
             spawnCooldown--;

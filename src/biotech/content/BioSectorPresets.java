@@ -7,7 +7,7 @@ import mindustry.type.Weather;
 
 public class BioSectorPresets {
     public static SectorPreset
-        ankle, crus, femur, putridum;
+        ankle, crus, femur, putridum, pelvis;
 
     public static void load(){
         ankle = new SectorPreset("ankle", BioPlanets.andori, 1){{
@@ -30,6 +30,11 @@ public class BioSectorPresets {
         putridum = new SectorPreset("putridum", BioPlanets.andori, 86){{
             alwaysUnlocked = false;
             difficulty = 2;
+        }};
+
+        pelvis = new SectorPreset("pelvis", BioPlanets.andori, 71){{
+            alwaysUnlocked = false;
+            difficulty = 4;
         }};
     }
 }

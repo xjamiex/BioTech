@@ -147,7 +147,7 @@ public class BioBlocks {
 
         bioSiphon = new Pump("bio-siphon") {{
             requirements(Category.liquid, with(BioItems.magnesium, 50, BioItems.calciticFragment, 120));
-            pumpAmount = 10 / 60f;
+            pumpAmount = 8 / 60f;
             liquidCapacity = 30f;
             size = 2;
             drawer = new DrawDefault();
@@ -940,7 +940,7 @@ public class BioBlocks {
             size = 3;
             plans.add(new UnitPlan(BioUnits.strider, 60 * 15f, with(BioItems.magnesium, 35, BioItems.carbonicTissue, 15)));
             plans.add(new UnitPlan(BioUnits.scout, 60 * 12f, with(BioItems.magnesium, 20, BioItems.potash, 15)));
-            consumeLiquid(BioLiquids.hemoFluid, 0.3f);
+            consumeLiquid(BioLiquids.hemoFluid, 24 / 60f);
         }};
 
         osylithReformer = new Reconstructor("osylith-reformer") {{
@@ -950,7 +950,7 @@ public class BioBlocks {
             consumeLiquid(BioLiquids.plasmoid, 0.f);
             consumeItems(with(BioItems.carminite, 35, BioItems.phosphorus, 50));
 
-            constructTime = 60f / 25f;
+            constructTime = 60f * 25f;
 
             upgrades.addAll(
                     new UnitType[]{BioUnits.scout, BioUnits.seer},

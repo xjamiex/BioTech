@@ -119,8 +119,8 @@ public class BioUnits {
                     mirror = false;
                     shootCone = 40f;
 
-                    repairSpeed = 1.6f / 2f;
-                    fractionRepairSpeed = 0.03f;
+                    repairSpeed = 2.6f / 2f;
+                    fractionRepairSpeed = 0.05f;
 
                     targetUnits = false;
                     targetBuildings = true;
@@ -307,7 +307,7 @@ public class BioUnits {
 
                         shoot.firstShotDelay = BioFx.seerCharge.lifetime + BioFx.seerWarmup.lifetime;
 
-                        bullet = new MissileBulletType(4.2f, 65){{
+                        bullet = new MissileBulletType(4.2f, 30){{
                             width = 10;
                             height = 15;
                             shrinkX = shrinkY = 0;
@@ -451,7 +451,7 @@ public class BioUnits {
 
                         shake = 5f;
 
-                        bullet = new SpeedUpBulletType(20, 325, "circle"){{
+                        bullet = new SpeedUpBulletType(20, 525, "circle"){{
                             backColor = BioPal.potashOrange;
                             frontColor = BioPal.potashOrangeLight;
                             width = 20;

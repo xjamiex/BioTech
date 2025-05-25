@@ -15,11 +15,11 @@ import mindustry.core.GameState;
 import static arc.Core.graphics;
 import static arc.graphics.g2d.Draw.rect;
 
-public class ShomeretCutscene extends Element {
+public class ShomeretUI extends Element {
 
     private final Camera camera = new Camera();
 
-    public boolean enabled = false;
+    public boolean cutscene = false;
     float waitTime = 0f;
     float frameTime = 0f;
     int frames = 3;
@@ -34,11 +34,11 @@ public class ShomeretCutscene extends Element {
     }
 
     public void begin(){
-        enabled = true;
+        cutscene = true;
     }
 
     void render() {
-        if (!enabled) return;
+        if (!cutscene) return;
 
         int sw = graphics.getWidth();
         int sh = graphics.getHeight();
@@ -80,7 +80,7 @@ public class ShomeretCutscene extends Element {
                 timeOffset = frames;
                 if(drawIdx >= times.length){
                     Vars.state.set(GameState.State.playing);
-                    enabled = false;
+                    cutscene = false;
                 } else {
                     Vars.state.set(GameState.State.paused);
                 }

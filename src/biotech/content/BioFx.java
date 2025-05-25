@@ -1,19 +1,24 @@
 package biotech.content;
 
+import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.Rand;
 import arc.math.geom.Vec2;
+import arc.util.Log;
 import arc.util.Tmp;
+import biotech.BioUtil;
 import mindustry.Vars;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.SeqEffect;
+import mindustry.gen.Tex;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -25,6 +30,7 @@ import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
+import static arc.math.Mathf.rand;
 
 public class BioFx {
 
@@ -143,7 +149,7 @@ public class BioFx {
         });
     }
 
-    public  static Effect anvilCharge(int amount, float radius, float length){
+    public static Effect anvilCharge(int amount, float radius, float length){
         return new Effect(55, e -> {
             Draw.color(BioPal.potashOrangeLight);
             Lines.stroke(2);

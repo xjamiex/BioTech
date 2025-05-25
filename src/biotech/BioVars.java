@@ -3,9 +3,9 @@ package biotech;
 import mindustry.Vars;
 
 public class BioVars {
-     public static ShomeretCutscene shomeretCutscene = new ShomeretCutscene();
+     public static ShomeretUI shomeretUI = new ShomeretUI();
 
     public static void postInit() {
-        shomeretCutscene.build(Vars.ui.hudGroup);
+        shomeretUI.build(Vars.ui.hudGroup);
     }
 }

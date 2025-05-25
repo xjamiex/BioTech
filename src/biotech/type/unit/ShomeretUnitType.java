@@ -2,22 +2,16 @@ package biotech.type.unit;
 
 import arc.graphics.Color;
 import biotech.BioVars;
-import biotech.content.BioFx;
 import biotech.content.BioPal;
-import biotech.content.BioSounds;
 import biotech.content.BioUnits;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
-import mindustry.entities.bullet.BulletType;
 import mindustry.entities.effect.ParticleEffect;
-import mindustry.game.Team;
 import mindustry.gen.LegsUnit;
-import mindustry.gen.Sounds;
 import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
-import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -35,6 +29,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         health = 100000;
         drawCell = false;
         rotateSpeed = 0;
+        hitSize = 300f;
 
         //dormant
         state = 0;
@@ -118,7 +113,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         super.update(unit);
 
         if (!cutsceneFinished) {
-            //BioVars.shomeretCutscene.begin();
+            BioVars.shomeretUI.begin();
             cutsceneFinished = true;
         }
 

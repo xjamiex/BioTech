@@ -5,6 +5,7 @@ import arc.math.Interp;
 import arc.math.Mathf;
 import arc.util.Time;
 import biotech.BioVars;
+import biotech.entities.GoreParticleEffect;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
@@ -955,13 +956,6 @@ public class BioUnits {
             legMoveSpace = 1.3f;
             allowLegStep = true;
             legPhysicsLayer = false;
-
-            deathExplosionEffect = new ParticleEffect(){{
-                sizeFrom = 5;
-                sizeTo = 0;
-                colorFrom = BioPal.bloodRedLight;
-                colorTo = BioPal.bloodRed;
-            }};
 
             shadowElevation = 0.1f;
             groundLayer = Layer.legUnit - 1f;

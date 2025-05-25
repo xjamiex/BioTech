@@ -75,7 +75,7 @@ public class BioBlocks {
 
             //props
             nerveProtrusion, fleshAmalgam, fleshBoulder, rottenFleshAmalgam, rottenFleshBoulder,
-            dolomiteCluster, fleshTag,
+            dolomiteCluster, fleshTag, marlCluster,
 
             //turret
             inception, costae, celluris, dissection, needle, glisten,
@@ -339,6 +339,9 @@ public class BioBlocks {
         }};
 
         dolomiteCluster = new TallBlock("dolomite-cluster"){{
+            variants = 3;
+        }};
+        marlCluster = new TallBlock("marl-cluster"){{
             variants = 3;
         }};
 

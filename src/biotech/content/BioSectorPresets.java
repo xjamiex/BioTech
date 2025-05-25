@@ -15,7 +15,7 @@ public class BioSectorPresets {
             difficulty = 1;
         }};
 
-        crus = new SectorPreset("crus",BioPlanets.andori, 34){{
+        crus = new SectorPreset("crus",BioPlanets.andori, 3){{
             alwaysUnlocked = false;
             captureWave = 26;
             difficulty = 1;

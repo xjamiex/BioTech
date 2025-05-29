@@ -42,7 +42,7 @@ public class BioResearchDialog extends BaseDialog {
 
     public final float nodeSize = Scl.scl(60f);
     public ObjectSet<TechTreeNode> nodes = new ObjectSet<>();
-    public TechTreeNode root = new TechTreeNode(BioTechTree.roots.first(), null, 2);
+    public TechTreeNode root = new TechTreeNode(BioTechTree.roots.first(), null, 3);
     public BioTechTree.BioTechNode lastNode = root.node;
     public Rect bounds = new Rect();
     public ItemsDisplay itemDisplay;
@@ -280,7 +280,7 @@ public class BioResearchDialog extends BaseDialog {
     public void switchTree(BioTechTree.BioTechNode node) {
         if (lastNode == node || node == null) return;
         nodes.clear();
-        root = new TechTreeNode(node, null, 2);
+        root = new TechTreeNode(node, null, 3);
         lastNode = node;
         view.rebuildAll();
 
@@ -444,9 +444,10 @@ public class BioResearchDialog extends BaseDialog {
             this.importance = importance;
             this.width = this.height = nodeSize;
             nodes.add(this);
-            children = new TechTreeNode[node.children.size];
+            Log.info("added");
+            children = new TechTreeNode[node.bioChildren.size];
             for (int i = 0; i < children.length; i++) {
-                children[i] = new TechTreeNode(node.children.get(i), this, children[i].importance);
+                children[i] = new TechTreeNode(node.bioChildren.get(i), this, node.bioChildren.get(i).importance);
             }
         }
     }
@@ -512,7 +513,7 @@ public class BioResearchDialog extends BaseDialog {
                 });
                 button.touchable(() -> !node.visible ? Touchable.disabled : Touchable.enabled);
                 button.userObject = node.node;
-                button.setSize(nodeSize * node.importance);
+                button.setSize(nodeSize * node.importance + 10);
                 button.resizeImage(32f * node.importance);
                 button.getImage().setScaling(Scaling.fit);
                 button.update(() -> {

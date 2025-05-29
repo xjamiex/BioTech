@@ -12,7 +12,7 @@ import static mindustry.content.TechTree.nodeProduce;
 public class AndoriTechTree {
     public static void load(){
         BioPlanets.andori.techTree = bioNodeRoot("Andori", BioBlocks.coreSight, () -> {
-            bioNode(BioBlocks.magnesiumConveyor,  Seq.with(new Objectives.Produce(BioItems.magnesium)), () -> {
+            bioNode(BioBlocks.magnesiumConveyor, Seq.with(new Objectives.Produce(BioItems.magnesium)), 2, () -> {
                 bioNode(BioBlocks.unitDocker, Seq.with(new Objectives.Research(BioBlocks.boneCrusher)), () -> {
                     bioNode(BioBlocks.unitDischarger);
                 });
@@ -22,7 +22,7 @@ public class AndoriTechTree {
             });
 
             bioNode(BioBlocks.descentManufacturer, Seq.with(new Objectives.Research(BioBlocks.boneCrusher)), () -> {
-                bioNode(BioUnits.strider, () -> {});
+                bioNode(BioUnits.strider, null, 2, () -> {});
                 bioNode(BioUnits.scout, Seq.with(new Objectives.SectorComplete(BioSectorPresets.crus)), () -> {});
                 bioNode(BioBlocks.osylithReformer, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
                     bioNode(BioUnits.nomad, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
@@ -35,7 +35,7 @@ public class AndoriTechTree {
                 });
             });
 
-            bioNode(BioBlocks.bioDrill, () -> {
+            bioNode(BioBlocks.bioDrill, null, 2, () -> {
                 bioNode(BioBlocks.magnesiumBurner, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
                     bioNode(BioBlocks.drillUpgrader);
                 });

@@ -157,6 +157,7 @@ public class BioBlocks {
 
         //distribution
         conveyorOverpass = new BufferedItemBridge("conveyor-overpass") {{
+            researchCostMultiplier = 1;
             requirements(Category.distribution, with(BioItems.magnesium, 6));
             fadeIn = moveArrows = false;
             range = 4;
@@ -176,6 +177,7 @@ public class BioBlocks {
         }};
 
         splitter = new Router("splitter") {{
+            researchCost = with(BioItems.magnesium, 200);
             requirements(Category.distribution, with(BioItems.magnesium, 2));
             underBullets = true;
             health = 40;
@@ -537,84 +539,108 @@ public class BioBlocks {
 
             ammo(
                     BioItems.potash, new ArtilleryBulletType(4, 85) {{
-                        width = 15;
-                        height = 15;
-                        weaveMag = 30;
+                        width = height = 15;
+                        lifetime = 2 * 60f;
+                        backColor = frontColor = Color.clear;
+                        weaveMag = 21f;
                         weaveScale = 1;
-                        fragBullets = 4;
-                        frontColor = BioPal.cellBlueLight;
-                        backColor = BioPal.cellBlue;
-                        trailColor = BioPal.cellBlueLight;
-                        smokeEffect = Fx.shootSmokeSquareBig;
-                        shootEffect = Fx.lancerLaserShoot;
-                        trailWidth = 3;
-                        trailLength = 6;
-                        drag = 0.01f;
-                        homingPower = 0.2f;
-                        homingDelay = 20f;
-                        pierce = true;
-                        pierceCap = 2;
-                        fragOnHit = false;
-                        lifetime = 110;
-                        collidesAir = false;
-
-                        hitEffect = despawnEffect = new WaveEffect() {{
-                            sizeFrom = 5;
-                            sizeTo = 0;
-                            colorFrom = BioPal.cellBlueLight;
-                            colorTo = BioPal.cellBlue;
+                        trailInterval = 8f;
+                        trailEffect = new WaveEffect(){{
+                            lifetime = 10;
+                            rotation = 2;
                             sides = 5;
-                            rotateSpeed = 10f;
+                            strokeFrom = 5;
+                            colorFrom = colorTo = BioPal.cellBlueLight;
+                            sizeFrom = 0;
+                            sizeTo = 12;
                         }};
-                        fragBullet = new MissileBulletType(3, 40) {{
-                            width = 6;
-                            height = 6;
-                            weaveMag = 30;
-                            pierce = true;
-                            pierceCap = 3;
-                            fragOnHit = false;
-                            weaveScale = 1;
-                            frontColor = BioPal.cellBlueLight;
-                            backColor = BioPal.cellBlue;
-                            trailColor = BioPal.cellBlueLight;
-                            homingPower = 0.15f;
-                            trailWidth = 3;
-                            trailLength = 6;
-                            drag = 0.01f;
-                            hitEffect = despawnEffect = new WaveEffect() {{
-                                sizeFrom = 5;
-                                sizeTo = 0;
-                                colorFrom = BioPal.cellBlueLight;
-                                colorTo = BioPal.cellBlue;
-                                sides = 5;
-                                rotateSpeed = 10f;
-                            }};
-
-                            fragBullets = 3;
-
-                            fragBullet = new MissileBulletType(2, 25) {{
-                                width = 3;
-                                height = 3;
-                                pierce = true;
-                                pierceCap = 2;
-                                fragOnHit = false;
-                                weaveMag = 30;
-                                weaveScale = 1;
-                                frontColor = BioPal.cellBlueLight;
-                                backColor = BioPal.cellBlue;
-                                trailColor = BioPal.cellBlueLight;
-                                trailWidth = 3;
-                                homingPower = 0.1f;
-                                trailLength = 6;
-                                drag = 0.01f;
-                                hitEffect = despawnEffect = new WaveEffect() {{
+                        hitEffect = despawnEffect = new MultiEffect(
+                                new WaveEffect(){{
+                                    rotation = -90;
+                                    sides = 5;
+                                    strokeFrom = 3;
+                                    colorFrom = colorTo = BioPal.cellBlueLight;
+                                    sizeFrom = 0;
+                                    sizeTo = 25;
+                                }},
+                                new ParticleEffect(){{
+                                    particles = 10;
+                                    length = 10;
+                                    colorFrom = colorTo = BioPal.cellBlueLight;
                                     sizeFrom = 5;
                                     sizeTo = 0;
-                                    colorFrom = BioPal.cellBlueLight;
-                                    colorTo = BioPal.cellBlue;
+                                }}
+                        );
+
+                        fragVelocityMin = fragVelocityMax = 0.2f;
+                        fragBullets = 4;
+                        fragBullet = new ArtilleryBulletType(2, 25) {{
+                                width = height = 15;
+                                lifetime = 60 - 10f;
+                                backColor = frontColor = Color.clear;
+                                weaveMag = 14f;
+                                weaveScale = 2;
+                                trailInterval = 30f;
+                                trailEffect = new WaveEffect() {{
+                                    rotation = 2;
                                     sides = 5;
-                                    rotateSpeed = 10f;
+                                    strokeFrom = 3;
+                                    colorFrom = colorTo = BioPal.cellBlueLight;
+                                    sizeFrom = 0;
+                                    sizeTo = 2;
                                 }};
+                                hitEffect = despawnEffect = new MultiEffect(
+                                        new WaveEffect() {{
+                                            rotation = -90;
+                                            sides = 5;
+                                            strokeFrom = 3;
+                                            colorFrom = colorTo = BioPal.cellBlueLight;
+                                            sizeFrom = 0;
+                                            sizeTo = 2;
+                                        }},
+                                        new ParticleEffect() {{
+                                            particles = 10;
+                                            length = 10;
+                                            colorFrom = colorTo = BioPal.cellBlueLight;
+                                            sizeFrom = 5;
+                                            sizeTo = 0;
+                                        }}
+                                );
+                            buildingDamageMultiplier = 0.5f;
+                            fragBullets = 2;
+                            fragBullet = new ArtilleryBulletType(1, 15) {{
+                                width = height = 15;
+                                lifetime = 30f;
+                                backColor = frontColor = Color.clear;
+                                weaveMag = 14f;
+                                weaveScale = 2;
+                                trailInterval = 60f;
+                                trailEffect = new WaveEffect() {{
+                                    rotation = 2;
+                                    sides = 5;
+                                    strokeFrom = 3;
+                                    colorFrom = colorTo = BioPal.cellBlueLight;
+                                    sizeFrom = 0;
+                                    sizeTo = 1;
+                                }};
+                                hitEffect = despawnEffect = new MultiEffect(
+                                        new WaveEffect() {{
+                                            rotation = -90;
+                                            sides = 5;
+                                            strokeFrom = 3;
+                                            colorFrom = colorTo = BioPal.cellBlueLight;
+                                            sizeFrom = 0;
+                                            sizeTo = 2;
+                                        }},
+                                        new ParticleEffect() {{
+                                            particles = 10;
+                                            length = 10;
+                                            colorFrom = colorTo = BioPal.cellBlueLight;
+                                            sizeFrom = 5;
+                                            sizeTo = 0;
+                                        }}
+                                );
+                                buildingDamageMultiplier = 0.5f;
                             }};
                         }};
                     }}
@@ -672,7 +698,7 @@ public class BioBlocks {
         needle = new ItemTurret("needle") {{
             health = 890;
             size = 2;
-            requirements(turret, with(BioItems.magnesium, 100, BioItems.potash, 50));
+            requirements(turret, with(BioItems.magnesium, 65, BioItems.potash, 50));
 
             range = 140;
             shootSound = Sounds.shootAlt;
@@ -710,7 +736,7 @@ public class BioBlocks {
                         trailInterval = 2f;
                         lifetime = 40f;
                         collidesAir = true;
-                        ammoMultiplier = 2.1f;
+                        ammoMultiplier = 2.5f;
 
                         hitSound = despawnSound = Sounds.bang;
                     }}
@@ -726,6 +752,8 @@ public class BioBlocks {
             requirements(turret, with(BioItems.magnesium, 100, BioItems.potash, 50));
 
             range = 340;
+            minRange = 250;
+            drawMinRange = true;
             shootSound = Sounds.shootBig;
             inaccuracy = 20f;
             rotateSpeed = 2f;
@@ -973,7 +1001,7 @@ public class BioBlocks {
 
             requirements(Category.distribution, with(BioItems.magnesium, 50, BioItems.calciticFragment, 25));
             size = 2;
-            buildTime = 60f * 8f;
+            buildTime = 60f * 4f;
             itemCapacity = 40;
             squareSprite = false;
         }};
@@ -984,6 +1012,8 @@ public class BioBlocks {
             size = 2;
             itemCapacity = 40;
             squareSprite = false;
+
+            buildTime = 60f * 4f;
         }};
 
         bioUnitSpawner = new BiologicalStaticSpawner("bio-unit-spawner") {{

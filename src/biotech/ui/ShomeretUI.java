@@ -1,4 +1,4 @@
-package biotech;
+package biotech.ui;
 
 import arc.Core;
 import arc.graphics.Camera;

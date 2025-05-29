@@ -5,33 +5,16 @@ import arc.audio.Music;
 import arc.struct.Seq;
 import arc.util.*;
 import biotech.content.*;
-import biotech.ui.BioSpawnerDialog;
+import biotech.ui.BioStyles;
 import biotech.ui.BioUI;
 import biotech.ui.ButtonPref;
-import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
 import mindustry.Vars;
-import mindustry.audio.SoundControl;
-import mindustry.content.Planets;
 import mindustry.content.TechTree;
-import mindustry.core.World;
 import mindustry.ctype.UnlockableContent;
-import mindustry.game.EventType;
-import mindustry.game.EventType.*;
 import mindustry.game.Saves;
-import mindustry.game.Schematic;
-import mindustry.game.Schematics;
-import mindustry.gen.Building;
-import mindustry.gen.Groups;
 import mindustry.gen.Icon;
-import mindustry.gen.Unit;
 import mindustry.mod.*;
-import mindustry.type.UnitType;
-import mindustry.ui.dialogs.*;
-import mindustry.world.Tile;
 import biotech.gen.EntityRegistry;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import static arc.Core.bundle;
 import static arc.Core.settings;
@@ -42,17 +25,7 @@ public class BioTech extends Mod {
     public static Music mothersWail;
 
     public BioTech() {
-        Events.on(EventType.SectorCaptureEvent.class, event -> {
-            for (Building building : Groups.build) {
-                if (building instanceof BiologicalStaticSpawner.BiologicalStaticSpawnerBuild build) {
-                    Tile tile = build.tile;
-                    tile.remove();
-                    BioFx.immuneSpawnerExplode.at(tile);
-                }
-            }
-        });
-
-        Events.on(EventType.WorldLoadEvent.class, you -> BioVars.postInit());
+        BioEventHandler.init();
     }
 
     @Override
@@ -66,7 +39,7 @@ public class BioTech extends Mod {
         BioBlocks.load();
         BioPlanets.load();
         BioSectorPresets.load();
-        BioTechTree.load();
+        AndoriTechTree.load();
     }
 
     @Override
@@ -79,6 +52,11 @@ public class BioTech extends Mod {
         loadMusic();
 
         BioUI.load();
+
+        if (!Vars.headless) {
+            BioStyles.load();
+            BioEventHandler.load();
+        }
     }
 
     public static void loadMusic() {

@@ -34,7 +34,7 @@ public class BioSectorPresets {
 
         pelvis = new SectorPreset("pelvis", BioPlanets.andori, 71){{
             alwaysUnlocked = false;
-            difficulty = 4;
+            difficulty = 5;
         }};
     }
 }

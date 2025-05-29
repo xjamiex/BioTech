@@ -1,5 +1,6 @@
 package biotech;
 
+import biotech.ui.ShomeretUI;
 import mindustry.Vars;
 
 public class BioVars {

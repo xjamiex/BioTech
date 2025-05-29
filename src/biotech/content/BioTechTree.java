@@ -2,88 +2,70 @@ package biotech.content;
 
 import arc.struct.Seq;
 import mindustry.content.TechTree;
+import mindustry.ctype.UnlockableContent;
 import mindustry.game.Objectives;
+import mindustry.type.ItemStack;
 
-import static mindustry.content.TechTree.node;
-import static mindustry.content.TechTree.nodeProduce;
+public class BioTechTree extends TechTree {
 
-public class BioTechTree {
-    public static void load(){
-        BioPlanets.andori.techTree = TechTree.nodeRoot("Andori", BioBlocks.coreSight, () -> {
-            node(BioBlocks.magnesiumConveyor, Seq.with(new Objectives.Produce(BioItems.magnesium)), () -> {
-                node(BioBlocks.unitDocker, Seq.with(new Objectives.Research(BioBlocks.boneCrusher)), () -> {
-                    node(BioBlocks.unitDischarger);
-                });
-                node(BioBlocks.splitter, () -> {
-                    node(BioBlocks.conveyorOverpass);
-                });
-            });
+    private static BioTechNode context = null;
 
-            node(BioBlocks.descentManufacturer, Seq.with(new Objectives.Research(BioBlocks.boneCrusher)), () -> {
-                        node(BioUnits.strider, () -> {});
-                        node(BioUnits.scout, Seq.with(new Objectives.SectorComplete(BioSectorPresets.crus)), () -> {});
-                        node(BioBlocks.osylithReformer, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
-                            node(BioUnits.nomad, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
-                            });
-                            node(BioUnits.seer, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
-                            });
-                        });
-                        node(BioBlocks.experimentalManufacturer, Seq.with(new Objectives.SectorComplete(BioSectorPresets.pelvis)), () -> {
-                            node(BioUnits.smith);
-                        });
-            });
+    public static Seq<BioTechNode> all = new Seq<>();
+    public static Seq<BioTechNode> roots = new Seq<>();
 
-            node(BioBlocks.bioDrill, () -> {
-                node(BioBlocks.magnesiumBurner, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
-                    node(BioBlocks.drillUpgrader);
-                });
-                    node(BioBlocks.bioPiercer, () -> {
-                        node(BioBlocks.bioPress, () -> {
-                            node(BioBlocks.liquidPipe, () -> {
-                                node(BioBlocks.liquidSplitter, () -> {
-                                    node(BioBlocks.liquidOverpass);
-                                });
-                            });
-                        });
-                    });
-                    node(BioBlocks.boneCrusher, Seq.with(new Objectives.Research(BioBlocks.magnesiumConveyor)), () -> {
-                    });
-            });
+    public static TechNode bioNodeRoot(String name, UnlockableContent content, Runnable children){
+        return nodeRoot(name, content, false, children);
+    }
 
-            node(BioBlocks.hematicSieve, Seq.with(new Objectives.OnSector(BioSectorPresets.crus)), () -> {
-            });
+    public static BioTechNode bioNodeRoot(String name, UnlockableContent content, boolean requireUnlock, Runnable children){
+        var root = bioNode(content, content.researchRequirements(), children);
+        root.name = name;
+        root.requiresUnlock = requireUnlock;
+        roots.add(root);
+        return root;
+    }
 
-            node(BioBlocks.inception, Seq.with(new Objectives.Produce(BioItems.carbonicTissue)), () -> {
-                node(BioBlocks.costae, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {
-                    node(BioBlocks.needle, Seq.with(new Objectives.Produce(BioItems.potash)), () -> {
-                    });
-                    node(BioBlocks.celluris, Seq.with(new Objectives.SectorComplete(BioSectorPresets.femur)), () -> {
-                    });
-                });
-                node(BioBlocks.magnesiumWall, () -> {
-                    node(BioBlocks.largeMagnesiumWall);
-                });
-            });
+    public static BioTechNode bioNode(UnlockableContent content, Runnable children){
+        return bioNode(content, content.researchRequirements(), children);
+    }
 
-            nodeProduce(BioItems.magnesium, () -> {
-                nodeProduce(BioItems.carbonicTissue, () -> {
-                });
-                nodeProduce(BioItems.calciticFragment, () -> {
-                });
-                nodeProduce(BioLiquids.hemoFluid, () -> {
-                    nodeProduce(BioItems.potash, () -> {
-                    });
-                });
-            });
+    public static BioTechNode bioNode(UnlockableContent content, ItemStack[] requirements, Runnable children){
+        return bioNode(content, requirements, null, 1, children);
+    }
 
-            node(BioSectorPresets.ankle, () -> {
-                node(BioSectorPresets.crus, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {
-                    node(BioSectorPresets.femur, Seq.with(new Objectives.SectorComplete(BioSectorPresets.crus)), () -> {
-                    });
-                    node(BioSectorPresets.putridum, Seq.with(new Objectives.SectorComplete(BioSectorPresets.crus), new Objectives.Produce(BioItems.phosphorus)), () -> {
-                    });
-                });
-            });
-        });
+    public static BioTechNode bioNode(UnlockableContent content, ItemStack[] requirements, Seq<Objectives.Objective> objectives, int importance, Runnable children){
+        BioTechNode bioNode = new BioTechNode(context, content, requirements, importance);
+        if(objectives != null){
+            bioNode.objectives.addAll(objectives);
+        }
+
+        BioTechNode prev = context;
+        context = bioNode;
+        children.run();
+        context = prev;
+
+        return bioNode;
+    }
+
+    public static BioTechNode bioNode(UnlockableContent content, Seq<Objectives.Objective> objectives, Runnable children){
+        return bioNode(content, content.researchRequirements(), objectives, 1, children);
+    }
+
+    public static BioTechNode bioNode(UnlockableContent content, Seq<Objectives.Objective> objectives, int importance, Runnable children){
+        return bioNode(content, content.researchRequirements(), objectives, importance, children);
+    }
+
+    public static BioTechNode bioNode(UnlockableContent block){
+        return bioNode(block, () -> {});
+    }
+
+    public static class BioTechNode extends TechNode {
+        int importance;
+        public final Seq<BioTechNode> children = new Seq<>();
+
+        public BioTechNode(TechNode parent, UnlockableContent content, ItemStack[] requirements, int importance) {
+            super(parent, content, requirements);
+            this.importance = importance;
+        }
     }
 }

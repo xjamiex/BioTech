@@ -3,9 +3,6 @@ package biotech.content;
 import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.Mathf;
-import arc.util.Time;
-import biotech.BioVars;
-import biotech.entities.GoreParticleEffect;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
@@ -32,7 +29,6 @@ import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
-import mindustry.type.unit.MissileUnitType;
 import mindustry.type.weapons.PointDefenseWeapon;
 import mindustry.type.weapons.RepairBeamWeapon;
 

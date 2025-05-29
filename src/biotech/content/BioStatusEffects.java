@@ -11,9 +11,9 @@ public class BioStatusEffects {
 
     public static void load() {
         overloaded = new StatusEffect("status-overloaded"){{
-            speedMultiplier = 0;
+            speedMultiplier = 0.7f;
             applyColor = BioPal.plasmoidBlueLight;
-            reloadMultiplier = 0.5f;
+            reloadMultiplier = buildSpeedMultiplier = 0.4f;
             color = BioPal.plasmoidBlueLight;
             outline = true;
             effect = new ParticleEffect() {{

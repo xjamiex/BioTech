@@ -30,7 +30,6 @@ import static mindustry.Vars.*;
 public class EmpUnitType extends BioTechUnitType {
 
     public static float empRadius;
-    public static float empDamage;
     public static StatusEffect empEffect;
 
     public EmpUnitType(String name) {

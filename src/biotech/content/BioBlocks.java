@@ -986,7 +986,8 @@ public class BioBlocks {
 
             upgrades.addAll(
                     new UnitType[]{BioUnits.scout, BioUnits.seer},
-                    new UnitType[]{BioUnits.strider, BioUnits.nomad}
+                    new UnitType[]{BioUnits.strider, BioUnits.nomad},
+                    new UnitType[]{BioUnits.smith, BioUnits.anvil}
             );
             squareSprite = false;
         }};

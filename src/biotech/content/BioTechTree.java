@@ -72,6 +72,10 @@ public class BioTechTree extends TechTree {
         return bioNode(content, content.researchRequirements(), objectives.add(new Objectives.Produce(content)), 1, children);
     }
 
+    public static BioTechNode bioNodeProduce(UnlockableContent content, int importance, Runnable children){
+        return bioNode(content, content.researchRequirements(), new Seq<>(), importance, children);
+    }
+
     public static BioTechNode bioNodeProduce(UnlockableContent content, Runnable children){
         return bioNodeProduce(content, new Seq<>(), children);
     }

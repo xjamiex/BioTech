@@ -42,7 +42,7 @@ public class BioResearchDialog extends BaseDialog {
 
     public final float nodeSize = Scl.scl(60f);
     public ObjectSet<TechTreeNode> nodes = new ObjectSet<>();
-    public TechTreeNode root = new TechTreeNode(BioTechTree.roots.first(), null, 3);
+    public TechTreeNode root = new TechTreeNode(BioTechTree.roots.first(), null, 4);
     public BioTechTree.BioTechNode lastNode = root.node;
     public Rect bounds = new Rect();
     public ItemsDisplay itemDisplay;
@@ -280,7 +280,7 @@ public class BioResearchDialog extends BaseDialog {
     public void switchTree(BioTechTree.BioTechNode node) {
         if (lastNode == node || node == null) return;
         nodes.clear();
-        root = new TechTreeNode(node, null, 3);
+        root = new TechTreeNode(node, null, 4);
         lastNode = node;
         view.rebuildAll();
 
@@ -361,7 +361,7 @@ public class BioResearchDialog extends BaseDialog {
         return max;
     }
     void treeLayout(){
-        float ringSpacing = 200f;     // Spacing between rings
+        float ringSpacing = 250f;     // Spacing between rings
 
         // Center root
         root.x = 0f;
@@ -795,7 +795,7 @@ public class BioResearchDialog extends BaseDialog {
             Draw.sort(true);
             float offsetX = panX + width / 2f, offsetY = panY + height / 2f;
             int maxDepth = getMaxDepth(root, 0);
-            float spacing = 200f; // same as layout spacing
+            float spacing = 250f; // same as layout spacing
 
             Draw.z(0f);
 

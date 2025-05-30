@@ -68,7 +68,7 @@ public class AndoriTechTree {
             });
 
 
-            bioNodeProduce(BioItems.magnesium, () -> {
+            bioNodeProduce(BioItems.magnesium, 3, () -> {
                 bioNodeProduce(BioItems.carbonicTissue, () -> {
                     bioNodeProduce(BioItems.carminite, () -> {
                     });

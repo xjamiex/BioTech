@@ -169,6 +169,7 @@ public class BioBlocks {
         magnesiumConveyor = new Conveyor("magnesium-convayor") {{
             researchCost = with(BioItems.magnesium, 15);
             bridgeReplacement = BioBlocks.conveyorOverpass;
+            junctionReplacement = BioBlocks.conveyorOverpass;
             requirements(Category.distribution, with(BioItems.magnesium, 1));
             health = 35;
             speed = 0.04f;
@@ -869,8 +870,8 @@ public class BioBlocks {
             squareSprite = false;
             hasItems = true;
             liquidCapacity = 60f;
-            craftTime = 2 * 60f;
-            outputItem = new ItemStack(BioItems.potash, 6);
+            craftTime = 4 * 60f;
+            outputItem = new ItemStack(BioItems.potash, 5);
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(BioLiquids.hemoFluid, 2), new DrawDefault());
             size = 3;
             health = 850;

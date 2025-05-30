@@ -22,7 +22,7 @@ public class BioPlanets {
         andori;
 
     public static void load(){
-        andori = new Planet("andori", Planets.sun, 1.2f, 3){{
+        andori = new Planet("andori", Planets.sun, 1.2f, 2){{
             defaultCore = BioBlocks.coreSight;
             generator = new AndoriPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 6);

@@ -4,8 +4,7 @@ import arc.struct.Seq;
 import mindustry.content.TechTree;
 import mindustry.game.Objectives;
 
-import static biotech.content.BioTechTree.bioNode;
-import static biotech.content.BioTechTree.bioNodeRoot;
+import static biotech.content.BioTechTree.*;
 import static mindustry.content.TechTree.node;
 import static mindustry.content.TechTree.nodeProduce;
 
@@ -68,22 +67,22 @@ public class AndoriTechTree {
                 });
             });
 
-            /*
-            nodeProduce(BioItems.magnesium, () -> {
-                nodeProduce(BioItems.carbonicTissue, () -> {
-                    nodeProduce(BioItems.carminite, () -> {
+
+            bioNodeProduce(BioItems.magnesium, () -> {
+                bioNodeProduce(BioItems.carbonicTissue, () -> {
+                    bioNodeProduce(BioItems.carminite, () -> {
                     });
                 });
-                nodeProduce(BioItems.calciticFragment, () -> {
+                bioNodeProduce(BioItems.calciticFragment, () -> {
                 });
-                nodeProduce(BioLiquids.hemoFluid, () -> {
-                    nodeProduce(BioItems.potash, () -> {
+                bioNodeProduce(BioLiquids.hemoFluid, () -> {
+                    bioNodeProduce(BioItems.potash, () -> {
                     });
                 });
-                nodeProduce(BioItems.phosphorus, () -> {
+                bioNodeProduce(BioItems.phosphorus, () -> {
                 });
             });
-            */
+
 
             bioNode(BioSectorPresets.ankle, () -> {
                 bioNode(BioSectorPresets.crus, Seq.with(new Objectives.SectorComplete(BioSectorPresets.ankle)), () -> {

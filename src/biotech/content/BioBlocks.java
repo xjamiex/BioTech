@@ -542,8 +542,9 @@ public class BioBlocks {
                     BioItems.potash, new ArtilleryBulletType(4, 85) {{
                         width = height = 15;
                         lifetime = 2 * 60f;
-                        splashDamage = 50;
+                        splashDamage = 80;
                         splashDamageRadius = 40;
+                        buildingDamageMultiplier = 0.3f;
                         backColor = frontColor = Color.clear;
                         weaveMag = 21f;
                         weaveScale = 1;
@@ -582,7 +583,8 @@ public class BioBlocks {
                                 lifetime = 60 - 10f;
                                 backColor = frontColor = Color.clear;
                                 splashDamage = 25;
-                                splashDamageRadius = 40;
+                                splashDamageRadius = 30;
+                                buildingDamageMultiplier = 0.3f;
                                 weaveMag = 14f;
                                 weaveScale = 2;
                                 trailInterval = 30f;
@@ -611,7 +613,6 @@ public class BioBlocks {
                                             sizeTo = 0;
                                         }}
                                 );
-                            buildingDamageMultiplier = 0.5f;
                             fragBullets = 2;
                             fragBullet = new ArtilleryBulletType(1, 15) {{
                                 width = height = 15;
@@ -619,6 +620,7 @@ public class BioBlocks {
                                 backColor = frontColor = Color.clear;
                                 weaveMag = 14f;
                                 splashDamage = 5;
+                                buildingDamageMultiplier = 0.3f;
                                 splashDamageRadius = 40;
                                 weaveScale = 2;
                                 trailInterval = 60f;
@@ -647,7 +649,6 @@ public class BioBlocks {
                                             sizeTo = 0;
                                         }}
                                 );
-                                buildingDamageMultiplier = 0.5f;
                             }};
                         }};
                     }}

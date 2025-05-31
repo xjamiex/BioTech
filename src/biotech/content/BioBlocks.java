@@ -542,7 +542,7 @@ public class BioBlocks {
                     BioItems.potash, new ArtilleryBulletType(4, 85) {{
                         width = height = 15;
                         lifetime = 2 * 60f;
-                        splashDamage = 80;
+                        splashDamage = 150;
                         splashDamageRadius = 40;
                         buildingDamageMultiplier = 0.3f;
                         backColor = frontColor = Color.clear;
@@ -674,7 +674,7 @@ public class BioBlocks {
 
                 shootType = new LightningLaserBulletType() {{
                     length = r - 5;
-                    damage = 60f;
+                    damage = 35f;
                     ammoMultiplier = 4f;
                     width = 9f;
                     reloadMultiplier = 1.3f;

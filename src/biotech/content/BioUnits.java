@@ -256,7 +256,7 @@ public class BioUnits {
             rotateSpeed = 13f;
             accel = 0.04f;
             itemCapacity = 5;
-            health = 1520f;
+            health = 1720f;
             engineOffset = 11f;
             engineSize = 3f;
             hitSize = 19f;
@@ -414,7 +414,7 @@ public class BioUnits {
             rotateSpeed = 2f;
             accel = 0.02f;
             itemCapacity = 0;
-            health = 1320f;
+            health = 1000f;
             hitSize = 14f;
             engineOffset = 8;
             engineSize = 5;
@@ -448,7 +448,7 @@ public class BioUnits {
 
                         shake = 5f;
 
-                        bullet = new SpeedUpBulletType(20, 525, "circle"){{
+                        bullet = new SpeedUpBulletType(20, 1625, "circle"){{
                             backColor = BioPal.potashOrange;
                             frontColor = BioPal.potashOrangeLight;
                             width = 20;
@@ -585,7 +585,7 @@ public class BioUnits {
             drag = 0.09f;
             hitSize = 13f;
             rotateSpeed = 2.0f;
-            health = 1620f;
+            health = 1920f;
             armor = 1f;
             legStraightness = 0.3f;
             stepShake = 0.3f;

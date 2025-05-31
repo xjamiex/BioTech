@@ -13,6 +13,8 @@ import mindustry.type.Weapon;
 
 public class BiologicalUnitType extends BioTechUnitType{
 
+    public static int goreParticles = 5;
+
     public BiologicalUnitType(String name) {
         super(name);
         outlineColor = Color.valueOf("2e0808");
@@ -21,6 +23,8 @@ public class BiologicalUnitType extends BioTechUnitType{
 
         weapons.add(
                 new Weapon("immune-death"){{
+                    controllable = false;
+                    noAttack = true;
                     shootOnDeath = true;
                     x = y = 0;
                     top = false;
@@ -39,9 +43,9 @@ public class BiologicalUnitType extends BioTechUnitType{
                                     sizeFrom = 14;
                                     sizeTo = 0;
                                 }};
-                        fragBullets = 10;
-                        fragLifeMax = 5 * 60;
-                        fragLifeMin = 2 * 60;
+                        fragBullets = goreParticles;
+                        fragLifeMax = 2 * 60;
+                        fragLifeMin = 60;
                         fragVelocityMax = 1.5f;
                         fragVelocityMin = 0.5f;
                         fragBullet = new ImmuneGoreBulletType(1, 0){{

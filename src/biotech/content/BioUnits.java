@@ -432,6 +432,13 @@ public class BioUnits {
                         layerOffset = 1;
 
                         shake = 1f;
+
+                        bullet = new BulletType(){{
+                            shootEffect = Fx.sparkShoot;
+                            hitEffect = Fx.pointHit;
+                            maxRange = 50f;
+                            damage = 10f;
+                        }};
                     }},
 
                     new Weapon("biotech-anvil-orb"){{
@@ -744,6 +751,7 @@ public class BioUnits {
         kaph50 = new BiologicalUnitType("kaph50"){{
             constructor = LegsUnit::create;
             aiController = SuicideAI::new;
+            goreParticles = 2;
 
             speed = 0.9f;
             drag = 0.11f;
@@ -828,6 +836,7 @@ public class BioUnits {
         kaph37 = new BiologicalUnitType("kaph37"){{
             constructor = LegsUnit::create;
             aiController = SuicideAI::new;
+            goreParticles = 4;
 
             speed = 0.7f;
             drag = 0.11f;
@@ -925,6 +934,7 @@ public class BioUnits {
         kaph31 = new BiologicalUnitType("kaph31"){{
             constructor = LegsUnit::create;
             aiController = GroundAI::new;
+            goreParticles = 9;
 
             speed = 0.5f;
             drag = 0.12f;

@@ -542,6 +542,8 @@ public class BioBlocks {
                     BioItems.potash, new ArtilleryBulletType(4, 85) {{
                         width = height = 15;
                         lifetime = 2 * 60f;
+                        splashDamage = 50;
+                        splashDamageRadius = 40;
                         backColor = frontColor = Color.clear;
                         weaveMag = 21f;
                         weaveScale = 1;
@@ -579,6 +581,8 @@ public class BioBlocks {
                                 width = height = 15;
                                 lifetime = 60 - 10f;
                                 backColor = frontColor = Color.clear;
+                                splashDamage = 25;
+                                splashDamageRadius = 40;
                                 weaveMag = 14f;
                                 weaveScale = 2;
                                 trailInterval = 30f;
@@ -614,6 +618,8 @@ public class BioBlocks {
                                 lifetime = 30f;
                                 backColor = frontColor = Color.clear;
                                 weaveMag = 14f;
+                                splashDamage = 5;
+                                splashDamageRadius = 40;
                                 weaveScale = 2;
                                 trailInterval = 60f;
                                 trailEffect = new WaveEffect() {{

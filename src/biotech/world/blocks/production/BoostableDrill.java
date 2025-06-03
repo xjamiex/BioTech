@@ -33,8 +33,8 @@ public class BoostableDrill extends Drill {
             //what am i doing with my life
             if (tile.build == null) continue;
             if (tile.build.tile.nearby(edge).build == null) continue;
-            if (tile.build.tile.nearby(edge).block() instanceof DrillUpgrader upgrader) {
-                boost = upgrader.boost;
+            if (tile.build.tile.nearby(edge).build instanceof DrillUpgrader.DrillUpgraderBuild build) {
+                if (build.canBoost()) boost = build.boost;
             }
         }
         return boost;
@@ -42,13 +42,13 @@ public class BoostableDrill extends Drill {
 
     public class BoostableDrillBuild extends DrillBuild {
 
-        public int boostedTier = 0;
-
         @Override
         public void updateTile() {
+            countOre(tile);
             if(timer(timerDump, dumpTime)) {
                 dump(dominantItem != null && items.has(dominantItem) ? dominantItem : null);
             }
+            Log.info(dominantItems + " " + efficiency);
 
             if(dominantItem == null) {
                 return;

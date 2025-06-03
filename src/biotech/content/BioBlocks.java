@@ -13,6 +13,7 @@ import biotech.world.blocks.power.PowerConduit;
 import biotech.world.blocks.production.BoostableDrill;
 import biotech.world.blocks.production.DrillUpgrader;
 import mindustry.content.*;
+import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
@@ -347,12 +348,6 @@ public class BioBlocks {
         marlCluster = new TallBlock("marl-cluster"){{
             variants = 3;
         }};
-        boner = new TallBlock("boner"){{
-            variants = 1;
-            solid = false;
-            layer = Layer.legUnit + 1;
-            shadowLayer = layer - 1;
-        }};
 
         fleshTag = new Prop("flesh-tag"){{
             variants = 3;
@@ -422,8 +417,8 @@ public class BioBlocks {
                         lifetime = 60f;
                         collidesAir = false;
 
-                        splashDamage = 25;
-                        splashDamageRadius = 35f;
+                        splashDamage = damage / 3;
+                        splashDamageRadius = 10 * 3f;
                         ammoMultiplier = 1.5f;
 
                         hitSound = despawnSound = Sounds.dullExplosion;
@@ -513,7 +508,7 @@ public class BioBlocks {
             targetGround = true;
             outlineColor = Color.valueOf("2b2626");
 
-            consumeLiquid(BioLiquids.hemoFluid, 0.12f);
+            consumeLiquid(BioLiquids.plasmoid, 0.12f);
             drawer = new DrawTurret("reinforced-") {
                 {
                     parts.addAll(
@@ -584,7 +579,7 @@ public class BioBlocks {
 
                         fragVelocityMin = fragVelocityMax = 0.2f;
                         fragBullets = 4;
-                        fragBullet = new ArtilleryBulletType(2, 25) {{
+                        fragBullet = new ArtilleryBulletType(2, 55) {{
                                 width = height = 15;
                                 lifetime = 60 - 10f;
                                 backColor = frontColor = Color.clear;
@@ -620,7 +615,7 @@ public class BioBlocks {
                                         }}
                                 );
                             fragBullets = 2;
-                            fragBullet = new ArtilleryBulletType(1, 15) {{
+                            fragBullet = new ArtilleryBulletType(1, 25) {{
                                 width = height = 15;
                                 lifetime = 30f;
                                 backColor = frontColor = Color.clear;
@@ -855,7 +850,7 @@ public class BioBlocks {
             powerProduction = 150 / 60f;
             itemDuration = 120f;
             consumeItem(BioItems.magnesium, 1);
-            consumeLiquid(BioLiquids.hemoFluid, 16 / 60f);
+            consumeLiquid(BioLiquids.plasmoid, 16 / 60f);
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(), new DrawDefault());
         }};
 
@@ -907,6 +902,7 @@ public class BioBlocks {
             squareSprite = false;
             hasItems = true;
             liquidCapacity = 60f;
+            consumePower(50 / 60f);
             craftTime = 4 * 60f;
             outputItem = new ItemStack(BioItems.carminite, 3);
             drawer = new DrawMulti(

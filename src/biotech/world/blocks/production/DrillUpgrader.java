@@ -2,15 +2,18 @@ package biotech.world.blocks.production;
 
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
+import arc.math.geom.*;
 import arc.struct.EnumSet;
 import arc.util.Log;
+import biotech.world.blocks.production.BoostableDrill.*;
 import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
-import mindustry.world.Block;
-import mindustry.world.Tile;
+import mindustry.world.*;
 import mindustry.world.blocks.power.PowerBlock;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.Env;
+
+import static mindustry.Vars.world;
 
 public class DrillUpgrader extends Block {
 
@@ -30,11 +33,54 @@ public class DrillUpgrader extends Block {
     }
 
     public static class DrillUpgraderBuild extends Building {
+        public int lastChange = -2;
 
         public int boost = 1;
 
-        public boolean canBoost() {
-            return power.status == 1.0f;
+        @Override
+        public void placed() {
+            super.placed();
+
+            updateLinks();
         }
+
+        @Override
+        public void onProximityUpdate(){
+            super.onProximityUpdate();
+
+            updateLinks();
+        }
+
+        public void updateLinks(){
+            for (Point2 edge : Edges.getEdges(block.size)) {
+                if (tile.build == null) continue;
+                if (tile.build.tile.nearby(edge).build == null) continue;
+                if(tile.build.tile.nearby(edge).build instanceof  BoostableDrillBuild b){
+                    b.updateModules(this);
+                }
+            }
+        }
+
+        @Override
+        public void onRemoved(){
+            super.onRemoved();
+
+            for (Point2 edge : Edges.getEdges(block.size)) {
+                if (tile.build == null) continue;
+                if (tile.build.tile.nearby(edge).build == null) continue;
+                if(tile.build.tile.nearby(edge).build instanceof  BoostableDrillBuild b){
+                    b.removeModule(this);
+                }
+            }
+        }
+
+        @Override
+        public void updateTile() {
+            if (lastChange != world.tileChanges) {
+                lastChange = world.tileChanges;
+                updateLinks();
+            }
+        }
+
     }
 }

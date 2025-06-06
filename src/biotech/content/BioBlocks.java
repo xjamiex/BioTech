@@ -80,6 +80,7 @@ public class BioBlocks {
 
             //turret
             inception, costae, celluris, dissection, needle, glisten,
+            retch,
 
             //power
             magnesiumBurner, cablePole, cableAccumulator,
@@ -838,6 +839,64 @@ public class BioBlocks {
                     }});
                 }};
             }};
+        }};
+
+        retch = new ItemTurret("retch"){{
+            health = 1500;
+            size = 4;
+            requirements(turret, with(BioItems.magnesium, 1));
+            range = 230;
+            inaccuracy = 4.5f;
+            rotateSpeed = 1.25f;
+            reload = 24;
+            minWarmup = 4f;
+            warmupMaintainTime = 25;
+            targetAir = true;
+            targetGround = true;
+            outlineColor = Color.valueOf("2b2626");
+
+            drawer = new DrawTurret(){{
+                parts.addAll(
+                        new RegionPart("-wing"){{
+                            x = y = 0;
+                            moveY = -2f;
+                            progress = PartProgress.warmup;
+                        }},
+                        new RegionPart("-head"){{
+                            x = y = 0;
+                            moveY = 4f;
+                            progress = PartProgress.warmup;
+                        }}
+                );
+            }};
+
+            ammo(
+                    BioItems.calciticFragment, new BasicBulletType(7, 50){{
+                        hitEffect = despawnEffect = shootEffect = new WaveEffect() {{
+                            colorFrom = BioPal.boneWhiteLight;
+                            colorTo = BioPal.boneWhiteLight;
+                            sizeFrom = 0;
+                            sizeTo = 3;
+                            strokeFrom = 1;
+                            strokeTo = 0;
+                        }};
+
+                        width = 10;
+                        height = 10;
+                        shrinkX = shrinkY = 0;
+                        frontColor = BioPal.boneWhiteLight;
+                        backColor = BioPal.boneWhiteLight;
+                        trailLength = 5;
+                        trailWidth = 2;
+                        trailColor = BioPal.boneWhiteLight;
+                        trailInterval = 2f;
+                        lifetime = 40f;
+                        collidesAir = true;
+                        ammoMultiplier = 2.5f;
+
+                        hitSound = despawnSound = Sounds.bang;
+                    }}
+            );
         }};
 
         //endregion

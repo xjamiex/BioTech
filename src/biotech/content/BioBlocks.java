@@ -370,6 +370,8 @@ public class BioBlocks {
             requirements(turret, with(BioItems.calciticFragment, 60, BioItems.magnesium, 60));
             maxAmmo = 5;
 
+            coolant = consumeCoolant(0.4f);
+
             range = 120;
             shootY = 0.7f;
             shootSound = Sounds.shootBig;
@@ -429,6 +431,8 @@ public class BioBlocks {
             size = 3;
             requirements(turret, with(BioItems.calciticFragment, 50, BioItems.magnesium, 60));
             maxAmmo = 25;
+
+            coolant = consumeCoolant(0.3f);
 
             range = 230;
             shootY = 0.7f;
@@ -666,6 +670,8 @@ public class BioBlocks {
                 outlineColor = Color.valueOf("2b2626");
                 shootEffect = BioFx.dissectionSpiral;
 
+                coolant = consumeCoolant(0.5f);
+
                 consumePower(50 / 60f);
 
                 shootType = new LightningLaserBulletType() {{
@@ -703,6 +709,8 @@ public class BioBlocks {
             health = 890;
             size = 2;
             requirements(turret, with(BioItems.magnesium, 65, BioItems.potash, 50));
+
+            coolant = consumeCoolant(0.2f);
 
             range = 140;
             shootSound = Sounds.shootAlt;
@@ -846,6 +854,8 @@ public class BioBlocks {
             targetAir = true;
             targetGround = true;
             outlineColor = Color.valueOf("2b2626");
+
+            coolant = consumeCoolant(0.5f);
 
             maxSpeedupScl = 6;
             speedupPerShoot = 0.1f;

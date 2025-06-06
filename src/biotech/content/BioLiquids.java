@@ -9,7 +9,8 @@ public class BioLiquids {
 
     public static void load() {
         hemoFluid = new Liquid("hemo-fluid") {{
-            heatCapacity = 0.4f;
+            coolant = false;
+            heatCapacity = 0.3f;
             viscosity = 0.7f;
             boilPoint = 0.5f;
             gasColor = Color.grays(0.9f);
@@ -18,7 +19,7 @@ public class BioLiquids {
         }};
 
         plasmoid = new Liquid("plasmoid") {{
-            heatCapacity = 0.8f;
+            heatCapacity = 0.52f;
             viscosity = 0.5f;
             boilPoint = 0.4f;
             gasColor = Color.grays(0.5f);
@@ -27,7 +28,7 @@ public class BioLiquids {
         }};
 
         heraticAcid = new Liquid("heratic-acid") {{
-            heatCapacity = 0.8f;
+            coolant = false;
             viscosity = 0.7f;
             boilPoint = 0.1f;
             gasColor = Color.valueOf("64702e").a(0.5f);

@@ -16,7 +16,7 @@ public class BioPal {
     magnesiumPurpleLight = Color.valueOf("dea6ff"),
     potashOrangeLight = Color.valueOf("ffcc85"),
     potashOrange = Color.valueOf("f7b63e"),
-    plasmoidBlueLight = Color.valueOf("d5b2d3")
-
+    plasmoidBlueLight = Color.valueOf("d5b2d3"),
+    phosYellowLight = Color.valueOf("ffeb94")
     ;
 }

@@ -25,7 +25,6 @@ public class BioEventHandler {
                 if (building instanceof BiologicalStaticSpawner.BiologicalStaticSpawnerBuild build) {
                     Tile tile = build.tile;
                     tile.remove();
-                    BioFx.immuneSpawnerExplode.at(tile);
                 }
             }
         });

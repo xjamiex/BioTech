@@ -2,19 +2,15 @@ package biotech.content;
 
 import arc.Core;
 import arc.graphics.Color;
-import arc.math.Mathf;
-import biotech.BioTech;
 import biotech.entities.bullet.LightningLaserBulletType;
 import biotech.type.unit.EmpUnitType;
+import biotech.world.blocks.defense.turrets.SpeedupTurret;
 import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
 import biotech.world.blocks.enviroment.TallTreeBlock;
 import biotech.world.blocks.power.CableNode;
-import biotech.world.blocks.power.PowerConduit;
 import biotech.world.blocks.production.BoostableDrill;
 import biotech.world.blocks.production.DrillUpgrader;
 import mindustry.content.*;
-import mindustry.entities.abilities.ForceFieldAbility;
-import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
@@ -40,8 +36,6 @@ import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.liquid.LiquidRouter;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.power.PowerGenerator;
-import mindustry.world.blocks.power.PowerNode;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.units.Reconstructor;
@@ -670,7 +664,7 @@ public class BioBlocks {
                 targetAir = false;
                 targetGround = true;
                 outlineColor = Color.valueOf("2b2626");
-                shootEffect = BioFx.lightningSpiral;
+                shootEffect = BioFx.dissectionSpiral;
 
                 consumePower(50 / 60f);
 
@@ -841,56 +835,79 @@ public class BioBlocks {
             }};
         }};
 
-        retch = new ItemTurret("retch"){{
+        retch = new SpeedupTurret("retch"){{
             health = 1500;
             size = 4;
             requirements(turret, with(BioItems.magnesium, 1));
             range = 230;
-            inaccuracy = 4.5f;
+            inaccuracy = 20.5f;
             rotateSpeed = 1.25f;
-            reload = 24;
-            minWarmup = 4f;
-            warmupMaintainTime = 25;
+            reload = 100;
             targetAir = true;
             targetGround = true;
             outlineColor = Color.valueOf("2b2626");
+
+            maxSpeedupScl = 6;
+            speedupPerShoot = 0.1f;
+            inaccuracyUp = 5;
+            chargeRegion = "biotech-retch-charge";
+            chargeColor = BioPal.phosYellowLight;
 
             drawer = new DrawTurret(){{
                 parts.addAll(
                         new RegionPart("-wing"){{
                             x = y = 0;
                             moveY = -2f;
-                            progress = PartProgress.warmup;
+                            progress = PartProgress.smoothReload;
                         }},
                         new RegionPart("-head"){{
                             x = y = 0;
                             moveY = 4f;
-                            progress = PartProgress.warmup;
+                            progress = PartProgress.smoothReload;
                         }}
                 );
             }};
 
             ammo(
-                    BioItems.calciticFragment, new BasicBulletType(7, 50){{
-                        hitEffect = despawnEffect = shootEffect = new WaveEffect() {{
-                            colorFrom = BioPal.boneWhiteLight;
-                            colorTo = BioPal.boneWhiteLight;
-                            sizeFrom = 0;
-                            sizeTo = 3;
-                            strokeFrom = 1;
-                            strokeTo = 0;
+                    BioItems.calciticFragment, new BasicBulletType(7, 20){{
+                        sprite = "biotech-bone-chunk";
+                        layer = Layer.bullet - 0.01f;
+                        hitEffect = despawnEffect = shootEffect = new ParticleEffect(){{
+                            region = "biotech-triangle";
+                            sizeFrom = 6;
+                            sizeTo = 0;
+                            colorFrom = colorTo = BioPal.phosYellowLight;
+                            length = 20;
+                            cone = 90;
                         }};
+
+                        trailEffect = new WaveEffect(){{
+                            sides = 4;
+                            sizeFrom = 3;
+                            sizeTo = 0;
+                            colorFrom = colorTo = BioPal.phosYellowLight;
+                            rotation = 5;
+                            lifetime = 100f;
+                        }};
+
+                        shoot.shots = 5;
+                        shoot.shotDelay = 1f;
+
+                        weaveScale = 3;
+                        weaveMag = 2f;
+                        weaveRandom = true;
 
                         width = 10;
                         height = 10;
                         shrinkX = shrinkY = 0;
-                        frontColor = BioPal.boneWhiteLight;
-                        backColor = BioPal.boneWhiteLight;
+                        frontColor = BioPal.phosYellowLight;
+                        backColor = BioPal.phosYellowLight;
                         trailLength = 5;
                         trailWidth = 2;
-                        trailColor = BioPal.boneWhiteLight;
+                        trailColor = BioPal.phosYellowLight;
                         trailInterval = 2f;
                         lifetime = 40f;
+                        lifeScaleRandMin = 0.8f;
                         collidesAir = true;
                         ammoMultiplier = 2.5f;
 

@@ -1,36 +1,24 @@
 package biotech.content;
 
-import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
-import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
-import arc.math.Mathf;
 import arc.math.Rand;
 import arc.math.geom.Vec2;
-import arc.util.Log;
 import arc.util.Tmp;
-import biotech.BioUtil;
 import mindustry.Vars;
 import mindustry.entities.Effect;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.SeqEffect;
-import mindustry.gen.Tex;
 import mindustry.graphics.Drawf;
-import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
-
-import java.util.Random;
 
 import static arc.graphics.g2d.Draw.alpha;
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
-import static arc.math.Mathf.rand;
 
 public class BioFx {
 
@@ -39,7 +27,7 @@ public class BioFx {
     public static final Vec2 v = new Vec2();
 
     public static Effect
-        lightningSpiral = new Effect(20f, e -> {
+         dissectionSpiral = new Effect(20f, e -> {
             color(BioPal.supportGreenLight, Pal.heal, e.fin());
             Lines.stroke(5 * e.fout());
             Lines.beginLine();
@@ -125,16 +113,7 @@ public class BioFx {
                 v.trns(rot, rand.random(e.fin() * 27f));
                 lineAngle(e.x + v.x, e.y + v.y, rot, e.fout() * rand.random(2f, 7f) + 1.5f);
             }
-        }),
-
-        immuneSpawnerExplode = new MultiEffect(
-                new ParticleEffect(){{
-                    particles = 15;
-                    sizeFrom = 8;
-                    sizeTo = 0;
-                    colorFrom = colorTo = BioPal.bloodRedLight;
-                }}
-        );
+        });
 
     public static Effect fourSpike(Color color, float width, float length){
         return new Effect(60, e -> {

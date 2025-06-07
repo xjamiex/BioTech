@@ -80,7 +80,7 @@ public class BioBlocks {
             magnesiumBurner, cablePole, cableAccumulator,
 
             //production
-            hematicSieve, hemoCrystallizer,
+            hematicSieve, hemoCrystallizer, pasteCompactor,
 
             //defense
             magnesiumWall, largeMagnesiumWall,
@@ -789,7 +789,7 @@ public class BioBlocks {
 
             consumePower(100 / 60f);
 
-            outlineColor = Color.valueOf("2b2626");;
+            outlineColor = Color.valueOf("2b2626");
 
             shootType = new BasicBulletType(0, 0) {{
                 spawnUnit = new MissileUnitType("glisten-missile"){{
@@ -830,8 +830,9 @@ public class BioBlocks {
                                 hitColor = BioPal.magnesiumPurpleLight;
                                 spawnUnit = new EmpUnitType("glisten-emp"){{
                                     health = 650;
+                                    hidden = true;
                                     killShooter = true;
-                                    outlineColor = Color.valueOf("2b2626");;
+                                    outlineColor = Color.valueOf("2b2626");
                                     lifetime = 60f * 2.5f;
                                     empRadius = 50;
                                     empEffect = BioStatusEffects.overloaded;
@@ -1017,6 +1018,54 @@ public class BioBlocks {
 
             consumeLiquid(BioLiquids.hemoFluid, 0.40f);
             consumeItem(BioItems.potash, 1);
+        }};
+
+        pasteCompactor = new GenericCrafter("paste-compactor") {{
+            requirements(Category.crafting, with(BioItems.magnesium, 120, BioItems.phosphorus, 50, BioItems.carminite, 25));
+            squareSprite = false;
+            hasItems = true;
+            liquidCapacity = 60f;
+            consumePower(65 / 60f);
+            craftTime = 2 * 60f;
+            outputItem = new ItemStack(BioItems.proteicPaste, 2);
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawGlowRegion("-glow"){{ color = BioPal.bloodRedLight; }},
+                    new DrawParticles(){{
+                        color = Pal.lightishGray;
+                    }},
+                    new DrawParticles(){{
+                        particles = 20;
+                        color = Pal.gray;
+                    }},
+                    new DrawDefault());
+            size = 5;
+            health = 1450;
+            hasLiquids = true;
+            craftEffect = new MultiEffect(
+                    new ParticleEffect() {{
+                        particles = 10;
+                        line = true;
+                        length = 16;
+                        lenFrom = 6;
+                        lenTo = 0;
+                        strokeFrom = 3;
+                        strokeTo = 0;
+                        colorFrom = BioPal.bloodRedLight;
+                        colorTo = BioPal.bloodRedLight;
+                    }},
+                    new ParticleEffect() {{
+                        particles = 15;
+                        length = 20;
+                        sizeFrom = 4;
+                        sizeTo = 0;
+                        colorFrom = Pal.gray;
+                        colorTo = Pal.darkerGray;
+                    }}
+            );
+
+            consumeLiquid(BioLiquids.hemoFluid, 0.60f);
+            consumeItem(BioItems.dustClump, 4);
         }};
         //endregion
 

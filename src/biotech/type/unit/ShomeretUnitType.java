@@ -46,7 +46,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
                 new BiologicalRegionPart("-2"){{
                     x = y = 0;
                     growX = 0.1f;
-                    growY = 0.1f;;
+                    growY = 0.1f;
                     moveX = -1.5f;
                     moveY = 0.6f;
                     moveRot = -3f;

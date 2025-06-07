@@ -1012,7 +1012,7 @@ public class BioUnits {
                         x = 0f;
                         y = 0f;
                     }},
-                    new BiologicalRegionPart("-pupil-1"){{;
+                    new BiologicalRegionPart("-pupil-1"){{
                         moveX = 0.5f;
                         moveY = -0.5f;
                         x = 0f;

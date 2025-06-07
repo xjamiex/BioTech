@@ -216,7 +216,7 @@ public class BioResearchDialog extends BaseDialog {
     public void rebuildItems() {
         items = new ItemSeq() {
             // Store sector item amounts for modifications
-            ObjectMap<Sector, ItemSeq> cache = new ObjectMap<>();
+            final ObjectMap<Sector, ItemSeq> cache = new ObjectMap<>();
 
             {
                 //First get all the planets with the same techtree/root node

@@ -96,7 +96,7 @@ public class CableNode extends PowerNode {
         public void draw() {
             Draw.z(Layer.power);
             if (this.block.variants != 0 && this.block.variantRegions != null) {
-                Draw.rect(this.block.variantRegions[Mathf.randomSeed((long)this.tile.pos(), 0, Math.max(0, this.block.variantRegions.length - 1))], this.x, this.y, this.drawrot());
+                Draw.rect(this.block.variantRegions[Mathf.randomSeed(this.tile.pos(), 0, Math.max(0, this.block.variantRegions.length - 1))], this.x, this.y, this.drawrot());
             } else {
                 Draw.rect(this.block.region, this.x, this.y, this.drawrot());
             }

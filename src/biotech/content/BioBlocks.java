@@ -57,7 +57,7 @@ public class BioBlocks {
             magnesiumConveyor, splitter, conveyorOverpass,
 
             //drill
-            bioDrill, boneCrusher, bioPiercer, drillUpgrader,
+            bioDrill, boneCrusher, bioPiercer, drillUpgrader, filter,
 
             //env
             flesh, rottenFlesh, decayedFlesh, scarredFlesh, adiposeTissue,
@@ -202,7 +202,6 @@ public class BioBlocks {
             boostScale = 1f / 4f;
             group = BlockGroup.drills;
             size = 2;
-            ambientSound = Sounds.hum;
             ambientSoundVolume = 0.06f;
             craftTime = 200f;
             itemCapacity = 30;
@@ -234,6 +233,38 @@ public class BioBlocks {
                     }},
                     new DrawDefault(),
                     new DrawRegion("-top")
+            );
+        }};
+
+        filter = new AttributeCrafter("filter") {{
+            attribute = Attribute.steam;
+            requirements(production, with(BioItems.calciticFragment, 120, BioItems.phosphorus, 25));
+            consumePower(25 / 60f);
+
+            baseEfficiency = minEfficiency = 0.5f;
+            displayEfficiency = true;
+            boostScale = 1f / 4f;
+            group = BlockGroup.drills;
+            size = 2;
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.03f;
+            craftTime = 4 * 60f;
+            itemCapacity = 20;
+
+            outputItem = new ItemStack(BioItems.dustClump, 4);
+            squareSprite = false;
+            craftEffect = new ParticleEffect() {{
+                colorFrom = Pal.gray;
+                colorTo = Pal.lightishGray;
+                sizeFrom = 3;
+                sizeTo = 0;
+                particles = 8;
+                length = 20f;
+            }};
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawDefault()
             );
         }};
 
@@ -297,6 +328,7 @@ public class BioBlocks {
 
         poreHole = new SteamVent("pore-hole") {{
             parent = blendGroup = flesh;
+            attributes.set(Attribute.steam, 1f);
             variants = 3;
             effectSpacing = 100f;
             effectColor = Color.valueOf("a69780");
@@ -966,7 +998,7 @@ public class BioBlocks {
             hasItems = true;
             liquidCapacity = 60f;
             craftTime = 4 * 60f;
-            outputItem = new ItemStack(BioItems.potash, 5);
+            outputItem = new ItemStack(BioItems.potash, 4);
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(BioLiquids.hemoFluid, 2), new DrawDefault());
             size = 3;
             health = 850;
@@ -1017,7 +1049,7 @@ public class BioBlocks {
             }};
 
             consumeLiquid(BioLiquids.hemoFluid, 0.40f);
-            consumeItem(BioItems.potash, 1);
+            consumeItem(BioItems.potash, 2);
         }};
 
         pasteCompactor = new GenericCrafter("paste-compactor") {{
@@ -1025,7 +1057,7 @@ public class BioBlocks {
             squareSprite = false;
             hasItems = true;
             liquidCapacity = 60f;
-            consumePower(65 / 60f);
+            consumePower(250 / 60f);
             craftTime = 2 * 60f;
             outputItem = new ItemStack(BioItems.proteicPaste, 2);
             drawer = new DrawMulti(
@@ -1064,7 +1096,7 @@ public class BioBlocks {
                     }}
             );
 
-            consumeLiquid(BioLiquids.hemoFluid, 0.60f);
+            consumeLiquid(BioLiquids.hemoFluid, 48 / 60f);
             consumeItem(BioItems.dustClump, 4);
         }};
         //endregion

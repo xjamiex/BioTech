@@ -4,10 +4,11 @@ import arc.Events;
 import arc.util.Log;
 import arc.util.Reflect;
 import biotech.content.BioFx;
-import biotech.ui.BioResearchDialog;
+import biotech.type.unit.*;
+import biotech.ui.*;
 import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
 import mindustry.Vars;
-import mindustry.game.EventType;
+import mindustry.game.*;
 import mindustry.gen.Building;
 import mindustry.gen.Groups;
 import mindustry.ui.fragments.MenuFragment;
@@ -29,6 +30,11 @@ public class BioEventHandler {
             }
         });
 
+        Events.on(EventType.WaveEvent.class, event -> {
+            if(Vars.state.rules.spawns.contains( w -> w.type instanceof ShomeretUnitType)) BioVars.shomeretUI.begin();
+        });
+
         Events.on(EventType.WorldLoadEvent.class, you -> BioVars.postInit());
+        Events.on(EventType.ClientLoadEvent.class, world -> BioVars.load());
     }
 }

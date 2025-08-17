@@ -21,6 +21,7 @@ buildscript{
 plugins{
     java
     id("com.github.GglLfr.EntityAnno") apply false
+    id("com.xpdustry.toxopid") version "4.1.0"
 }
 
 val arcVersion: String by project
@@ -50,6 +51,15 @@ fun mindustry(module: String): String{
 
 fun entity(module: String): String{
     return "com.github.GglLfr.EntityAnno$module:$entVersion"
+}
+
+fun toxopid(module: String): String{
+    return "com.xpdustry.toxopid.spec.ModPlatform"
+}
+
+toxopid {
+    compileVersion = mindustryVersion
+    runtimeVersion = mindustryVersion
 }
 
 allprojects{

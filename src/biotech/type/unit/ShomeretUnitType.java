@@ -21,7 +21,6 @@ public class ShomeretUnitType extends BiologicalUnitType {
     public static int state;
     public static UnitType ima;
 
-    boolean cutsceneFinished = false;
     int spawnCooldown = 10 * 60;
 
     public ShomeretUnitType(String name) {
@@ -115,11 +114,6 @@ public class ShomeretUnitType extends BiologicalUnitType {
     @Override
     public void update(Unit unit) {
         super.update(unit);
-
-        if (!cutsceneFinished) {
-            BioVars.shomeretUI.begin();
-            cutsceneFinished = true;
-        }
 
         if (unit.health < unit.maxHealth / 2 && state == 0) state = 1;
 

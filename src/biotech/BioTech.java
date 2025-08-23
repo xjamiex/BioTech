@@ -66,6 +66,7 @@ public class BioTech extends Mod {
 
     void loadSettings() {
         ui.settings.addCategory(bundle.get("setting.biotech-category"), Icon.settings, t -> {
+            t.checkPref("biotech-bossbar-hides-menu", true);
 
             t.pref(new ButtonPref(bundle.get("setting.biotech-clear-tech-tree"), Icon.trash,() -> {
                 ui.showConfirm("@confirm", bundle.get("setting.biotech-clear-tech-tree.confirm"), () -> {

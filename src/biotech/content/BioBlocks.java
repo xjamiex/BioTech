@@ -80,7 +80,7 @@ public class BioBlocks {
             magnesiumBurner, cablePole, cableAccumulator,
 
             //production
-            hematicSieve, hemoCrystallizer, pasteCompactor,
+            hematicSieve, hemoCrystallizer, pasteCompactor, myeloidEncaser,
 
             //defense
             magnesiumWall, largeMagnesiumWall,
@@ -1056,7 +1056,6 @@ public class BioBlocks {
             requirements(Category.crafting, with(BioItems.magnesium, 120, BioItems.phosphorus, 50, BioItems.carminite, 25));
             squareSprite = false;
             hasItems = true;
-            liquidCapacity = 60f;
             consumePower(250 / 60f);
             craftTime = 2 * 60f;
             outputItem = new ItemStack(BioItems.proteicPaste, 2);
@@ -1073,7 +1072,6 @@ public class BioBlocks {
                     new DrawDefault());
             size = 5;
             health = 1450;
-            hasLiquids = true;
             craftEffect = new MultiEffect(
                     new ParticleEffect() {{
                         particles = 10;
@@ -1095,9 +1093,43 @@ public class BioBlocks {
                         colorTo = Pal.darkerGray;
                     }}
             );
+            consumeItems(new ItemStack(BioItems.dustClump, 4),
+                        new ItemStack(BioItems.carbonicTissue, 6));
+        }};
 
-            consumeLiquid(BioLiquids.hemoFluid, 48 / 60f);
-            consumeItem(BioItems.dustClump, 4);
+        myeloidEncaser = new GenericCrafter("myeloid-encaser") {{
+            requirements(Category.crafting, with(BioItems.magnesium, 150, BioItems.calciticFragment, 100, BioItems.phosphorus, 50, BioItems.potash, 50));
+            squareSprite = false;
+            hasItems = true;
+            liquidCapacity = 60f;
+            consumePower(175 / 60f);
+            craftTime = 1.5f * 60f;
+            outputItem = new ItemStack(BioItems.stemCapsule, 2);
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawLiquidTile(BioLiquids.hemoFluid),
+                    new DrawGlowRegion("-glow"){{ color = BioPal.bloodRedLight; }},
+                    new DrawDefault());
+            size = 4;
+            health = 1220;
+            hasLiquids = true;
+
+            updateEffect = new ParticleEffect() {{
+                lifetime = 25f;
+                particles = 5;
+                line = true;
+                length = 16;
+                lenFrom = 2;
+                lenTo = 4;
+                strokeFrom = 2;
+                strokeTo = 0;
+                colorFrom = BioPal.bloodRedLight;
+                colorTo = BioPal.bloodRedLight;
+            }};
+
+            consumeLiquid(BioLiquids.hemoFluid, 24 / 60f);
+            consumeItems(new ItemStack(BioItems.calciticFragment, 4),
+                        new ItemStack(BioItems.proteicPaste, 1));
         }};
         //endregion
 
@@ -1123,13 +1155,16 @@ public class BioBlocks {
         carminiteWall = new Wall("carminite-wall") {{
             requirements(Category.defense, with(BioItems.carminite, 10, BioItems.potash, 3));
             health = 400;
+            insulated = true;
+            absorbLasers = true;
         }};
 
         largeCarminiteWall = new Wall("large-carminite-wall") {{
             requirements(Category.defense, with(BioItems.carminite, 10 * 4, BioItems.potash, 12));
             health = 400 * 4;
             size = 2;
-
+            insulated = true;
+            absorbLasers = true;
         }};
         //endregion
 

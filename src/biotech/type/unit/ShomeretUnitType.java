@@ -2,6 +2,7 @@ package biotech.type.unit;
 
 import arc.graphics.Color;
 import biotech.BioVars;
+import biotech.content.BioFx;
 import biotech.content.BioPal;
 import biotech.content.BioUnits;
 import biotech.entities.part.BiologicalRegionPart;
@@ -10,6 +11,7 @@ import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.gen.LegsUnit;
+import mindustry.gen.MechUnit;
 import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
@@ -25,11 +27,11 @@ public class ShomeretUnitType extends BiologicalUnitType {
     public ShomeretUnitType(String name) {
         super(name);
         speed = 0;
-        constructor = LegsUnit::create;
+        constructor = MechUnit::create;
         health = 100000;
         drawCell = false;
         rotateSpeed = 0;
-        hitSize = 300f;
+        hitSize = 90f;
 
         //dormant
         state = 0;
@@ -79,10 +81,12 @@ public class ShomeretUnitType extends BiologicalUnitType {
                     inaccuracy = 320;
                     bullet = new BasicBulletType(4, 1){{
                         shake = 1;
+                        shootEffect = Fx.none;
                         despawnEffect = hitEffect = Fx.none;
                         drag = 0.004f;
                         lifetime = 9 * 60;
                         knockback = 20f;
+                        lightOpacity = 0;
                         backColor = frontColor = trailColor = Color.clear;
                         trailLength = 5;
                         trailWidth = 2;

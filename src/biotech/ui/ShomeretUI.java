@@ -5,7 +5,9 @@ import arc.graphics.Camera;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
+import arc.math.Rand;
 import arc.scene.Element;
 import arc.scene.Group;
 import arc.util.Time;
@@ -25,6 +27,7 @@ public class ShomeretUI extends Element {
     int frames = 3;
     float alpha = 0;
 
+    Rand random = new Rand();
     static int timeOffset = 0;
     static int drawIdx = 0;
     static int[] times = {4 * 60, 4 * 60, 4 * 60, 4 * 60, 7 * 60};
@@ -98,6 +101,8 @@ public class ShomeretUI extends Element {
     }
 
     void drawLine(String textSprite, float offset) {
+        Draw.alpha(0.1f);
+        Draw.rect(Core.atlas.find("biotech-flesh-bg" + random.random(1, 3)), camera.position.x + Mathf.random(-offset, offset), camera.position.y + Mathf.random(-1, 1), camera.width, camera.height);
         Draw.alpha(Mathf.random());
         Draw.rect(Core.atlas.find("biotech-ima-cutscene-eye"), camera.position.x + Mathf.random(-offset, offset), camera.position.y + 25 + Mathf.random(-1, 1), camera.height, camera.height);
         Draw.alpha(Mathf.random());

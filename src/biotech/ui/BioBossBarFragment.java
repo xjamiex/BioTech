@@ -38,7 +38,7 @@ public class BioBossBarFragment {
     }
 
     public void build(){
-        bossBar.clear();;
+        bossBar.clear();
         Bar bar = new Bar(
             () -> ">m< ow",
             () -> Pal.heal,
@@ -50,7 +50,6 @@ public class BioBossBarFragment {
                 super.draw();
             }
         };
-        bossBar.add(bar).minWidth(Core.graphics.getWidth() * 0.85f).minHeight(50f).pad(5f);
-
+        bossBar.add(bar).minWidth(Core.graphics.getWidth() * 0.95f).minHeight(50f).pad(5f);
     }
 }

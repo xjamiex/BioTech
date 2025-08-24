@@ -79,7 +79,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
                     rotate = true;
                     inaccuracy = 320;
                     bullet = new BasicBulletType(4, 1){{
-                        shake = 1;
+                        shake = 32;
                         shootEffect = Fx.none;
                         despawnEffect = hitEffect = Fx.none;
                         drag = 0.004f;

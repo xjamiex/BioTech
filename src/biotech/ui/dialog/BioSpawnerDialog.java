@@ -1,4 +1,4 @@
-package biotech.ui;
+package biotech.ui.dialog;
 
 import arc.*;
 import arc.func.*;

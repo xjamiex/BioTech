@@ -1,4 +1,4 @@
-package biotech.ui;
+package biotech.ui.dialog;
 
 import arc.*;
 import arc.graphics.*;
@@ -19,6 +19,7 @@ import biotech.BioEventHandler;
 import biotech.content.BioPal;
 import biotech.content.BioPlanets;
 import biotech.content.BioTechTree;
+import biotech.ui.BioStyles;
 import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.content.TechTree.*;

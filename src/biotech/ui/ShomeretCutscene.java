@@ -5,7 +5,6 @@ import arc.graphics.Camera;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.math.Rand;
 import arc.scene.Element;
@@ -17,7 +16,7 @@ import mindustry.core.GameState;
 import static arc.Core.graphics;
 import static arc.graphics.g2d.Draw.rect;
 
-public class ShomeretUI extends Element {
+public class ShomeretCutscene extends Element {
 
     private final Camera camera = new Camera();
 

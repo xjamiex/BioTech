@@ -7,6 +7,7 @@ import biotech.content.BioPal;
 import biotech.content.BioUnits;
 import biotech.entities.part.BiologicalRegionPart;
 import biotech.type.BiologicalUnitType;
+import biotech.type.weapon.ShockwaveWeapon;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.ParticleEffect;
@@ -71,7 +72,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         );
 
         weapons.add(
-                new Weapon("shomeret-shockwave"){{
+                new ShockwaveWeapon("shomeret-shockwave"){{
                     x = y = 0;
                     reload = 5 * 60;
                     shoot.shots = 360;

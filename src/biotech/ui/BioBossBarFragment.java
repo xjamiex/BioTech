@@ -45,19 +45,18 @@ public class BioBossBarFragment {
 
     public void build(){
         bossBar.clear();
-        Seq<Unit> bosses = new Seq<>();
-        final float[] health = {0f};
 
-        bosses = Groups.unit.copy().retainAll(unit -> unit.type instanceof ShomeretUnitType);
-        bosses.forEach( u -> {
-            health[0] += u.healthf();
-        });
-        health[0] = health[0] / bosses.size;
 
         Bar bar = new Bar(
             () -> "A-16 'SHOMERET'",
             () -> Pal.heal,
-            () -> health[0] //<- replace this with the actually unit(s)
+            () -> {
+                float health = 0;
+                Seq<Unit> bosses =  Groups.unit.copy().retainAll(unit -> unit.type instanceof ShomeretUnitType);
+                for(Unit u : bosses) health += u.healthf();
+                health= health /bosses.size;
+                return health;
+            }
         ){
             @Override
             public void draw(){
@@ -65,9 +64,10 @@ public class BioBossBarFragment {
                 super.draw();
             }
             {
-                visible(() -> Groups.unit.copy().allMatch(u -> u.type instanceof ShomeretUnitType));
+                visible(() -> Groups.unit.copy().contains(u -> u.type instanceof ShomeretUnitType));
             }
         };
-        bossBar.add(bar).minWidth(Core.graphics.getWidth() * 0.95f).minHeight(50f).pad(5f);
+        bossBar.add(bar).minWidth(Core.graphics.getWidth() * 0.95f).update(a -> {
+        }).minHeight(50f).pad(5f);
     }
 }

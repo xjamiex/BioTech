@@ -975,8 +975,7 @@ public class BioUnits {
                 top = false;
                 reload = 5f;
                 shootCone = 45f;
-                loopSound = Sounds.spray;
-                shootSound = Sounds.none;
+                shootSound = Sounds.spray;
                 ejectEffect = Fx.none;
                 range = 1;
                 mirror = false;

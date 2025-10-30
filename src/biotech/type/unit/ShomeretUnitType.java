@@ -1,6 +1,8 @@
 package biotech.type.unit;
 
 import arc.graphics.Color;
+import arc.math.geom.Position;
+import arc.util.Log;
 import biotech.BioVars;
 import biotech.content.BioFx;
 import biotech.content.BioPal;
@@ -10,11 +12,14 @@ import biotech.type.BiologicalUnitType;
 import biotech.type.weapon.ShockwaveWeapon;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.gen.LegsUnit;
 import mindustry.gen.MechUnit;
+import mindustry.gen.Sounds;
 import mindustry.gen.Unit;
 import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -74,15 +79,39 @@ public class ShomeretUnitType extends BiologicalUnitType {
         weapons.add(
                 new ShockwaveWeapon("shomeret-shockwave"){{
                     x = y = 0;
-                    reload = 5 * 60;
+                    reload = 7 * 60;
                     shoot.shots = 360;
                     shoot.shotDelay = 0.02f;
                     rotate = true;
                     inaccuracy = 320;
+
+                    boomEffect = new MultiEffect(
+                            new ParticleEffect() {{
+                                layer = Layer.effect;
+                                particles = 8;
+                                colorFrom = Pal.darkestestGray.a(0.5f);
+                                colorTo = Pal.darkestestGray.a(0.5f);
+                                sizeFrom = 35;
+                                sizeTo = 0;
+                                length = 100;
+                                lifetime = 60 * 6;
+                            }},
+                            new ParticleEffect() {{
+                                layer = Layer.effect;
+                                particles = 7;
+                                colorFrom = Pal.darkerGray.a(0.5f);
+                                colorTo = Pal.darkestGray.a(0.5f);
+                                sizeFrom = 10;
+                                sizeTo = 0;
+                                length = 50;
+                                lifetime = 60 * 3;
+                            }}
+                    );
+
                     bullet = new BasicBulletType(4, 1){{
                         shake = 32;
-                        shootEffect = Fx.none;
-                        despawnEffect = hitEffect = Fx.none;
+                        despawnEffect = hitEffect = shootEffect = ejectEffect = Fx.none;
+                        shootSound = Sounds.none;
                         drag = 0.004f;
                         lifetime = 9 * 60;
                         knockback = 20f;
@@ -117,6 +146,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         super.update(unit);
 
         if (unit.health < unit.maxHealth / 2 && state == 0) state = 1;
+
 
         //ima shitter
         if (spawnCooldown <= 0) {

@@ -1,6 +1,7 @@
 package biotech;
 
 import arc.Events;
+import biotech.content.BioUnits;
 import biotech.type.unit.*;
 import biotech.ui.dialog.BioResearchDialog;
 import biotech.world.blocks.enviroment.BiologicalStaticSpawner;
@@ -27,7 +28,7 @@ public class BioEventHandler {
         });
 
         Events.on(EventType.WaveEvent.class, event -> {
-            if(Vars.state.rules.spawns.contains( w -> w.type instanceof ShomeretUnitType)) BioVars.shomeretCutscene.begin();
+            if (Vars.state.rules.spawns.contains( w -> w.type instanceof ShomeretUnitType)) BioVars.shomeretCutscene.begin();
         });
 
         Events.on(EventType.WorldLoadEvent.class, you -> BioVars.postInit());

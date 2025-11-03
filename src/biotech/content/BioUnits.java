@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.Mathf;
 import biotech.entities.part.BiologicalRegionPart;
+import biotech.entities.part.TentacleRegionPart;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
 import biotech.type.unit.BioTechUnitType;
@@ -582,6 +583,14 @@ public class BioUnits {
                     sprite = "circle";
                 }};
             }});
+
+            //TESTING, REMOVE LATER
+
+            parts.add(
+                    new TentacleRegionPart("circle"){{
+                        x = y = 0;
+                    }}
+            );
         }};
 
         nomad = new BioTechUnitType("nomad"){{
@@ -1121,6 +1130,6 @@ public class BioUnits {
             }};
         }};
 
-        shomeret = new ShomeretUnitType("a-91-shomeret"){{}};
+        shomeret = new ShomeretUnitType("a-91-shomeret");
     }
 }

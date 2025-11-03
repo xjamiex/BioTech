@@ -18,6 +18,7 @@ import mindustry.gen.LegsUnit;
 import mindustry.gen.MechUnit;
 import mindustry.gen.Sounds;
 import mindustry.gen.Unit;
+import mindustry.graphics.InverseKinematics;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
@@ -33,7 +34,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         super(name);
         speed = 0;
         constructor = MechUnit::create;
-        health = 100000;
+        health = 25000;
         drawCell = false;
         rotateSpeed = 0;
         hitSize = 90f;
@@ -79,7 +80,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
         weapons.add(
                 new ShockwaveWeapon("shomeret-shockwave"){{
                     x = y = 0;
-                    reload = 7 * 60;
+                    reload = 10 * 60;
                     shoot.shots = 360;
                     shoot.shotDelay = 0.02f;
                     rotate = true;
@@ -108,7 +109,7 @@ public class ShomeretUnitType extends BiologicalUnitType {
                             }}
                     );
 
-                    bullet = new BasicBulletType(4, 1){{
+                    bullet = new BasicBulletType(4, 5){{
                         shake = 32;
                         despawnEffect = hitEffect = shootEffect = ejectEffect = Fx.none;
                         shootSound = Sounds.none;

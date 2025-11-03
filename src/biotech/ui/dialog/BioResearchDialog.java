@@ -445,7 +445,6 @@ public class BioResearchDialog extends BaseDialog {
             this.importance = importance;
             this.width = this.height = nodeSize;
             nodes.add(this);
-            Log.info("added");
             children = new TechTreeNode[node.bioChildren.size];
             for (int i = 0; i < children.length; i++) {
                 children[i] = new TechTreeNode(node.bioChildren.get(i), this, node.bioChildren.get(i).importance);

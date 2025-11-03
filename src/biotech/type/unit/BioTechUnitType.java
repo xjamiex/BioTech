@@ -14,7 +14,7 @@ public class BioTechUnitType extends UnitType{
 
     //Do note this might not update properly w/ weapon parts since the "params" might need to updated per weapon draw (aka weaponType with setting the params) -Rushie
     public void updatePrams(Unit unit){
-        BioPartProgParams.bioparams.set(
+        BioPartProgParams.bioParams.set(
             unit.id
         );
     }

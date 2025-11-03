@@ -30,7 +30,7 @@ public class BiologicalRegionPart extends RegionPart {
         if(under && turretShading) Draw.z(z - 0.0001f);
         Draw.z(Draw.z() + layerOffset);
 
-        float randProg = (Time.time * Mathf.randomSeed(BioPartProgParams.bioparams.id, 0.5f, 1.1f));
+        float randProg = (Time.time * Mathf.randomSeed(BioPartProgParams.bioParams.id, 0.5f, 1.1f));
 
         float prevZ = Draw.z();
         float prog = Mathf.clamp(progress.get(params) + Mathf.sin(randProg, 50f, 0.5f))

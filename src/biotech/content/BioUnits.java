@@ -4,7 +4,7 @@ import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.Mathf;
 import biotech.entities.part.BiologicalRegionPart;
-import biotech.entities.part.TentacleRegionPart;
+import biotech.type.weapon.TentacleWeapon;
 import biotech.type.BiologicalUnitType;
 import biotech.type.bullets.SpeedUpBulletType;
 import biotech.type.unit.BioTechUnitType;
@@ -586,9 +586,10 @@ public class BioUnits {
 
             //TESTING, REMOVE LATER
 
-            parts.add(
-                    new TentacleRegionPart("circle"){{
+            weapons.add(
+                    new TentacleWeapon("circle"){{
                         x = y = 0;
+                        top = false;
                     }}
             );
         }};
